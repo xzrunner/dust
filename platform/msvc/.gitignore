@@ -1,0 +1,5 @@
+dust/
+projects/*
+
+!projects/dust.vcxproj
+!projects/dust.vcxproj.filters
