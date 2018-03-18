@@ -35,6 +35,41 @@ static int w__gc(lua_State *L)
 	return 0;
 }
 
+static int w__tostring(lua_State *L)
+{
+	Proxy *p = (Proxy *)lua_touserdata(L, 1);
+	const char *typname = lua_tostring(L, lua_upvalueindex(1));
+	lua_pushfstring(L, "%s: %p", typname, p->object);
+	return 1;
+}
+
+static int w__type(lua_State *L)
+{
+	lua_pushvalue(L, lua_upvalueindex(1));
+	return 1;
+}
+
+static int w__typeOf(lua_State *L)
+{
+	Proxy *p = (Proxy *)lua_touserdata(L, 1);
+	Type t = luax_type(L, 2);
+	luax_pushboolean(L, TypeFlags[p->type][t]);
+	return 1;
+}
+
+static int w__eq(lua_State *L)
+{
+	Proxy *p1 = (Proxy *)lua_touserdata(L, 1);
+	Proxy *p2 = (Proxy *)lua_touserdata(L, 2);
+	luax_pushboolean(L, p1->object == p2->object);
+	return 1;
+}
+
+void luax_pushboolean(lua_State *L, bool b)
+{
+	lua_pushboolean(L, b ? 1 : 0);
+}
+
 void luax_setfuncs(lua_State *L, const luaL_Reg *l)
 {
 	if (l == nullptr)
@@ -94,6 +129,22 @@ int luax_register_module(lua_State* L, const WrappedModule& m)
 	Module::RegisterInstance(m.module);
 
 	return 1;
+}
+
+void luax_rawnewtype(lua_State *L, Type type, Object *object)
+{
+	Proxy *u = (Proxy *)lua_newuserdata(L, sizeof(Proxy));
+
+	object->Retain();
+
+	u->object = object;
+	u->type = type;
+
+	const char *name = "Invalid";
+	GetTypeName(type, name);
+
+	luaL_newmetatable(L, name);
+	lua_setmetatable(L, -2);
 }
 
 int luax_insist(lua_State *L, int idx, const char *k)
@@ -171,6 +222,115 @@ int luax_preload(lua_State* L, lua_CFunction f, const char* name)
 	return 0;
 }
 
+int luax_register_type(lua_State *L, Type type, const char *name, ...)
+{
+	AddTypeName(type, name);
+
+	// Get the place for storing and re-using instantiated love types.
+	luax_getregistry(L, REGISTRY_OBJECTS);
+
+	// Create registry._loveobjects if it doesn't exist yet.
+	if (!lua_istable(L, -1))
+	{
+		lua_newtable(L);
+		lua_replace(L, -2);
+
+		// Create a metatable.
+		lua_newtable(L);
+
+		// metatable.__mode = "v". Weak userdata values.
+		lua_pushliteral(L, "v");
+		lua_setfield(L, -2, "__mode");
+
+		// setmetatable(newtable, metatable)
+		lua_setmetatable(L, -2);
+
+		// registry._dustobjects = newtable
+		lua_setfield(L, LUA_REGISTRYINDEX, "_dustobjects");
+	}
+	else
+		lua_pop(L, 1);
+
+	luaL_newmetatable(L, name);
+
+	// m.__index = m
+	lua_pushvalue(L, -1);
+	lua_setfield(L, -2, "__index");
+
+	// setup gc
+	lua_pushcfunction(L, w__gc);
+	lua_setfield(L, -2, "__gc");
+
+	// Add equality
+	lua_pushcfunction(L, w__eq);
+	lua_setfield(L, -2, "__eq");
+
+	// Add tostring function.
+	lua_pushstring(L, name);
+	lua_pushcclosure(L, w__tostring, 1);
+	lua_setfield(L, -2, "__tostring");
+
+	// Add type
+	lua_pushstring(L, name);
+	lua_pushcclosure(L, w__type, 1);
+	lua_setfield(L, -2, "type");
+
+	// Add typeOf
+	lua_pushcfunction(L, w__typeOf);
+	lua_setfield(L, -2, "typeOf");
+
+	va_list fs;
+	va_start(fs, name);
+	for (const luaL_Reg *f = va_arg(fs, const luaL_Reg *); f; f = va_arg(fs, const luaL_Reg *))
+		luax_setfuncs(L, f);
+	va_end(fs);
+
+	lua_pop(L, 1); // Pops metatable.
+	return 0;
+}
+
+void luax_pushtype(lua_State *L, Type type, Object *object)
+{
+	if (object == nullptr)
+	{
+		lua_pushnil(L);
+		return;
+	}
+
+	// Fetch the registry table of instantiated objects.
+	luax_getregistry(L, REGISTRY_OBJECTS);
+
+	// The table might not exist - it should be insisted in luax_register_type.
+	if (!lua_istable(L, -1))
+	{
+		lua_pop(L, 1);
+		return luax_rawnewtype(L, type, object);
+	}
+
+	// Get the value of loveobjects[object] on the stack.
+	lua_pushlightuserdata(L, object);
+	lua_gettable(L, -2);
+
+	// If the Proxy userdata isn't in the instantiated types table yet, add it.
+	if (lua_type(L, -1) != LUA_TUSERDATA)
+	{
+		lua_pop(L, 1);
+
+		luax_rawnewtype(L, type, object);
+
+		lua_pushlightuserdata(L, object);
+		lua_pushvalue(L, -2);
+
+		// loveobjects[object] = Proxy.
+		lua_settable(L, -4);
+	}
+
+	// Remove the loveobjects table from the stack.
+	lua_remove(L, -2);
+
+	// Keep the Proxy userdata on the stack.
+}
+
 int luax_insistregistry(lua_State *L, Registry r)
 {
 	switch (r)
@@ -196,6 +356,41 @@ int luax_getregistry(lua_State *L, Registry r)
 	default:
 		return luaL_error(L, "Attempted to use invalid registry.");
 	}
+}
+
+extern "C" int luax_typerror(lua_State *L, int narg, const char *tname)
+{
+	int argtype = lua_type(L, narg);
+	const char *argtname = 0;
+
+	// We want to use the love type name for userdata, if possible.
+	if (argtype == LUA_TUSERDATA && luaL_getmetafield(L, narg, "type") != 0)
+	{
+		lua_pushvalue(L, narg);
+		if (lua_pcall(L, 1, 1, 0) == 0 && lua_type(L, -1) == LUA_TSTRING)
+		{
+			argtname = lua_tostring(L, -1);
+
+			// Non-love userdata might have a type metamethod which doesn't
+			// describe its type properly, so we only use it for love types.
+			Type t;
+			if (!GetTypeName(argtname, t))
+				argtname = 0;
+		}
+	}
+
+	if (argtname == 0)
+		argtname = lua_typename(L, argtype);
+
+	const char *msg = lua_pushfstring(L, "%s expected, got %s", tname, argtname);
+	return luaL_argerror(L, narg, msg);
+}
+
+Type luax_type(lua_State *L, int idx)
+{
+	Type t = INVALID_ID;
+	GetTypeName(luaL_checkstring(L, idx), t);
+	return t;
 }
 
 }

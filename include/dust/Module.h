@@ -31,6 +31,7 @@ public:
 	enum ModuleType
 	{
 		M_GRAPHICS,
+		M_SCENE_GRAPH,
 		M_MAX_ENUM
 	};
 

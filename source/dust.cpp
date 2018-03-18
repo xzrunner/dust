@@ -8,9 +8,11 @@ extern "C" {
 };
 
 extern "C" int luaopen_dust_graphics(lua_State* L);
+extern "C" int luaopen_dust_scene_graph(lua_State* L);
 
 static const luaL_Reg modules[] = {
 	{ "dust.graphics", luaopen_dust_graphics },
+	{ "dust.scene_graph", luaopen_dust_scene_graph },
 	{ 0, 0 }
 };
 

@@ -120,9 +120,7 @@ extern "C" int luaopen_dust_graphics(lua_State* L)
 	w.functions = functions;
 	w.types = types;
 
-	int n = luax_register_module(L, w);
-
-	return n;
+	return luax_register_module(L, w);
 }
 
 }

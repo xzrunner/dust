@@ -81,6 +81,14 @@ struct WrappedModule
 };
 
 /**
+* Pushes a bool onto the stack. It's the same as lua_pushboolean,
+* but with bool instead of int.
+* @param L The Lua state.
+* @param b The bool to push.
+**/
+void luax_pushboolean(lua_State *L, bool b);
+
+/**
 * Convert the value at the specified index to an Lua number, and then
 * convert to a float.
 *
@@ -125,6 +133,37 @@ int luax_register_module(lua_State* L, const WrappedModule& m);
  * @param name The name of the module, with 'dust'-prefix, for instance 'dust.graphics'.
  **/
 int luax_preload(lua_State* L, lua_CFunction f, const char* name);
+
+/**
+* Register a new type.
+* @param type The type.
+* @param name The type's human-readable name
+* @param ... The list of lists of member functions for the type. (of type luaL_Reg*)
+**/
+int luax_register_type(lua_State *L, dust::Type type, const char *name, ...);
+
+/**
+* Pushes a Lua representation of the given object onto the stack, creating and
+* storing the Lua representation in a weak table if it doesn't exist yet.
+* NOTE: The object will be retained by Lua and released upon garbage collection.
+* @param L The Lua state.
+* @param type The type information of the object.
+* @param object The pointer to the actual object.
+**/
+void luax_pushtype(lua_State *L, const Type type, Object *object);
+
+/**
+ * Creates a new Lua representation of the given object *without* checking if it
+ * exists yet, and *without* storing it in a weak table.
+ * This should only be used when performance is an extreme concern and the
+ * object is not ever expected to be pushed to Lua again, as it prevents the
+ * Lua-side objects from working in some cases when used as keys in tables.
+ * NOTE: The object will be retained by Lua and released upon garbage collection.
+ * @param L The Lua state.
+ * @param type The type information of the object.
+ * @param object The pointer to the actual object.
+ **/
+void luax_rawnewtype(lua_State *L, Type type, Object *object);
 
 /**
 * 'Insist' that a table 'k' exists in the table at idx. Insistence involves that the
@@ -172,6 +211,41 @@ int luax_insistregistry(lua_State *L, Registry r);
 * @param r The Registry to get.
 **/
 int luax_getregistry(lua_State *L, Registry r);
+
+extern "C" { // Also called from luasocket
+	int luax_typerror(lua_State *L, int narg, const char *tname);
+}
+
+/**
+ * Like luax_totype, but causes an error if the value at idx is not Proxy,
+ * or is not the specified type.
+ * @param L The Lua state.
+ * @param idx The index on the stack.
+ * @param type The type bit.
+ **/
+template <typename T>
+T *luax_checktype(lua_State *L, int idx, Type type)
+{
+	if (lua_type(L, idx) != LUA_TUSERDATA)
+	{
+		const char *name = "Invalid";
+		GetTypeName(type, name);
+		luax_typerror(L, idx, name);
+	}
+
+	Proxy *u = (Proxy *)lua_touserdata(L, idx);
+
+	if (u->type <= INVALID_ID || u->type >= TYPE_MAX_ENUM || !TypeFlags[u->type][type])
+	{
+		const char *name = "Invalid";
+		GetTypeName(type, name);
+		luax_typerror(L, idx, name);
+	}
+
+	return (T *)u->object;
+}
+
+Type luax_type(lua_State *L, int idx);
 
 /**
  * Converts any exceptions thrown by the passed lambda function into a Lua error.

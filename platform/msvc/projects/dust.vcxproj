@@ -13,29 +13,34 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\include\dust\Blackboard.h" />
     <ClInclude Include="..\..\..\include\dust\dust.h" />
-    <ClInclude Include="..\..\..\include\dust\Editor.h" />
     <ClInclude Include="..\..\..\include\dust\Graphics.h" />
     <ClInclude Include="..\..\..\include\dust\LuaVM.h" />
     <ClInclude Include="..\..\..\include\dust\Module.h" />
     <ClInclude Include="..\..\..\include\dust\Object.h" />
     <ClInclude Include="..\..\..\include\dust\runtime.h" />
-    <ClInclude Include="..\..\..\include\dust\StageCanvas.h" />
+    <ClInclude Include="..\..\..\include\dust\SceneGraph.h" />
+    <ClInclude Include="..\..\..\include\dust\SceneNode.h" />
+    <ClInclude Include="..\..\..\include\dust\SceneNodeScript.h" />
+    <ClInclude Include="..\..\..\include\dust\StageCanvasScript.h" />
     <ClInclude Include="..\..\..\include\dust\StringMap.h" />
+    <ClInclude Include="..\..\..\include\dust\typedef.h" />
     <ClInclude Include="..\..\..\include\dust\types.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\Blackboard.cpp" />
     <ClCompile Include="..\..\..\source\dust.cpp" />
-    <ClCompile Include="..\..\..\source\Editor.cpp" />
     <ClCompile Include="..\..\..\source\Graphics.cpp" />
     <ClCompile Include="..\..\..\source\LuaVM.cpp" />
     <ClCompile Include="..\..\..\source\Module.cpp" />
     <ClCompile Include="..\..\..\source\Object.cpp" />
     <ClCompile Include="..\..\..\source\runtime.cpp" />
-    <ClCompile Include="..\..\..\source\StageCanvas.cpp" />
+    <ClCompile Include="..\..\..\source\SceneGraph.cpp" />
+    <ClCompile Include="..\..\..\source\SceneNodeScript.cpp" />
+    <ClCompile Include="..\..\..\source\StageCanvasScript.cpp" />
     <ClCompile Include="..\..\..\source\types.cpp" />
-    <ClCompile Include="..\..\..\source\wrap_Editor.cpp" />
     <ClCompile Include="..\..\..\source\wrap_Graphics.cpp" />
+    <ClCompile Include="..\..\..\source\wrap_SceneGraph.cpp" />
+    <ClCompile Include="..\..\..\source\wrap_SceneNode.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectName>4.dust</ProjectName>
@@ -80,7 +85,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\external\lua\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\node0\include;..\..\..\..\node2\include;..\..\..\..\external\lua\include;..\..\..\..\external\boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -94,7 +99,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\external\lua\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\node0\include;..\..\..\..\node2\include;..\..\..\..\external\lua\include;..\..\..\..\external\boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>

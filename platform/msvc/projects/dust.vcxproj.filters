@@ -7,12 +7,6 @@
     <ClCompile Include="..\..\..\source\wrap_Graphics.cpp">
       <Filter>modules\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\Editor.cpp">
-      <Filter>modules\editor</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\wrap_Editor.cpp">
-      <Filter>modules\editor</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\Module.cpp">
       <Filter>common</Filter>
     </ClCompile>
@@ -34,16 +28,25 @@
     <ClCompile Include="..\..\..\source\Blackboard.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\StageCanvas.cpp">
-      <Filter>modules\editor</Filter>
+    <ClCompile Include="..\..\..\source\wrap_SceneGraph.cpp">
+      <Filter>modules\scene_graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\SceneNodeScript.cpp">
+      <Filter>script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\StageCanvasScript.cpp">
+      <Filter>script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\SceneGraph.cpp">
+      <Filter>modules\scene_graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\wrap_SceneNode.cpp">
+      <Filter>modules\scene_graph</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\dust\Graphics.h">
       <Filter>modules\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\dust\Editor.h">
-      <Filter>modules\editor</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\dust\Module.h">
       <Filter>common</Filter>
@@ -69,8 +72,20 @@
     <ClInclude Include="..\..\..\include\dust\StringMap.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\dust\StageCanvas.h">
-      <Filter>modules\editor</Filter>
+    <ClInclude Include="..\..\..\include\dust\typedef.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\dust\SceneNodeScript.h">
+      <Filter>script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\dust\StageCanvasScript.h">
+      <Filter>script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\dust\SceneNode.h">
+      <Filter>modules\scene_graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\dust\SceneGraph.h">
+      <Filter>modules\scene_graph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -80,11 +95,14 @@
     <Filter Include="modules\graphics">
       <UniqueIdentifier>{5e30c3e9-8947-4947-8767-bf4bd0dcc12c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="modules\editor">
-      <UniqueIdentifier>{e873649b-f4b2-4c49-89c5-4be5093bc859}</UniqueIdentifier>
-    </Filter>
     <Filter Include="common">
       <UniqueIdentifier>{3fc3d4d0-81b5-4f3a-acf6-927d4c1108ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\scene_graph">
+      <UniqueIdentifier>{d178a3dd-8716-4f40-95bc-2712adf9dac2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="script">
+      <UniqueIdentifier>{2355edfc-29bc-40b9-962f-3e7f442b37a9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
