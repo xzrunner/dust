@@ -43,6 +43,9 @@
     <ClCompile Include="..\..\..\source\StagePageScript.cpp">
       <Filter>editor</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\SceneNode.cpp">
+      <Filter>modules\scene_graph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\dust\Graphics.h">

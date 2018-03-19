@@ -30,49 +30,49 @@ namespace dust
  * Called when an object is collected. The object is released
  * once in this function, possibly deleting it.
  **/
-static int w__gc(lua_State *L)
+static int w__gc(lua_State* L)
 {
-	Proxy *p = (Proxy *) lua_touserdata(L, 1);
+	Proxy* p = (Proxy* ) lua_touserdata(L, 1);
 	p->object->Release();
 	return 0;
 }
 
-static int w__tostring(lua_State *L)
+static int w__tostring(lua_State* L)
 {
-	Proxy *p = (Proxy *)lua_touserdata(L, 1);
+	Proxy* p = (Proxy* )lua_touserdata(L, 1);
 	const char *typname = lua_tostring(L, lua_upvalueindex(1));
 	lua_pushfstring(L, "%s: %p", typname, p->object);
 	return 1;
 }
 
-static int w__type(lua_State *L)
+static int w__type(lua_State* L)
 {
 	lua_pushvalue(L, lua_upvalueindex(1));
 	return 1;
 }
 
-static int w__typeOf(lua_State *L)
+static int w__typeOf(lua_State* L)
 {
-	Proxy *p = (Proxy *)lua_touserdata(L, 1);
+	Proxy* p = (Proxy* )lua_touserdata(L, 1);
 	Type t = luax_type(L, 2);
 	luax_pushboolean(L, TypeFlags[p->type][t]);
 	return 1;
 }
 
-static int w__eq(lua_State *L)
+static int w__eq(lua_State* L)
 {
-	Proxy *p1 = (Proxy *)lua_touserdata(L, 1);
-	Proxy *p2 = (Proxy *)lua_touserdata(L, 2);
+	Proxy* p1 = (Proxy* )lua_touserdata(L, 1);
+	Proxy* p2 = (Proxy* )lua_touserdata(L, 2);
 	luax_pushboolean(L, p1->object == p2->object);
 	return 1;
 }
 
-void luax_pushboolean(lua_State *L, bool b)
+void luax_pushboolean(lua_State* L, bool b)
 {
 	lua_pushboolean(L, b ? 1 : 0);
 }
 
-void luax_setfuncs(lua_State *L, const luaL_Reg *l)
+void luax_setfuncs(lua_State* L, const luaL_Reg *l)
 {
 	if (l == nullptr)
 		return;
@@ -134,9 +134,9 @@ int luax_register_module(lua_State* L, const WrappedModule& m)
 	return 1;
 }
 
-void luax_rawnewtype(lua_State *L, Type type, Object *object)
+void luax_rawnewtype(lua_State* L, Type type, Object *object)
 {
-	Proxy *u = (Proxy *)lua_newuserdata(L, sizeof(Proxy));
+	Proxy* u = (Proxy* )lua_newuserdata(L, sizeof(Proxy));
 
 	object->Retain();
 
@@ -150,7 +150,22 @@ void luax_rawnewtype(lua_State *L, Type type, Object *object)
 	lua_setmetatable(L, -2);
 }
 
-int luax_insist(lua_State *L, int idx, const char *k)
+bool luax_istype(lua_State *L, int idx, Type type)
+{
+	if (lua_type(L, idx) != LUA_TUSERDATA) {
+		return false;
+	}
+
+	Proxy* p = (Proxy* )lua_touserdata(L, idx);
+
+	if (p->type > INVALID_ID && p->type < TYPE_MAX_ENUM) {
+		return TypeFlags[p->type][type];
+	} else {
+		return false;
+	}
+}
+
+int luax_insist(lua_State* L, int idx, const char *k)
 {
 	// Convert to absolute index if necessary.
 	if (idx < 0 && idx > LUA_REGISTRYINDEX)
@@ -170,7 +185,7 @@ int luax_insist(lua_State *L, int idx, const char *k)
 	return 1;
 }
 
-int luax_insistglobal(lua_State *L, const char *k)
+int luax_insistglobal(lua_State* L, const char *k)
 {
 	lua_getglobal(L, k);
 
@@ -185,12 +200,12 @@ int luax_insistglobal(lua_State *L, const char *k)
 	return 1;
 }
 
-int luax_c_insistglobal(lua_State *L, const char *k)
+int luax_c_insistglobal(lua_State* L, const char *k)
 {
 	return luax_insistglobal(L, k);
 }
 
-int luax_insistdust(lua_State *L, const char *k)
+int luax_insistdust(lua_State* L, const char *k)
 {
 	luax_insistglobal(L, "dust");
 	luax_insist(L, -1, k);
@@ -202,7 +217,7 @@ int luax_insistdust(lua_State *L, const char *k)
 	return 1;
 }
 
-int luax_getdust(lua_State *L, const char *k)
+int luax_getdust(lua_State* L, const char *k)
 {
 	lua_getglobal(L, "dust");
 
@@ -225,7 +240,7 @@ int luax_preload(lua_State* L, lua_CFunction f, const char* name)
 	return 0;
 }
 
-int luax_register_type(lua_State *L, Type type, const char *name, ...)
+int luax_register_type(lua_State* L, Type type, const char *name, ...)
 {
 	AddTypeName(type, name);
 
@@ -292,7 +307,7 @@ int luax_register_type(lua_State *L, Type type, const char *name, ...)
 	return 0;
 }
 
-void luax_pushtype(lua_State *L, Type type, Object *object)
+void luax_pushtype(lua_State* L, Type type, Object *object)
 {
 	if (object == nullptr)
 	{
@@ -334,7 +349,7 @@ void luax_pushtype(lua_State *L, Type type, Object *object)
 	// Keep the Proxy userdata on the stack.
 }
 
-int luax_insistregistry(lua_State *L, Registry r)
+int luax_insistregistry(lua_State* L, Registry r)
 {
 	switch (r)
 	{
@@ -347,7 +362,7 @@ int luax_insistregistry(lua_State *L, Registry r)
 	}
 }
 
-int luax_getregistry(lua_State *L, Registry r)
+int luax_getregistry(lua_State* L, Registry r)
 {
 	switch (r)
 	{
@@ -361,7 +376,7 @@ int luax_getregistry(lua_State *L, Registry r)
 	}
 }
 
-extern "C" int luax_typerror(lua_State *L, int narg, const char *tname)
+extern "C" int luax_typerror(lua_State* L, int narg, const char *tname)
 {
 	int argtype = lua_type(L, narg);
 	const char *argtname = 0;
@@ -389,7 +404,7 @@ extern "C" int luax_typerror(lua_State *L, int narg, const char *tname)
 	return luaL_argerror(L, narg, msg);
 }
 
-Type luax_type(lua_State *L, int idx)
+Type luax_type(lua_State* L, int idx)
 {
 	Type t = INVALID_ID;
 	GetTypeName(luaL_checkstring(L, idx), t);

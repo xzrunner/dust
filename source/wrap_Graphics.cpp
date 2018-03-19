@@ -3,6 +3,7 @@
 #include "dust/runtime.h"
 #include "dust/Blackboard.h"
 #include "dust/Context.h"
+#include "dust/SceneNode.h"
 
 #include <vector>
 #include <algorithm>
@@ -34,7 +35,7 @@ int w_line(lua_State* L)
 	return 0;
 }
 
-int w_rectangle(lua_State *L)
+int w_rectangle(lua_State* L)
 {
 	Graphics::DrawMode mode;
 	const char *str = luaL_checkstring(L, 1);
@@ -66,7 +67,7 @@ int w_rectangle(lua_State *L)
 	return 0;
 }
 
-int w_circle(lua_State *L)
+int w_circle(lua_State* L)
 {
 	Graphics::DrawMode mode;
 	const char *str = luaL_checkstring(L, 1);
@@ -87,14 +88,26 @@ int w_circle(lua_State *L)
 	return 0;
 }
 
+int w_draw(lua_State* L)
+{
+	if (!luax_istype(L, 1, SCENE_NODE_ID)) {
+		return 0;
+	}
+
+	auto node = luax_checktype<SceneNode>(L, 1, SCENE_NODE_ID);
+	node->Draw();
+	return 0;
+}
+
 // List of functions to wrap.
 static const luaL_Reg functions[] =
 {
-//	{ "newImage", w_newImage },
-
+	// shape
 	{ "line", w_line },
 	{ "rectangle", w_rectangle },
 	{ "circle", w_circle },
+
+	{ "draw", w_draw },
 
 	{ 0, 0 }
 };

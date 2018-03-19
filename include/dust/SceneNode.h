@@ -2,7 +2,10 @@
 
 #include "dust/Object.h"
 
+#include <SM_Vector.h>
 #include <node0/typedef.h>
+
+#include <string>
 
 namespace dust
 {
@@ -10,10 +13,17 @@ namespace dust
 class SceneNode : public Object
 {
 public:
-	SceneNode(const n0::SceneNodePtr node) 
-		: node(node) {}
+	SceneNode(const n0::SceneNodePtr node);
+	SceneNode(const std::string& filepath);
 
-	n0::SceneNodePtr node = nullptr;
+	void Draw() const;
+
+	const sm::vec2& GetPosition() const;
+
+	void SetPosition(const sm::vec2& pos);
+
+private:
+	n0::SceneNodePtr m_node = nullptr;
 
 }; // SceneNode
 

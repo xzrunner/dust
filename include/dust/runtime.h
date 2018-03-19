@@ -86,7 +86,7 @@ struct WrappedModule
 * @param L The Lua state.
 * @param b The bool to push.
 **/
-void luax_pushboolean(lua_State *L, bool b);
+void luax_pushboolean(lua_State* L, bool b);
 
 /**
 * Convert the value at the specified index to an Lua number, and then
@@ -95,7 +95,7 @@ void luax_pushboolean(lua_State *L, bool b);
 * @param L The Lua state.
 * @param idx The index on the stack.
 */
-inline float luax_tofloat(lua_State *L, int idx)
+inline float luax_tofloat(lua_State* L, int idx)
 {
 	return static_cast<float>(lua_tonumber(L, idx));
 }
@@ -105,7 +105,7 @@ inline float luax_tofloat(lua_State *L, int idx)
 *
 * @see luax_tofloat
 */
-inline float luax_checkfloat(lua_State *L, int idx)
+inline float luax_checkfloat(lua_State* L, int idx)
 {
 	return static_cast<float>(luaL_checknumber(L, idx));
 }
@@ -116,7 +116,7 @@ inline float luax_checkfloat(lua_State *L, int idx)
 * Similar to Lua 5.2's luaL_setfuncs without the upvalues, and to Lua 5.1's
 * luaL_register without the library name.
 **/
-void luax_setfuncs(lua_State *L, const luaL_Reg *l);
+void luax_setfuncs(lua_State* L, const luaL_Reg *l);
 
 /**
 * Register a module in the dust table. The dust table will be created if it does not exist.
@@ -140,7 +140,7 @@ int luax_preload(lua_State* L, lua_CFunction f, const char* name);
 * @param name The type's human-readable name
 * @param ... The list of lists of member functions for the type. (of type luaL_Reg*)
 **/
-int luax_register_type(lua_State *L, dust::Type type, const char *name, ...);
+int luax_register_type(lua_State* L, dust::Type type, const char *name, ...);
 
 /**
 * Pushes a Lua representation of the given object onto the stack, creating and
@@ -150,7 +150,7 @@ int luax_register_type(lua_State *L, dust::Type type, const char *name, ...);
 * @param type The type information of the object.
 * @param object The pointer to the actual object.
 **/
-void luax_pushtype(lua_State *L, const Type type, Object *object);
+void luax_pushtype(lua_State* L, const Type type, Object *object);
 
 /**
  * Creates a new Lua representation of the given object *without* checking if it
@@ -163,7 +163,16 @@ void luax_pushtype(lua_State *L, const Type type, Object *object);
  * @param type The type information of the object.
  * @param object The pointer to the actual object.
  **/
-void luax_rawnewtype(lua_State *L, Type type, Object *object);
+void luax_rawnewtype(lua_State* L, Type type, Object *object);
+
+/**
+* Checks whether the value at idx is a certain type.
+* @param L The Lua state.
+* @param idx The index on the stack.
+* @param type The type to check for.
+* @return True if the value is Proxy of the specified type, false otherwise.
+**/
+bool luax_istype(lua_State* L, int idx, Type type);
 
 /**
 * 'Insist' that a table 'k' exists in the table at idx. Insistence involves that the
@@ -175,26 +184,26 @@ void luax_rawnewtype(lua_State *L, Type type, Object *object);
 * @param idx The index on the stack containing a table.
 * @param k The name of the table we are insisting exist.
 **/
-int luax_insist(lua_State *L, int idx, const char *k);
+int luax_insist(lua_State* L, int idx, const char *k);
 
 /**
 * Insist that a global table 'k' exists. See luax_insist.
 * @param k The name of the table we are insisting exist.
 **/
-int luax_insistglobal(lua_State *L, const char *k);
+int luax_insistglobal(lua_State* L, const char *k);
 
 /**
 * Insists that a table 'k' exists inside the 'dust' table. See luax_insist.
 * @param k The name of the table we are insisting exist.
 **/
-int luax_insistdust(lua_State *L, const char *k);
+int luax_insistdust(lua_State* L, const char *k);
 
 /**
 * Pushes the table 'k' in the dust table onto the stack. Pushes nil if the
 * table doesn't exist.
 * @param k The name of the table we want to get.
 **/
-int luax_getdust(lua_State *L, const char *k);
+int luax_getdust(lua_State* L, const char *k);
 
 /**
 * Gets (creates if needed) the specified Registry, and pushes it into the
@@ -202,7 +211,7 @@ int luax_getdust(lua_State *L, const char *k);
 * @param L The Lua state.
 * @param r The Registry to get.
 **/
-int luax_insistregistry(lua_State *L, Registry r);
+int luax_insistregistry(lua_State* L, Registry r);
 
 /**
 * Gets the specified Registry, and pushes it onto the stack. Pushes nil if the
@@ -210,10 +219,10 @@ int luax_insistregistry(lua_State *L, Registry r);
 * @param L The Lua state.
 * @param r The Registry to get.
 **/
-int luax_getregistry(lua_State *L, Registry r);
+int luax_getregistry(lua_State* L, Registry r);
 
 extern "C" { // Also called from luasocket
-	int luax_typerror(lua_State *L, int narg, const char *tname);
+	int luax_typerror(lua_State* L, int narg, const char *tname);
 }
 
 /**
@@ -224,7 +233,7 @@ extern "C" { // Also called from luasocket
  * @param type The type bit.
  **/
 template <typename T>
-T *luax_checktype(lua_State *L, int idx, Type type)
+T *luax_checktype(lua_State* L, int idx, Type type)
 {
 	if (lua_type(L, idx) != LUA_TUSERDATA)
 	{
@@ -233,7 +242,7 @@ T *luax_checktype(lua_State *L, int idx, Type type)
 		luax_typerror(L, idx, name);
 	}
 
-	Proxy *u = (Proxy *)lua_touserdata(L, idx);
+	Proxy* u = (Proxy* )lua_touserdata(L, idx);
 
 	if (u->type <= INVALID_ID || u->type >= TYPE_MAX_ENUM || !TypeFlags[u->type][type])
 	{
@@ -245,7 +254,7 @@ T *luax_checktype(lua_State *L, int idx, Type type)
 	return (T *)u->object;
 }
 
-Type luax_type(lua_State *L, int idx);
+Type luax_type(lua_State* L, int idx);
 
 /**
  * Converts any exceptions thrown by the passed lambda function into a Lua error.
@@ -254,7 +263,7 @@ Type luax_type(lua_State *L, int idx);
  * destructor of the exception would have been called.
  **/
 template <typename T>
-int luax_catchexcept(lua_State *L, const T& func)
+int luax_catchexcept(lua_State* L, const T& func)
 {
 	bool should_error = false;
 
@@ -275,7 +284,7 @@ int luax_catchexcept(lua_State *L, const T& func)
 }
 
 template <typename T, typename F>
-int luax_catchexcept(lua_State *L, const T& func, const F& finallyfunc)
+int luax_catchexcept(lua_State* L, const T& func, const F& finallyfunc)
 {
 	bool should_error = false;
 

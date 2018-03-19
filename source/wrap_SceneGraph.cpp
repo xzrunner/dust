@@ -3,15 +3,27 @@
 #include "dust/runtime.h"
 #include "dust/Blackboard.h"
 #include "dust/Context.h"
+#include "dust/SceneNode.h"
 
 namespace dust
 {
 
 #define INSTANCE() (Blackboard::Instance()->ctx->GetModuleMgr().GetModule<SceneGraph>(Module::M_SCENE_GRAPH))
 
+int w_new_scene_node(lua_State* L)
+{
+	const char* filepath = luaL_checkstring(L, 1);
+	SceneNode* node = nullptr;
+	luax_catchexcept(L, [&]() { node = new SceneNode(filepath); });
+	luax_pushtype(L, SCENE_NODE_ID, node);
+	node->Release();
+	return 1;
+}
+
 // List of functions to wrap.
 static const luaL_Reg functions[] =
 {
+	{ "new_scene_node", w_new_scene_node },
 	{ 0, 0 }
 };
 
