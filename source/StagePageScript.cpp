@@ -38,7 +38,9 @@ void StagePageScript::OnLoad() const
 void StagePageScript::OnUpdate() const
 {
 	lua_getfield(L, LUA_REGISTRYINDEX, DUST_UPDATE);
-	int err = lua_pcall(L, 0, 0, 0);
+
+	lua_pushnumber(L, 1.0f / 30);
+	int err = lua_pcall(L, 1, 0, 0);
 	if (err != LUA_OK) {
 		GD_REPORT_ASSERT(lua_tostring(L, -1));
 		lua_error(L);
