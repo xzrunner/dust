@@ -3,6 +3,7 @@
 #include "dust/Object.h"
 
 #include <SM_Vector.h>
+#include <SM_Matrix2D.h>
 #include <node0/typedef.h>
 
 #include <string>
@@ -16,7 +17,7 @@ public:
 	SceneNode(const n0::SceneNodePtr node);
 	SceneNode(const std::string& filepath);
 
-	void Draw() const;
+	void Draw(const sm::Matrix2D& mt) const;
 
 	const sm::vec2& GetPosition() const;
 

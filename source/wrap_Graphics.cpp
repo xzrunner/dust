@@ -120,8 +120,21 @@ int w_draw(lua_State* L)
 		return 0;
 	}
 
+	int startidx = 2;
+	float x  = (float)luaL_optnumber(L, startidx + 0, 0.0);
+	float y  = (float)luaL_optnumber(L, startidx + 1, 0.0);
+	float a  = (float)luaL_optnumber(L, startidx + 2, 0.0);
+	float sx = (float)luaL_optnumber(L, startidx + 3, 1.0);
+	float sy = (float)luaL_optnumber(L, startidx + 4, sx);
+	float ox = (float)luaL_optnumber(L, startidx + 5, 0.0);
+	float oy = (float)luaL_optnumber(L, startidx + 6, 0.0);
+	float kx = (float)luaL_optnumber(L, startidx + 7, 0.0);
+	float ky = (float)luaL_optnumber(L, startidx + 8, 0.0);
+
 	auto node = luax_checktype<SceneNode>(L, 1, SCENE_NODE_ID);
-	node->Draw();
+	sm::Matrix2D mt;
+	mt.SetTransformation(x, y, a, sx, sy, ox, oy, kx, ky);
+	node->Draw(mt);
 	return 0;
 }
 

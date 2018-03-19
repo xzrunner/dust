@@ -18,9 +18,11 @@ SceneNode::SceneNode(const std::string& filepath)
 	m_node = ns::NodeFactory::Create(filepath);
 }
 
-void SceneNode::Draw() const
+void SceneNode::Draw(const sm::Matrix2D& mt) const
 {
-	n2::RenderSystem::Draw(m_node);
+	n2::RenderParams rp;
+	rp.SetMatrix(mt);
+	n2::RenderSystem::Draw(m_node, rp);
 }
 
 const sm::vec2& SceneNode::GetPosition() const
