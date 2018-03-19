@@ -17,6 +17,8 @@ public:
 
 	ModuleMgr& GetModuleMgr() { return m_module_mgr; }
 
+	void Init();
+
 private:
 	lua_State* L;
 

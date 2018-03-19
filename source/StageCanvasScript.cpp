@@ -59,9 +59,13 @@ int StageCanvasScript::LoadScript()
 		return luaL_error(L, "Fail to load %s.", m_filepath.c_str());
 	}
 
+	lua_getglobal(L, "dust");
+
 	RegistFunc("load", DUST_LOAD);
 	RegistFunc("update", DUST_UPDATE);
 	RegistFunc("draw", DUST_DRAW);
+
+	lua_pop(L, 1);	// dust
 
 	return 0;
 }

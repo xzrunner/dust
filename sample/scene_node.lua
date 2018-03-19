@@ -1,7 +1,3 @@
--- require "dust"
--- local graphics = require "dust.graphics"
--- require "dust.scene_graph"
-
 function load(self)
 end
 
@@ -10,6 +6,5 @@ end
 
 function draw(self)
 	local x, y = self.v_node:get_pos()
-
 	self.v_node:set_pos(x + 10, y)
 end

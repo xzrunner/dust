@@ -106,8 +106,8 @@ int luax_register_module(lua_State* L, const WrappedModule& m)
 	lua_setfield(L, -2, m.name); // _modules[name] = proxy
 	lua_pop(L, 1);
 
-	// Gets the love table.
-	luax_insistglobal(L, "love");
+	// Gets the dust table.
+	luax_insistglobal(L, "dust");
 
 	// Create new table for module.
 	lua_newtable(L);
@@ -124,8 +124,8 @@ int luax_register_module(lua_State* L, const WrappedModule& m)
 	}
 
 	lua_pushvalue(L, -1);
-	lua_setfield(L, -2, m.name); // love.graphics = table
-	lua_remove(L, -2); // love
+	lua_setfield(L, -3, m.name); // dust.graphics = table
+	lua_remove(L, -2); // dust
 
 	// Register module instance
 	
@@ -229,10 +229,10 @@ int luax_register_type(lua_State *L, Type type, const char *name, ...)
 {
 	AddTypeName(type, name);
 
-	// Get the place for storing and re-using instantiated love types.
+	// Get the place for storing and re-using instantiated dust types.
 	luax_getregistry(L, REGISTRY_OBJECTS);
 
-	// Create registry._loveobjects if it doesn't exist yet.
+	// Create registry._dustobjects if it doesn't exist yet.
 	if (!lua_istable(L, -1))
 	{
 		lua_newtable(L);
@@ -310,7 +310,7 @@ void luax_pushtype(lua_State *L, Type type, Object *object)
 		return luax_rawnewtype(L, type, object);
 	}
 
-	// Get the value of loveobjects[object] on the stack.
+	// Get the value of dustobjects[object] on the stack.
 	lua_pushlightuserdata(L, object);
 	lua_gettable(L, -2);
 
@@ -324,11 +324,11 @@ void luax_pushtype(lua_State *L, Type type, Object *object)
 		lua_pushlightuserdata(L, object);
 		lua_pushvalue(L, -2);
 
-		// loveobjects[object] = Proxy.
+		// dustobjects[object] = Proxy.
 		lua_settable(L, -4);
 	}
 
-	// Remove the loveobjects table from the stack.
+	// Remove the dustobjects table from the stack.
 	lua_remove(L, -2);
 
 	// Keep the Proxy userdata on the stack.
@@ -366,7 +366,7 @@ extern "C" int luax_typerror(lua_State *L, int narg, const char *tname)
 	int argtype = lua_type(L, narg);
 	const char *argtname = 0;
 
-	// We want to use the love type name for userdata, if possible.
+	// We want to use the dust type name for userdata, if possible.
 	if (argtype == LUA_TUSERDATA && luaL_getmetafield(L, narg, "type") != 0)
 	{
 		lua_pushvalue(L, narg);
@@ -374,8 +374,8 @@ extern "C" int luax_typerror(lua_State *L, int narg, const char *tname)
 		{
 			argtname = lua_tostring(L, -1);
 
-			// Non-love userdata might have a type metamethod which doesn't
-			// describe its type properly, so we only use it for love types.
+			// Non-dust userdata might have a type metamethod which doesn't
+			// describe its type properly, so we only use it for dust types.
 			Type t;
 			if (!GetTypeName(argtname, t))
 				argtname = 0;

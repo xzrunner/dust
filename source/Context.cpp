@@ -8,6 +8,12 @@ extern "C" {
 	#include <lauxlib.h>
 };
 
+const char* INIT_SCRIPT = R"(
+	require "dust"
+	require "dust.graphics"
+	require "dust.scene_graph"
+)";
+
 namespace dust
 {
 
@@ -23,6 +29,11 @@ Context::Context()
 Context::~Context()
 {
 	lua_close(L);
+}
+
+void Context::Init()
+{
+	luaL_dostring(L, INIT_SCRIPT);
 }
 
 }
