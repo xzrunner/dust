@@ -7,9 +7,6 @@
     <ClCompile Include="..\..\..\source\wrap_Graphics.cpp">
       <Filter>modules\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\Module.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\Object.cpp">
       <Filter>common</Filter>
     </ClCompile>
@@ -42,6 +39,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\wrap_SceneNode.cpp">
       <Filter>modules\scene_graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ModuleMgr.cpp">
+      <Filter>common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -86,6 +86,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\dust\SceneGraph.h">
       <Filter>modules\scene_graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\dust\ModuleMgr.h">
+      <Filter>common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

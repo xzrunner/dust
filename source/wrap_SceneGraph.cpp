@@ -1,11 +1,13 @@
 #include "dust/SceneGraph.h"
 #include "dust/Module.h"
 #include "dust/runtime.h"
+#include "dust/Blackboard.h"
+#include "dust/LuaVM.h"
 
 namespace dust
 {
 
-#define Instance() (Module::GetInstance<SceneGraph>(Module::M_SCENE_GRAPH))
+//#define Instance() (Blackboard::Instance()->vm->GetModuleMgr().GetModule(Module::M_SCENE_GRAPH))
 
 // List of functions to wrap.
 static const luaL_Reg functions[] =
@@ -24,7 +26,8 @@ static const lua_CFunction types[] =
 
 extern "C" int luaopen_dust_scene_graph(lua_State* L)
 {
-	SceneGraph* instance = Instance();
+	SceneGraph* instance = Blackboard::Instance()->vm->GetModuleMgr().GetModule(Module::M_SCENE_GRAPH);
+//	SceneGraph* instance = Instance();
 	if (instance == nullptr) {
 		luax_catchexcept(L, [&](){ instance = new SceneGraph(); });
 	} else {

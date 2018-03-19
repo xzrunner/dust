@@ -11,6 +11,9 @@ extern "C" {
 namespace dust
 {
 
+extern "C" int luaopen_dust_graphics(lua_State* L);
+extern "C" int luaopen_dust_scene_graph(lua_State* L);
+
 LuaVM::LuaVM()
 {
 	L = luaL_newstate();
@@ -18,6 +21,11 @@ LuaVM::LuaVM()
 
 	// Add dust to package.preload for easy requiring.
 	luax_preload(L, luaopen_dust, "dust");
+
+	// init
+	luaopen_dust(L);
+	luaopen_dust_graphics(L);
+	luaopen_dust_scene_graph(L);
 }
 
 LuaVM::~LuaVM()

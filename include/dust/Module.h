@@ -36,20 +36,11 @@ public:
 	};
 
 public:
-	virtual ~Module();
+	// todo rm from mgr
+	virtual ~Module() {}
 
 	virtual ModuleType GetModuleType() const = 0;
 	virtual const char* GetName() const = 0;
-
-	static void RegisterInstance(Module* instance);
-
-	template <typename T>
-	static T* GetInstance(ModuleType type) {
-		return (T*)m_instances[type];
-	}
-
-private:
-	static Module* m_instances[M_MAX_ENUM];
 
 }; // Module
 

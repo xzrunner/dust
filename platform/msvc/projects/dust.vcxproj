@@ -16,6 +16,7 @@
     <ClInclude Include="..\..\..\include\dust\Graphics.h" />
     <ClInclude Include="..\..\..\include\dust\LuaVM.h" />
     <ClInclude Include="..\..\..\include\dust\Module.h" />
+    <ClInclude Include="..\..\..\include\dust\ModuleMgr.h" />
     <ClInclude Include="..\..\..\include\dust\Object.h" />
     <ClInclude Include="..\..\..\include\dust\runtime.h" />
     <ClInclude Include="..\..\..\include\dust\SceneGraph.h" />
@@ -31,7 +32,7 @@
     <ClCompile Include="..\..\..\source\dust.cpp" />
     <ClCompile Include="..\..\..\source\Graphics.cpp" />
     <ClCompile Include="..\..\..\source\LuaVM.cpp" />
-    <ClCompile Include="..\..\..\source\Module.cpp" />
+    <ClCompile Include="..\..\..\source\ModuleMgr.cpp" />
     <ClCompile Include="..\..\..\source\Object.cpp" />
     <ClCompile Include="..\..\..\source\runtime.cpp" />
     <ClCompile Include="..\..\..\source\SceneGraph.cpp" />
