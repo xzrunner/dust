@@ -21,7 +21,7 @@ public:
 	}
 
 private:
-	std::array<Module*, Module::M_MAX_ENUM> m_modules;
+	std::array<Module*, Module::M_MAX_ENUM> m_modules = {};
 
 }; // ModuleMgr
 

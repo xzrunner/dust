@@ -16,9 +16,6 @@
     <ClCompile Include="..\..\..\source\types.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\LuaVM.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\dust.cpp">
       <Filter>common</Filter>
     </ClCompile>
@@ -43,6 +40,9 @@
     <ClCompile Include="..\..\..\source\ModuleMgr.cpp">
       <Filter>common</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\Context.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\dust\Graphics.h">
@@ -58,9 +58,6 @@
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\dust\types.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\dust\LuaVM.h">
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\dust\dust.h">
@@ -88,6 +85,9 @@
       <Filter>modules\scene_graph</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\dust\ModuleMgr.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\dust\Context.h">
       <Filter>common</Filter>
     </ClInclude>
   </ItemGroup>

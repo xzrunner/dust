@@ -1,5 +1,5 @@
 #include "dust/StageCanvasScript.h"
-#include "dust/LuaVM.h"
+#include "dust/Context.h"
 
 #include <guard/check.h>
 

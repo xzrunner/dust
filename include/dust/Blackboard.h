@@ -7,12 +7,12 @@
 namespace dust
 {
 
-class LuaVM;
+class Context;
 
 class Blackboard
 {
 public:
-	std::shared_ptr<LuaVM> vm = nullptr;
+	std::shared_ptr<Context> ctx = nullptr;
 
 private:
 	CU_SINGLETON_DECLARATION(Blackboard);

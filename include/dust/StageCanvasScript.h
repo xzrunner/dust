@@ -7,7 +7,7 @@ struct lua_State;
 namespace dust
 {
 
-class LuaVM;
+class Context;
 
 class StageCanvasScript
 {

@@ -7,14 +7,11 @@ struct lua_State;
 namespace dust
 {
 
-class LuaVM
+class Context
 {
 public:
-	LuaVM();
-	~LuaVM();
-
-	void DoString(const char* str);
-	void DoFile(const char* filename);
+	Context();
+	~Context();
 
 	lua_State* GetState() const { return L; }
 
@@ -25,6 +22,6 @@ private:
 
 	ModuleMgr m_module_mgr;
 
-}; // LuaVM
+}; // Context
 
 }

@@ -14,7 +14,7 @@
     <ClInclude Include="..\..\..\include\dust\Blackboard.h" />
     <ClInclude Include="..\..\..\include\dust\dust.h" />
     <ClInclude Include="..\..\..\include\dust\Graphics.h" />
-    <ClInclude Include="..\..\..\include\dust\LuaVM.h" />
+    <ClInclude Include="..\..\..\include\dust\Context.h" />
     <ClInclude Include="..\..\..\include\dust\Module.h" />
     <ClInclude Include="..\..\..\include\dust\ModuleMgr.h" />
     <ClInclude Include="..\..\..\include\dust\Object.h" />
@@ -31,7 +31,7 @@
     <ClCompile Include="..\..\..\source\Blackboard.cpp" />
     <ClCompile Include="..\..\..\source\dust.cpp" />
     <ClCompile Include="..\..\..\source\Graphics.cpp" />
-    <ClCompile Include="..\..\..\source\LuaVM.cpp" />
+    <ClCompile Include="..\..\..\source\Context.cpp" />
     <ClCompile Include="..\..\..\source\ModuleMgr.cpp" />
     <ClCompile Include="..\..\..\source\Object.cpp" />
     <ClCompile Include="..\..\..\source\runtime.cpp" />

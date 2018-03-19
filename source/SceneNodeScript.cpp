@@ -1,6 +1,6 @@
 #include "dust/SceneNodeScript.h"
 #include "dust/SceneNode.h"
-#include "dust/LuaVM.h"
+#include "dust/Context.h"
 #include "dust/Blackboard.h"
 #include "dust/runtime.h"
 
@@ -38,8 +38,7 @@ void SceneNodeScript::OnDraw() const
 
 int SceneNodeScript::LoadScript(const std::string& filepath, const n0::SceneNodePtr& node)
 {
-	auto L = Blackboard::Instance()->vm->GetState();
-
+	auto L = Blackboard::Instance()->ctx->GetState();
 	if (luaL_loadfile(L, filepath.c_str()) || lua_pcall(L, 0, 0, 0)) {
 		return luaL_error(L, "Fail to load %s.", filepath.c_str());
 	}
@@ -67,7 +66,6 @@ int SceneNodeScript::LoadScript(const std::string& filepath, const n0::SceneNode
 	lua_pushliteral(L, "v_node");
 	auto sn = new SceneNode(node);
 	luax_pushtype(L, SCENE_NODE_ID, sn);
-	auto type = lua_type(L, -1);
 	sn->Release();
 	lua_settable(L, -3);
 
@@ -88,12 +86,6 @@ int SceneNodeScript::LoadScript(const std::string& filepath, const n0::SceneNode
 	lua_pushliteral(L, DRAW_FUNC);
 	lua_getglobal(L, DRAW_FUNC);
 	lua_settable(L, -3);
-
-	// test
-	lua_pushliteral(L, "v_node");
-	lua_gettable(L, -3);
-	type = lua_type(L, -1);
-	lua_pop(L, 1);
 
 	// mt.__index = mt
 	lua_pushvalue(L, -1);
@@ -124,7 +116,7 @@ int SceneNodeScript::LoadScript(const std::string& filepath, const n0::SceneNode
 
 void SceneNodeScript::CallFunc(const char* func_name) const
 {
-	auto L = Blackboard::Instance()->vm->GetState();
+	auto L = Blackboard::Instance()->ctx->GetState();
 
 	lua_getfield(L, LUA_REGISTRYINDEX, DUST_SCENE_NODE);
 

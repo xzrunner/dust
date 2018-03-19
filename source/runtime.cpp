@@ -20,6 +20,8 @@
 
 #include "dust/runtime.h"
 #include "dust/Module.h"
+#include "dust/Blackboard.h"
+#include "dust/Context.h"
 
 namespace dust
 {
@@ -126,7 +128,8 @@ int luax_register_module(lua_State* L, const WrappedModule& m)
 	lua_remove(L, -2); // love
 
 	// Register module instance
-	Module::RegisterInstance(m.module);
+	
+	Blackboard::Instance()->ctx->GetModuleMgr().RegisterModule(m.module);
 
 	return 1;
 }

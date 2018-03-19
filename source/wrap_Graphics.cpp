@@ -1,6 +1,8 @@
 #include "dust/Graphics.h"
 #include "dust/Module.h"
 #include "dust/runtime.h"
+#include "dust/Blackboard.h"
+#include "dust/Context.h"
 
 #include <vector>
 #include <algorithm>
@@ -10,7 +12,7 @@ struct lua_State;
 namespace dust
 {
 
-#define Instance() (Module::GetInstance<Graphics>(Module::M_GRAPHICS))
+#define INSTANCE() (Blackboard::Instance()->ctx->GetModuleMgr().GetModule<Graphics>(Module::M_GRAPHICS))
 
 int w_line(lua_State* L)
 {
@@ -27,7 +29,7 @@ int w_line(lua_State* L)
 		coords.push_back(luax_tofloat(L, i + 1));
 	}
 
-	Instance()->Polyline(&coords[0], coords.size());
+	INSTANCE()->Polyline(&coords[0], coords.size());
 
 	return 0;
 }
@@ -46,7 +48,7 @@ int w_rectangle(lua_State *L)
 
 	if (lua_isnoneornil(L, 6))
 	{
-		Instance()->Rectangle(mode, x, y, w, h);
+		INSTANCE()->Rectangle(mode, x, y, w, h);
 		return 0;
 	}
 
@@ -60,7 +62,7 @@ int w_rectangle(lua_State *L)
 		points = (int)luaL_checknumber(L, 8);
 
 	// todo
-	Instance()->Rectangle(mode, x, y, w, h/*, rx, ry, points*/);
+	INSTANCE()->Rectangle(mode, x, y, w, h/*, rx, ry, points*/);
 	return 0;
 }
 
@@ -81,7 +83,7 @@ int w_circle(lua_State *L)
 	else
 		points = (int)luaL_checknumber(L, 5);
 
-	Instance()->Circle(mode, x, y, radius, points);
+	INSTANCE()->Circle(mode, x, y, radius, points);
 	return 0;
 }
 
@@ -106,7 +108,7 @@ static const lua_CFunction types[] =
 
 extern "C" int luaopen_dust_graphics(lua_State* L)
 {
-	Graphics* instance = Instance();
+	Graphics* instance = INSTANCE();
 	if (instance == nullptr) {
 		luax_catchexcept(L, [&](){ instance = new Graphics(); });
 	} else {
