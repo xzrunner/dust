@@ -9,10 +9,10 @@ namespace dust
 
 class Context;
 
-class StageCanvasScript
+class StagePageScript
 {
 public:
-	StageCanvasScript(lua_State* L, const std::string& filepath);
+	StagePageScript(lua_State* L, const std::string& filepath);
 
 	void OnLoad() const;
 	void OnUpdate() const;
@@ -28,6 +28,6 @@ private:
 
 	lua_State* L;
 
-}; // StageCanvasScript
+}; // StagePageScript
 
 }

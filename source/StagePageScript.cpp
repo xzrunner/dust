@@ -1,4 +1,4 @@
-#include "dust/StageCanvasScript.h"
+#include "dust/StagePageScript.h"
 #include "dust/Context.h"
 
 #include <guard/check.h>
@@ -16,14 +16,14 @@ namespace dust
 #define DUST_UPDATE "_dust_stage_update"
 #define DUST_DRAW   "_dust_stage_draw"
 
-StageCanvasScript::StageCanvasScript(lua_State* L, const std::string& filepath)
+StagePageScript::StagePageScript(lua_State* L, const std::string& filepath)
 	: L(L)
 	, m_filepath(filepath)
 {
 	LoadScript();
 }
 
-void StageCanvasScript::OnLoad() const
+void StagePageScript::OnLoad() const
 {
 	lua_getfield(L, LUA_REGISTRYINDEX, DUST_LOAD);
 	int err = lua_pcall(L, 0, 0, 0);
@@ -33,7 +33,7 @@ void StageCanvasScript::OnLoad() const
 	}
 }
 
-void StageCanvasScript::OnUpdate() const
+void StagePageScript::OnUpdate() const
 {
 	lua_getfield(L, LUA_REGISTRYINDEX, DUST_UPDATE);
 	int err = lua_pcall(L, 0, 0, 0);
@@ -43,7 +43,7 @@ void StageCanvasScript::OnUpdate() const
 	}
 }
 
-void StageCanvasScript::OnDraw() const
+void StagePageScript::OnDraw() const
 {
 	lua_getfield(L, LUA_REGISTRYINDEX, DUST_DRAW);
 	int err = lua_pcall(L, 0, 0, 0);
@@ -53,7 +53,7 @@ void StageCanvasScript::OnDraw() const
 	}
 }
 
-int StageCanvasScript::LoadScript()
+int StagePageScript::LoadScript()
 {
 	if (luaL_loadfile(L, m_filepath.c_str()) || lua_pcall(L, 0, 0, 0)) {
 		return luaL_error(L, "Fail to load %s.", m_filepath.c_str());
@@ -70,7 +70,7 @@ int StageCanvasScript::LoadScript()
 	return 0;
 }
 
-void StageCanvasScript::RegistFunc(const char* name, const char* key)
+void StagePageScript::RegistFunc(const char* name, const char* key)
 {
 	lua_getfield(L, -1, name);
 	if (lua_isnil(L, -1)) {

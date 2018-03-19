@@ -22,7 +22,7 @@
     <ClInclude Include="..\..\..\include\dust\SceneGraph.h" />
     <ClInclude Include="..\..\..\include\dust\SceneNode.h" />
     <ClInclude Include="..\..\..\include\dust\SceneNodeScript.h" />
-    <ClInclude Include="..\..\..\include\dust\StageCanvasScript.h" />
+    <ClInclude Include="..\..\..\include\dust\StagePageScript.h" />
     <ClInclude Include="..\..\..\include\dust\StringMap.h" />
     <ClInclude Include="..\..\..\include\dust\typedef.h" />
     <ClInclude Include="..\..\..\include\dust\types.h" />
@@ -37,7 +37,7 @@
     <ClCompile Include="..\..\..\source\runtime.cpp" />
     <ClCompile Include="..\..\..\source\SceneGraph.cpp" />
     <ClCompile Include="..\..\..\source\SceneNodeScript.cpp" />
-    <ClCompile Include="..\..\..\source\StageCanvasScript.cpp" />
+    <ClCompile Include="..\..\..\source\StagePageScript.cpp" />
     <ClCompile Include="..\..\..\source\types.cpp" />
     <ClCompile Include="..\..\..\source\wrap_Graphics.cpp" />
     <ClCompile Include="..\..\..\source\wrap_SceneGraph.cpp" />
