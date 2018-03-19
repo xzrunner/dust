@@ -1,4 +1,6 @@
 #include "dust/StagePageScript.h"
+#include "dust/Blackboard.h"
+#include "dust/Graphics.h"
 #include "dust/Context.h"
 
 #include <guard/check.h>
@@ -45,6 +47,9 @@ void StagePageScript::OnUpdate() const
 
 void StagePageScript::OnDraw() const
 {
+	Blackboard::Instance()->GetContext()->GetModuleMgr().
+		GetModule<Graphics>(Module::M_GRAPHICS)->ClearColor();
+
 	lua_getfield(L, LUA_REGISTRYINDEX, DUST_DRAW);
 	int err = lua_pcall(L, 0, 0, 0);
 	if (err != LUA_OK) {

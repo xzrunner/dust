@@ -12,9 +12,12 @@ class Context;
 class Blackboard
 {
 public:
-	std::shared_ptr<Context> ctx = nullptr;
+	void SetContext(const std::shared_ptr<Context>& ctx) { m_ctx = ctx; }
+	const std::shared_ptr<Context>& GetContext() const { return m_ctx; }
 
 private:
+	std::shared_ptr<Context> m_ctx = nullptr;
+
 	CU_SINGLETON_DECLARATION(Blackboard);
 
 }; // Blackboard

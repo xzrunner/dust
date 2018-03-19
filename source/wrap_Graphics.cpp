@@ -13,7 +13,7 @@ struct lua_State;
 namespace dust
 {
 
-#define INSTANCE() (Blackboard::Instance()->ctx->GetModuleMgr().GetModule<Graphics>(Module::M_GRAPHICS))
+#define INSTANCE() (Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<Graphics>(Module::M_GRAPHICS))
 
 int w_line(lua_State* L)
 {
@@ -88,6 +88,32 @@ int w_circle(lua_State* L)
 	return 0;
 }
 
+int w_set_background_color(lua_State* L)
+{
+	pt2::Color c;
+	if (lua_istable(L, 1))
+	{
+		for (int i = 1; i <= 4; i++)
+			lua_rawgeti(L, 1, i);
+
+		c.r = (uint8_t)luaL_checknumber(L, -4);
+		c.g = (uint8_t)luaL_checknumber(L, -3);
+		c.b = (uint8_t)luaL_checknumber(L, -2);
+		c.a = (uint8_t)luaL_optnumber(L, -1, 255);
+
+		lua_pop(L, 4);
+	}
+	else
+	{
+		c.r = (uint8_t)luaL_checknumber(L, 1);
+		c.g = (uint8_t)luaL_checknumber(L, 2);
+		c.b = (uint8_t)luaL_checknumber(L, 3);
+		c.a = (uint8_t)luaL_optnumber(L, 4, 255);
+	}
+	INSTANCE()->SetBackgroundColor(c);
+	return 0;
+}
+
 int w_draw(lua_State* L)
 {
 	if (!luax_istype(L, 1, SCENE_NODE_ID)) {
@@ -106,6 +132,9 @@ static const luaL_Reg functions[] =
 	{ "line", w_line },
 	{ "rectangle", w_rectangle },
 	{ "circle", w_circle },
+
+	// state
+	{ "set_background_color", w_set_background_color },
 
 	{ "draw", w_draw },
 

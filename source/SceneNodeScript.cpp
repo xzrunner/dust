@@ -38,7 +38,7 @@ void SceneNodeScript::OnDraw() const
 
 int SceneNodeScript::LoadScript(const std::string& filepath, const n0::SceneNodePtr& node)
 {
-	auto L = Blackboard::Instance()->ctx->GetState();
+	auto L = Blackboard::Instance()->GetContext()->GetState();
 	if (luaL_loadfile(L, filepath.c_str()) || lua_pcall(L, 0, 0, 0)) {
 		return luaL_error(L, "Fail to load %s.", filepath.c_str());
 	}
@@ -116,7 +116,7 @@ int SceneNodeScript::LoadScript(const std::string& filepath, const n0::SceneNode
 
 void SceneNodeScript::CallFunc(const char* func_name) const
 {
-	auto L = Blackboard::Instance()->ctx->GetState();
+	auto L = Blackboard::Instance()->GetContext()->GetState();
 
 	lua_getfield(L, LUA_REGISTRYINDEX, DUST_SCENE_NODE);
 

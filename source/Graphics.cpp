@@ -1,5 +1,7 @@
 #include "dust/Graphics.h"
 
+#include <unirender/Blackboard.h>
+#include <unirender/RenderContext.h>
 #include <painting2/PrimitiveDraw.h>
 
 namespace dust
@@ -13,6 +15,11 @@ StringMap<Graphics::DrawMode, Graphics::DRAW_MAX_ENUM>::Entry Graphics::m_draw_m
 
 StringMap<Graphics::DrawMode, Graphics::DRAW_MAX_ENUM> Graphics::m_draw_modes(
 	Graphics::m_draw_mode_entries, sizeof(Graphics::m_draw_mode_entries));
+
+Graphics::Graphics()
+	: m_background_color(0x88, 0x88, 0x88, 0x88)
+{
+}
 
 void Graphics::Polyline(const float* coords, size_t count)
 {
@@ -43,6 +50,16 @@ bool Graphics::GetConstant(const char *in, DrawMode &out)
 bool Graphics::GetConstant(DrawMode in, const char *&out)
 {
 	return m_draw_modes.find(in, out);
+}
+
+void Graphics::ClearColor()
+{
+	ur::Blackboard::Instance()->GetRenderContext().Clear(
+		(m_background_color.a << 24) | 
+		(m_background_color.r << 16) | 
+		(m_background_color.g << 8)  | 
+		(m_background_color.b)
+	);
 }
 
 }

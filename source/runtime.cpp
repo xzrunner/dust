@@ -129,7 +129,7 @@ int luax_register_module(lua_State* L, const WrappedModule& m)
 
 	// Register module instance
 	
-	Blackboard::Instance()->ctx->GetModuleMgr().RegisterModule(m.module);
+	Blackboard::Instance()->GetContext()->GetModuleMgr().RegisterModule(m.module);
 
 	return 1;
 }
