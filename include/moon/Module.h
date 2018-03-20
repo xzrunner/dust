@@ -32,6 +32,7 @@ public:
 	{
 		M_GRAPHICS,
 		M_SCENE_GRAPH,
+		M_PHYSICS,
 		M_MAX_ENUM
 	};
 

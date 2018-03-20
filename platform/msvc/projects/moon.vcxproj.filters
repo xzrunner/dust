@@ -46,6 +46,156 @@
     <ClCompile Include="..\..\..\source\SceneNode.cpp">
       <Filter>modules\scene_graph</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\Body.cpp">
+      <Filter>modules\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\Joint.cpp">
+      <Filter>modules\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\Shape.cpp">
+      <Filter>modules\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\Body.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\ChainShape.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\CircleShape.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\Contact.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\DistanceJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\EdgeShape.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\Fixture.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\FrictionJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\GearJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\Joint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\MotorJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\MouseJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\Physics.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\PolygonShape.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\PrismaticJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\PulleyJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\RevoluteJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\RopeJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\Shape.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\WeldJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\WheelJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\World.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_Body.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_ChainShape.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_CircleShape.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_Contact.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_DistanceJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_EdgeShape.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_Fixture.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_FrictionJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_GearJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_Joint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_MotorJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_MouseJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_Physics.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_PolygonShape.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_PrismaticJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_PulleyJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_RevoluteJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_RopeJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_Shape.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_WeldJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_WheelJoint.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_World.cpp">
+      <Filter>modules\physics\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Reference.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Memoizer.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Exception.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\moon\Graphics.h">
@@ -93,6 +243,156 @@
     <ClInclude Include="..\..\..\include\moon\StagePageScript.h">
       <Filter>editor</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\Body.h">
+      <Filter>modules\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\Joint.h">
+      <Filter>modules\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\Shape.h">
+      <Filter>modules\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\Body.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\ChainShape.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\CircleShape.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\Contact.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\DistanceJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\EdgeShape.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\Fixture.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\FrictionJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\GearJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\Joint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\MotorJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\MouseJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\Physics.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\PolygonShape.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\PrismaticJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\PulleyJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\RevoluteJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\RopeJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\Shape.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\WeldJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\WheelJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\World.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_Body.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_ChainShape.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_CircleShape.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_Contact.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_DistanceJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_EdgeShape.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_Fixture.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_FrictionJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_GearJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_Joint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_MotorJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_MouseJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_Physics.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_PolygonShape.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_PrismaticJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_PulleyJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_RevoluteJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_RopeJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_Shape.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_WeldJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_WheelJoint.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_World.h">
+      <Filter>modules\physics\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\Reference.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\Memoizer.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\Exception.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="modules">
@@ -109,6 +409,12 @@
     </Filter>
     <Filter Include="editor">
       <UniqueIdentifier>{2355edfc-29bc-40b9-962f-3e7f442b37a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\physics">
+      <UniqueIdentifier>{750899f1-feeb-4a3c-aa94-bf51fe08e3e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\physics\box2d">
+      <UniqueIdentifier>{e1665777-b6f8-49f7-b2f1-6ac1d25f6c1a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

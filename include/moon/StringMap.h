@@ -18,8 +18,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  **/
 
-#ifndef LOVE_STRING_MAP_H
-#define LOVE_STRING_MAP_H
+#ifndef MOON_STRING_MAP_H
+#define MOON_STRING_MAP_H
 
 namespace moon
 {
@@ -160,6 +160,6 @@ private:
 
 }; // StringMap
 
-} // love
+} // moon
 
-#endif // LOVE_STRING_MAP_H
+#endif // MOON_STRING_MAP_H

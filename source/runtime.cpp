@@ -22,6 +22,9 @@
 #include "moon/Module.h"
 #include "moon/Blackboard.h"
 #include "moon/Context.h"
+#include "moon/Reference.h"
+
+#include <iostream>
 
 namespace moon
 {
@@ -67,9 +70,56 @@ static int w__eq(lua_State* L)
 	return 1;
 }
 
-void luax_pushboolean(lua_State* L, bool b)
+Reference *luax_refif(lua_State *L, int type)
+{
+	Reference *r = nullptr;
+
+	// Create a reference only if the test succeeds.
+	if (lua_type(L, -1) == type)
+		r = new Reference(L);
+	else // Pop the value even if it fails (but also if it succeeds).
+		lua_pop(L, 1);
+
+	return r;
+}
+
+void luax_printstack(lua_State *L)
+{
+	for (int i = 1; i <= lua_gettop(L); i++)
+		std::cout << i << " - " << luaL_typename(L, i) << std::endl;
+}
+
+bool luax_toboolean(lua_State *L, int idx)
+{
+	return (lua_toboolean(L, idx) != 0);
+}
+
+void luax_pushboolean(lua_State *L, bool b)
 {
 	lua_pushboolean(L, b ? 1 : 0);
+}
+
+bool luax_optboolean(lua_State *L, int idx, bool b)
+{
+	if (lua_isboolean(L, idx) == 1)
+		return (lua_toboolean(L, idx) == 1 ? true : false);
+	return b;
+}
+
+int luax_assert_argc(lua_State *L, int min)
+{
+	int argc = lua_gettop(L);
+	if (argc < min)
+		return luaL_error(L, "Incorrect number of arguments. Got [%d], expected at least [%d]", argc, min);
+	return 0;
+}
+
+int luax_assert_argc(lua_State *L, int min, int max)
+{
+	int argc = lua_gettop(L);
+	if (argc < min || argc > max)
+		return luaL_error(L, "Incorrect number of arguments. Got [%d], expected [%d-%d]", argc, min, max);
+	return 0;
 }
 
 void luax_setfuncs(lua_State* L, const luaL_Reg *l)
@@ -376,6 +426,39 @@ int luax_getregistry(lua_State* L, Registry r)
 	}
 }
 
+static const char *MAIN_THREAD_KEY = "_moon_mainthread";
+
+lua_State *luax_insistpinnedthread(lua_State *L)
+{
+	lua_getfield(L, LUA_REGISTRYINDEX, MAIN_THREAD_KEY);
+
+	if (lua_isnoneornil(L, -1))
+	{
+		lua_pop(L, 1);
+
+		// lua_pushthread returns 1 if it's actually the main thread, but we
+		// can't actually get the real main thread if lua_pushthread doesn't
+		// return it (in Lua 5.1 at least), so we ignore that for now...
+		// We do store a strong reference to the current thread/coroutine in
+		// the registry, however.
+		lua_pushthread(L);
+		lua_pushvalue(L, -1);
+		lua_setfield(L, LUA_REGISTRYINDEX, MAIN_THREAD_KEY);
+	}
+
+	lua_State *thread = lua_tothread(L, -1);
+	lua_pop(L, 1);
+	return thread;
+}
+
+lua_State *luax_getpinnedthread(lua_State *L)
+{
+	lua_getfield(L, LUA_REGISTRYINDEX, MAIN_THREAD_KEY);
+	lua_State *thread = lua_tothread(L, -1);
+	lua_pop(L, 1);
+	return thread;
+}
+
 extern "C" int luax_typerror(lua_State* L, int narg, const char *tname)
 {
 	int argtype = lua_type(L, narg);
@@ -402,6 +485,15 @@ extern "C" int luax_typerror(lua_State* L, int narg, const char *tname)
 
 	const char *msg = lua_pushfstring(L, "%s expected, got %s", tname, argtname);
 	return luaL_argerror(L, narg, msg);
+}
+
+size_t luax_objlen(lua_State *L, int ndx)
+{
+#if LUA_VERSION_NUM == 501
+	return lua_objlen(L, ndx);
+#else
+	return lua_rawlen(L, ndx);
+#endif
 }
 
 Type luax_type(lua_State* L, int idx)

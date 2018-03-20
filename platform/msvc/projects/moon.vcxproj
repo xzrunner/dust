@@ -12,12 +12,62 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\moon\Blackboard.h" />
+    <ClInclude Include="..\..\..\include\moon\Exception.h" />
+    <ClInclude Include="..\..\..\include\moon\Memoizer.h" />
     <ClInclude Include="..\..\..\include\moon\moon.h" />
     <ClInclude Include="..\..\..\include\moon\Graphics.h" />
     <ClInclude Include="..\..\..\include\moon\Context.h" />
     <ClInclude Include="..\..\..\include\moon\Module.h" />
     <ClInclude Include="..\..\..\include\moon\ModuleMgr.h" />
     <ClInclude Include="..\..\..\include\moon\Object.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\Body.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\Body.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\ChainShape.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\CircleShape.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\Contact.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\DistanceJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\EdgeShape.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\Fixture.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\FrictionJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\GearJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\Joint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\MotorJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\MouseJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\Physics.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\PolygonShape.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\PrismaticJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\PulleyJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\RevoluteJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\RopeJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\Shape.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\WeldJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\WheelJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\World.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_Body.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_ChainShape.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_CircleShape.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_Contact.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_DistanceJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_EdgeShape.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_Fixture.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_FrictionJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_GearJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_Joint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_MotorJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_MouseJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_Physics.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_PolygonShape.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_PrismaticJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_PulleyJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_RevoluteJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_RopeJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_Shape.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_WeldJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_WheelJoint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\box2d\wrap_World.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\Joint.h" />
+    <ClInclude Include="..\..\..\include\moon\physics\Shape.h" />
+    <ClInclude Include="..\..\..\include\moon\Reference.h" />
     <ClInclude Include="..\..\..\include\moon\runtime.h" />
     <ClInclude Include="..\..\..\include\moon\SceneGraph.h" />
     <ClInclude Include="..\..\..\include\moon\SceneNode.h" />
@@ -29,11 +79,79 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\Blackboard.cpp" />
+    <ClCompile Include="..\..\..\source\Exception.cpp" />
+    <ClCompile Include="..\..\..\source\Memoizer.cpp" />
     <ClCompile Include="..\..\..\source\moon.cpp" />
     <ClCompile Include="..\..\..\source\Graphics.cpp" />
     <ClCompile Include="..\..\..\source\Context.cpp" />
     <ClCompile Include="..\..\..\source\ModuleMgr.cpp" />
     <ClCompile Include="..\..\..\source\Object.cpp" />
+    <ClCompile Include="..\..\..\source\physics\Body.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\Body.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\ChainShape.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\CircleShape.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\Contact.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\DistanceJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\EdgeShape.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\Fixture.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\FrictionJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\GearJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\Joint.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\MotorJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\MouseJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\Physics.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\PolygonShape.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\PrismaticJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\PulleyJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\RevoluteJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\RopeJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\Shape.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\box2d\WeldJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\WheelJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\World.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_Body.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_ChainShape.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_CircleShape.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_Contact.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_DistanceJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_EdgeShape.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_Fixture.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_FrictionJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_GearJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_Joint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_MotorJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_MouseJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_Physics.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_PolygonShape.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_PrismaticJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_PulleyJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_RevoluteJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_RopeJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_Shape.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_WeldJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_WheelJoint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_World.cpp" />
+    <ClCompile Include="..\..\..\source\physics\Joint.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\Shape.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Reference.cpp" />
     <ClCompile Include="..\..\..\source\runtime.cpp" />
     <ClCompile Include="..\..\..\source\SceneGraph.cpp" />
     <ClCompile Include="..\..\..\source\SceneNode.cpp" />
@@ -87,7 +205,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\node0\include;..\..\..\..\node2\include;..\..\..\..\nserializer\include;..\..\..\..\unirender\include;..\..\..\..\external\lua\include;..\..\..\..\external\boost\include;..\..\..\..\external\rapidjson\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\node0\include;..\..\..\..\node2\include;..\..\..\..\nserializer\include;..\..\..\..\unirender\include;..\..\..\..\external\lua\include;..\..\..\..\external\boost\include;..\..\..\..\external\rapidjson\include;..\..\..\..\external\box2d\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -101,7 +219,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\node0\include;..\..\..\..\node2\include;..\..\..\..\nserializer\include;..\..\..\..\unirender\include;..\..\..\..\external\lua\include;..\..\..\..\external\boost\include;..\..\..\..\external\rapidjson\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\node0\include;..\..\..\..\node2\include;..\..\..\..\nserializer\include;..\..\..\..\unirender\include;..\..\..\..\external\lua\include;..\..\..\..\external\boost\include;..\..\..\..\external\rapidjson\include;..\..\..\..\external\box2d\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>

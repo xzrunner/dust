@@ -6,30 +6,30 @@ balls = {}
 -- Contains all the boxes. (Terrain)
 boxes = {}
 
-function love.load()
+function moon.load()
 
-	-- Fat lines.
-	love.graphics.setLineWidth(2)
+	-- -- Fat lines.
+	-- moon.graphics.setLineWidth(2)
 
 	-- Load images.
 	images = {
-		green = love.graphics.newImage("green_ball.png"),
-		big_love = love.graphics.newImage("big_love_ball.png"),
-		love = love.graphics.newImage("love_ball.png"),
+		green = moon.scene_graph.new_scene_node("green_ball.png"),
+		big_love = moon.scene_graph.new_scene_node("big_love_ball.png"),
+		moon = moon.scene_graph.new_scene_node("love_ball.png"),
 	}
 
 	-- Image / radius pairs.
 	balldefs = {
 		{ i = images.green, 	r = 32 , ox = 36, oy = 36},
 		{ i = images.big_love, 	r = 46 , ox = 48, oy = 48},
-		{ i = images.love, 		r = 28 , ox = 32, oy = 32},
+		{ i = images.moon, 		r = 28 , ox = 32, oy = 32},
 	}
 
 	-- Create the world.
-	world = love.physics.newWorld(0, 50)
+	world = moon.physics.newWorld(0, 50)
 
 	-- Create ground body.
-	ground = love.physics.newBody(world, 0, 0, "static")
+	ground = moon.physics.newBody(world, 0, 0, "static")
 
 	-- Add all the balls.
 	addball(balldefs[1], 50) -- Add 100 green.
@@ -43,7 +43,7 @@ function love.load()
 
 end
 
-function love.update(dt)
+function moon.update(dt)
 
 	-- Update the world.
 	world:update(dt)
@@ -61,23 +61,23 @@ function love.update(dt)
 
 end
 
-function love.draw()
+function moon.draw()
 	-- Draw all the balls.
 	for i, v in ipairs(balls) do
-		love.graphics.draw(v.i, v.b:getX(), v.b:getY(), v.b:getAngle(), 1, 1, v.ox, v.oy)
+		moon.graphics.draw(v.i, v.b:getX(), v.b:getY(), v.b:getAngle(), 1, 1, v.ox, v.oy)
 	end
-	-- Draw all the boxes.
-	for i, v in ipairs(boxes) do
-		love.graphics.polygon("line", v.s:getPoints())
-	end
+	-- -- Draw all the boxes.
+	-- for i, v in ipairs(boxes) do
+	-- 	moon.graphics.polygon("line", v.s:getPoints())
+	-- end
 end
 
 -- Adds a static box.
 function addbox(x, y)
 	local t = {}
 	t.b = ground
-	t.s = love.physics.newRectangleShape(x, y, 50, 50)
-	t.f = love.physics.newFixture(t.b, t.s)
+	t.s = moon.physics.newRectangleShape(x, y, 50, 50)
+	t.f = moon.physics.newFixture(t.b, t.s)
 	table.insert(boxes, t)
 end
 
@@ -87,9 +87,9 @@ function addball(def, num)
 	for i = 1, num do
 		local x, y = math.random(0, 400), -math.random(100, 1500)
 		local t = {}
-		t.b = love.physics.newBody(world, x, y, "dynamic")
-		t.s = love.physics.newCircleShape(def.r)
-		t.f = love.physics.newFixture(t.b, t.s)
+		t.b = moon.physics.newBody(world, x, y, "dynamic")
+		t.s = moon.physics.newCircleShape(def.r)
+		t.f = moon.physics.newFixture(t.b, t.s)
 		t.i = def.i
 		t.ox = def.ox
 		t.oy = def.oy

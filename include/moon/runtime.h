@@ -33,6 +33,7 @@ namespace moon
 {
 
 class Module;
+class Reference;
 
 /**
  * Registries represent special tables which can be accessed with
@@ -81,12 +82,44 @@ struct WrappedModule
 };
 
 /**
+* Returns a reference to the top stack element (-1) if the value
+* is of the specified type. If the value is incorrect, zero is returned.
+*
+* In any case, the top stack element is popped, regardless of its type.
+**/
+Reference *luax_refif(lua_State *L, int type);
+
+/**
+* Prints the current contents of the stack. Only useful for debugging.
+* @param L The Lua state.
+**/
+void luax_printstack(lua_State *L);
+
+/**
+* Converts the value at idx to a bool. It follow the same rules
+* as lua_toboolean, but returns a bool instead of an int.
+* @param L The Lua state.
+* @param idx The index on the Lua stack.
+* @return True if the value evaluates to true, false otherwise.
+**/
+bool luax_toboolean(lua_State *L, int idx);
+
+/**
 * Pushes a bool onto the stack. It's the same as lua_pushboolean,
 * but with bool instead of int.
 * @param L The Lua state.
 * @param b The bool to push.
 **/
-void luax_pushboolean(lua_State* L, bool b);
+void luax_pushboolean(lua_State *L, bool b);
+
+/**
+* Converts the value at idx to a bool, or if not present, b is returned.
+* @param L The Lua state.
+* @param idx The index of the Lua stack.
+* @param b The value to return if no value exist at the specified index.
+* @return True if the value evaluates to true, false otherwise.
+**/
+bool luax_optboolean(lua_State *L, int idx, bool b);
 
 /**
 * Convert the value at the specified index to an Lua number, and then
@@ -109,6 +142,23 @@ inline float luax_checkfloat(lua_State* L, int idx)
 {
 	return static_cast<float>(luaL_checknumber(L, idx));
 }
+
+/**
+* Require at least 'min' number of items on the stack.
+* @param L The Lua state.
+* @param min The minimum number of items on the stack.
+* @return Zero if conditions are met, otherwise a Lua error (longjmp).
+**/
+int luax_assert_argc(lua_State *L, int min);
+
+/**
+* Require at least 'min', but more than 'max' items on the stack.
+* @param L The Lua state.
+* @param min The minimum number of items on the stack.
+* @param max The maximum number of items on the stack.
+* @return Zero if conditions are met, otherwise a Lua error (longjmp).
+**/
+int luax_assert_argc(lua_State *L, int min, int max);
 
 /**
 * Registers all functions in the array l (see luaL_Reg) into the table at the
@@ -221,9 +271,32 @@ int luax_insistregistry(lua_State* L, Registry r);
 **/
 int luax_getregistry(lua_State* L, Registry r);
 
+/**
+* Gets (and pins if needed) a "pinned" Lua thread (coroutine) in the specified
+* Lua state. This will usually be the main Lua thread, unless the first call
+* to this function for a specific Lua state is made from within a coroutine.
+* NOTE: This does not push anything to the stack.
+**/
+lua_State *luax_insistpinnedthread(lua_State *L);
+
+/**
+* Gets a "pinned" Lua thread (coroutine) in the specified Lua state. This will
+* usually be the main Lua thread. This can be used to access global variables
+* in a specific Lua state without needing another alive lua_State value.
+* PRECONDITION: luax_insistpinnedthread must have been called on a lua_State
+* value corresponding to the Lua state which will be used with this function.
+* NOTE: This does not push anything to the stack.
+**/
+lua_State *luax_getpinnedthread(lua_State *L);
+
 extern "C" { // Also called from luasocket
 	int luax_typerror(lua_State* L, int narg, const char *tname);
 }
+
+/**
+* Calls luax_objlen/lua_rawlen depending on version
+**/
+size_t luax_objlen(lua_State *L, int ndx);
 
 /**
  * Like luax_totype, but causes an error if the value at idx is not Proxy,

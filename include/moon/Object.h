@@ -74,4 +74,82 @@ private:
 
 }; // Object
 
+enum class Acquire
+{
+	RETAIN,
+	NORETAIN,
+};
+
+template <typename T>
+class StrongRef
+{
+public:
+
+	StrongRef()
+		: object(nullptr)
+	{
+	}
+
+	StrongRef(T *obj, Acquire acquire = Acquire::RETAIN)
+		: object(obj)
+	{
+		if (object && acquire == Acquire::RETAIN) object->Retain();
+	}
+
+	StrongRef(const StrongRef &other)
+		: object(other.get())
+	{
+		if (object) object->Retain();
+	}
+
+	StrongRef(StrongRef &&other)
+		: object(other.object)
+	{
+		other.object = nullptr;
+	}
+
+	~StrongRef()
+	{
+		if (object) object->Release();
+	}
+
+	StrongRef &operator = (const StrongRef &other)
+	{
+		set(other.get());
+		return *this;
+	}
+
+	T *operator->() const
+	{
+		return object;
+	}
+
+	explicit operator bool() const
+	{
+		return object != nullptr;
+	}
+
+	operator T*() const
+	{
+		return object;
+	}
+
+	void set(T *obj, Acquire acquire = Acquire::RETAIN)
+	{
+		if (obj && acquire == Acquire::RETAIN) obj->Retain();
+		if (object) object->Release();
+		object = obj;
+	}
+
+	T *get() const
+	{
+		return object;
+	}
+
+private:
+
+	T *object;
+
+}; // StrongRef
+
 } // moon
