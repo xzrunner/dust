@@ -133,7 +133,7 @@ int w_draw(lua_State* L)
 
 	auto node = luax_checktype<SceneNode>(L, 1, SCENE_NODE_ID);
 	sm::Matrix2D mt;
-	mt.SetTransformation(x, y, a, sx, sy, ox, oy, kx, ky);
+	mt.SetTransformation(x, -y, -a, sx, sy, ox, -oy, kx, ky);
 	node->Draw(mt);
 	return 0;
 }
