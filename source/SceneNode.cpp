@@ -22,6 +22,7 @@ void SceneNode::Draw(const sm::Matrix2D& mt) const
 {
 	n2::RenderParams rp;
 	rp.SetMatrix(mt);
+	rp.QuadBaseLeftTop(true);
 	n2::RenderSystem::Draw(m_node, rp);
 }
 
