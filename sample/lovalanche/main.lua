@@ -8,8 +8,8 @@ boxes = {}
 
 function moon.load()
 
-	-- -- Fat lines.
-	-- moon.graphics.setLineWidth(2)
+	-- Fat lines.
+	moon.graphics.set_line_width(2)
 
 	-- Load images.
 	images = {
@@ -66,10 +66,10 @@ function moon.draw()
 	for i, v in ipairs(balls) do
 		moon.graphics.draw(v.i, v.b:getX(), v.b:getY(), v.b:getAngle(), 1, 1, v.ox, v.oy)
 	end
-	-- -- Draw all the boxes.
-	-- for i, v in ipairs(boxes) do
-	-- 	moon.graphics.polygon("line", v.s:getPoints())
-	-- end
+	-- Draw all the boxes.
+	for i, v in ipairs(boxes) do
+		moon.graphics.polygon("line", v.s:getPoints())
+	end
 end
 
 -- Adds a static box.

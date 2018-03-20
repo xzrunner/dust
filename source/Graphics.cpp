@@ -25,7 +25,7 @@ Graphics::Graphics()
 
 void Graphics::Polyline(const float* coords, size_t count)
 {
-	pt2::PrimitiveDraw::Polyline(nullptr, coords, count, false);
+	pt2::PrimitiveDraw::Polyline(nullptr, coords, count / 2, false);
 }
 
 void Graphics::Rectangle(DrawMode mode, float x, float y, float w, float h)
@@ -42,6 +42,16 @@ void Graphics::Rectangle(DrawMode mode, float x, float y, float w, float h)
 void Graphics::Circle(DrawMode mode, float x, float y, float radius, int points)
 {
 	pt2::PrimitiveDraw::Circle(nullptr, sm::vec2(x, y), radius, mode == DRAW_FILL, points);
+}
+
+void Graphics::Polygon(DrawMode mode, const float* coords, size_t count)
+{
+	// coords is an array of a closed loop of vertices, i.e.
+	// coords[count-2] = coords[0], coords[count-1] = coords[1]
+	if (mode == DRAW_LINE)
+	{
+		Polyline(coords, count);
+	}
 }
 
 void Graphics::SetColor(const pt2::Color& color)
@@ -69,6 +79,11 @@ void Graphics::ClearColor()
 		(m_background_color.g << 8)  | 
 		(m_background_color.b)
 	);
+}
+
+void Graphics::SetLineWidth(float width)
+{
+	pt2::PrimitiveDraw::LineWidth(width);
 }
 
 }

@@ -88,6 +88,63 @@ int w_circle(lua_State* L)
 	return 0;
 }
 
+int w_polygon(lua_State* L)
+{
+	int args = lua_gettop(L) - 1;
+
+	Graphics::DrawMode mode;
+	const char *str = luaL_checkstring(L, 1);
+	if (!Graphics::GetConstant(str, mode)) {
+		return luaL_error(L, "Invalid draw mode: %s", str);
+	}
+
+	bool is_table = false;
+	float *coords;
+	if (args == 1 && lua_istable(L, 2))
+	{
+		args = (int) luax_objlen(L, 2);
+		is_table = true;
+	}
+
+	if (args % 2 != 0) {
+		return luaL_error(L, "Number of vertex components must be a multiple of two");
+	} else if (args < 6) {
+		return luaL_error(L, "Need at least three vertices to draw a polygon");
+	}
+
+	// fetch coords
+	coords = new float[args + 2];
+	if (is_table)
+	{
+		for (int i = 0; i < args; ++i)
+		{
+			lua_rawgeti(L, 2, i + 1);
+			coords[i] = luax_tofloat(L, -1);
+			lua_pop(L, 1);
+		}
+	}
+	else
+	{
+		for (int i = 0; i < args; ++i) {
+			coords[i] = luax_tofloat(L, i + 2);
+		}
+	}
+
+	// make a closed loop
+	coords[args]   = coords[0];
+	coords[args+1] = coords[1];
+
+	// reverse y
+	for (int i = 1; i < args + 2; i += 2) {
+		coords[i] = -coords[i];
+	}
+
+	INSTANCE()->Polygon(mode, coords, args+2);
+	delete[] coords;
+
+	return 0;
+}
+
 int w_set_color(lua_State* L)
 {
 	pt2::Color c;
@@ -140,6 +197,13 @@ int w_set_background_color(lua_State* L)
 	return 0;
 }
 
+int w_set_line_width(lua_State *L)
+{
+	float width = (float)luaL_checknumber(L, 1);
+	INSTANCE()->SetLineWidth(width);
+	return 0;
+}
+
 int w_draw(lua_State* L)
 {
 	if (!luax_istype(L, 1, SCENE_NODE_ID)) {
@@ -171,10 +235,12 @@ static const luaL_Reg functions[] =
 	{ "line", w_line },
 	{ "rectangle", w_rectangle },
 	{ "circle", w_circle },
+	{ "polygon", w_polygon },
 
 	// state
 	{ "set_color", w_set_color },
 	{ "set_background_color", w_set_background_color },
+	{ "set_line_width", w_set_line_width },
 
 	{ "draw", w_draw },
 

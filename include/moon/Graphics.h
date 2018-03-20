@@ -27,10 +27,13 @@ public:
 	void Polyline(const float* coords, size_t count);
 	void Rectangle(DrawMode mode, float x, float y, float w, float h);
 	void Circle(DrawMode mode, float x, float y, float radius, int points = 10);
+	void Polygon(DrawMode mode, const float* coords, size_t count);
 
 	void SetColor(const pt2::Color& color);
 	void SetBackgroundColor(const pt2::Color& color) { m_background_color = color; }
 	void ClearColor();
+
+	void SetLineWidth(float width);
 
 	static bool GetConstant(const char *in, DrawMode &out);
 	static bool GetConstant(DrawMode in, const char *&out);
