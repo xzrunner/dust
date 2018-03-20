@@ -16,7 +16,7 @@
     <ClCompile Include="..\..\..\source\types.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\dust.cpp">
+    <ClCompile Include="..\..\..\source\moon.cpp">
       <Filter>common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\Blackboard.cpp">
@@ -48,49 +48,49 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\dust\Graphics.h">
+    <ClInclude Include="..\..\..\include\moon\Graphics.h">
       <Filter>modules\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\dust\Module.h">
+    <ClInclude Include="..\..\..\include\moon\Module.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\dust\Object.h">
+    <ClInclude Include="..\..\..\include\moon\Object.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\dust\runtime.h">
+    <ClInclude Include="..\..\..\include\moon\runtime.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\dust\types.h">
+    <ClInclude Include="..\..\..\include\moon\types.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\dust\dust.h">
+    <ClInclude Include="..\..\..\include\moon\moon.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\dust\Blackboard.h">
+    <ClInclude Include="..\..\..\include\moon\Blackboard.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\dust\StringMap.h">
+    <ClInclude Include="..\..\..\include\moon\StringMap.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\dust\typedef.h">
+    <ClInclude Include="..\..\..\include\moon\typedef.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\dust\SceneNodeScript.h">
+    <ClInclude Include="..\..\..\include\moon\SceneNodeScript.h">
       <Filter>editor</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\dust\SceneNode.h">
+    <ClInclude Include="..\..\..\include\moon\SceneNode.h">
       <Filter>modules\scene_graph</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\dust\SceneGraph.h">
+    <ClInclude Include="..\..\..\include\moon\SceneGraph.h">
       <Filter>modules\scene_graph</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\dust\ModuleMgr.h">
+    <ClInclude Include="..\..\..\include\moon\ModuleMgr.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\dust\Context.h">
+    <ClInclude Include="..\..\..\include\moon\Context.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\dust\StagePageScript.h">
+    <ClInclude Include="..\..\..\include\moon\StagePageScript.h">
       <Filter>editor</Filter>
     </ClInclude>
   </ItemGroup>

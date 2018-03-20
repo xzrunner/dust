@@ -7,7 +7,7 @@ extern "C"
 {
 #endif
 
-int luaopen_dust(lua_State* L);
+int luaopen_moon(lua_State* L);
 
 #ifdef __cplusplus
 }

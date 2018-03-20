@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace dust
+namespace moon
 {
 
 class Context;

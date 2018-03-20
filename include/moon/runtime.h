@@ -20,8 +20,8 @@
 
 #pragma once
 
-#include "dust/types.h"
-#include "dust/Object.h"
+#include "moon/types.h"
+#include "moon/Object.h"
 
 extern "C" {
 	#include <lua.h>
@@ -29,7 +29,7 @@ extern "C" {
 	#include <lauxlib.h>
 };
 
-namespace dust
+namespace moon
 {
 
 class Module;
@@ -67,11 +67,11 @@ struct WrappedModule
 	// The module containing the functions.
 	Module* module;
 
-	// The name for the table to put the functions in, without the 'dust'-prefix.
+	// The name for the table to put the functions in, without the 'moon'-prefix.
 	const char* name;
 
 	// The type of this module.
-	dust::Type type;
+	moon::Type type;
 
 	// The functions of the module (last element {0,0}).
 	const luaL_Reg* functions;
@@ -119,7 +119,7 @@ inline float luax_checkfloat(lua_State* L, int idx)
 void luax_setfuncs(lua_State* L, const luaL_Reg *l);
 
 /**
-* Register a module in the dust table. The dust table will be created if it does not exist.
+* Register a module in the moon table. The moon table will be created if it does not exist.
 * NOTE: The module-object is expected to have a +1 reference count before calling
 * this function, as it doesn't retain the object itself but Lua will release it
 * upon garbage collection.
@@ -130,7 +130,7 @@ int luax_register_module(lua_State* L, const WrappedModule& m);
 /**
  * Inserts a module with 'name' into the package.preloaded table.
  * @param f The function to be called when the module is opened.
- * @param name The name of the module, with 'dust'-prefix, for instance 'dust.graphics'.
+ * @param name The name of the module, with 'moon'-prefix, for instance 'moon.graphics'.
  **/
 int luax_preload(lua_State* L, lua_CFunction f, const char* name);
 
@@ -140,7 +140,7 @@ int luax_preload(lua_State* L, lua_CFunction f, const char* name);
 * @param name The type's human-readable name
 * @param ... The list of lists of member functions for the type. (of type luaL_Reg*)
 **/
-int luax_register_type(lua_State* L, dust::Type type, const char *name, ...);
+int luax_register_type(lua_State* L, moon::Type type, const char *name, ...);
 
 /**
 * Pushes a Lua representation of the given object onto the stack, creating and
@@ -193,17 +193,17 @@ int luax_insist(lua_State* L, int idx, const char *k);
 int luax_insistglobal(lua_State* L, const char *k);
 
 /**
-* Insists that a table 'k' exists inside the 'dust' table. See luax_insist.
+* Insists that a table 'k' exists inside the 'moon' table. See luax_insist.
 * @param k The name of the table we are insisting exist.
 **/
-int luax_insistdust(lua_State* L, const char *k);
+int luax_insistmoon(lua_State* L, const char *k);
 
 /**
-* Pushes the table 'k' in the dust table onto the stack. Pushes nil if the
+* Pushes the table 'k' in the moon table onto the stack. Pushes nil if the
 * table doesn't exist.
 * @param k The name of the table we want to get.
 **/
-int luax_getdust(lua_State* L, const char *k);
+int luax_getmoon(lua_State* L, const char *k);
 
 /**
 * Gets (creates if needed) the specified Registry, and pushes it into the

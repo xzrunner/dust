@@ -1,6 +1,6 @@
-#include "dust/Context.h"
-#include "dust/runtime.h"
-#include "dust/dust.h"
+#include "moon/Context.h"
+#include "moon/runtime.h"
+#include "moon/moon.h"
 
 extern "C" {
 	#include <lua.h>
@@ -9,12 +9,12 @@ extern "C" {
 };
 
 const char* INIT_SCRIPT = R"(
-	require "dust"
-	require "dust.graphics"
-	require "dust.scene_graph"
+	require "moon"
+	require "moon.graphics"
+	require "moon.scene_graph"
 )";
 
-namespace dust
+namespace moon
 {
 
 Context::Context()
@@ -22,8 +22,8 @@ Context::Context()
 	L = luaL_newstate();
 	luaL_openlibs(L);
 
-	// Add dust to package.preload for easy requiring.
-	luax_preload(L, luaopen_dust, "dust");
+	// Add moon to package.preload for easy requiring.
+	luax_preload(L, luaopen_moon, "moon");
 }
 
 Context::~Context()

@@ -1,8 +1,8 @@
-#include "dust/ModuleMgr.h"
+#include "moon/ModuleMgr.h"
 
 #include <guard/check.h>
 
-namespace dust
+namespace moon
 {
 
 ModuleMgr::~ModuleMgr()

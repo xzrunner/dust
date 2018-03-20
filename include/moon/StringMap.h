@@ -21,7 +21,7 @@
 #ifndef LOVE_STRING_MAP_H
 #define LOVE_STRING_MAP_H
 
-namespace dust
+namespace moon
 {
 
 template<typename T, unsigned int SIZE>

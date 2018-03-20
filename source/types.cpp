@@ -1,7 +1,7 @@
-#include "dust/types.h"
-#include "dust/StringMap.h"
+#include "moon/types.h"
+#include "moon/StringMap.h"
 
-namespace dust
+namespace moon
 {
 
 static const TypeBits* CreateTypeFlags()

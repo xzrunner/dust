@@ -1,9 +1,9 @@
-#include "dust/runtime.h"
-#include "dust/SceneNode.h"
+#include "moon/runtime.h"
+#include "moon/SceneNode.h"
 
 #include <SM_Vector.h>
 
-namespace dust
+namespace moon
 {
 
 SceneNode* luax_checkcanvas(lua_State* L, int idx)

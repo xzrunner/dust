@@ -1,11 +1,11 @@
 #pragma once
 
-#include "dust/Module.h"
-#include "dust/StringMap.h"
+#include "moon/Module.h"
+#include "moon/StringMap.h"
 
 #include <painting2/Color.h>
 
-namespace dust
+namespace moon
 {
 
 class Graphics : public Module
@@ -22,7 +22,7 @@ public:
 	Graphics();
 
 	virtual ModuleType GetModuleType() const { return M_GRAPHICS; }
-	virtual const char* GetName() const { return "dust.graphics"; }
+	virtual const char* GetName() const { return "moon.graphics"; }
 
 	void Polyline(const float* coords, size_t count);
 	void Rectangle(DrawMode mode, float x, float y, float w, float h);

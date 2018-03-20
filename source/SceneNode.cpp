@@ -1,11 +1,11 @@
-#include "dust/SceneNode.h"
+#include "moon/SceneNode.h"
 
 #include <node0/SceneNode.h>
 #include <node2/RenderSystem.h>
 #include <node2/CompTransform.h>
 #include <ns/NodeFactory.h>
 
-namespace dust
+namespace moon
 {
 
 SceneNode::SceneNode(const n0::SceneNodePtr node)

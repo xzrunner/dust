@@ -1,5 +1,5 @@
-dust/
+moon/
 projects/*
 
-!projects/dust.vcxproj
-!projects/dust.vcxproj.filters
+!projects/moon.vcxproj
+!projects/moon.vcxproj.filters

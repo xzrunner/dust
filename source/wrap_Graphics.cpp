@@ -1,16 +1,16 @@
-#include "dust/Graphics.h"
-#include "dust/Module.h"
-#include "dust/runtime.h"
-#include "dust/Blackboard.h"
-#include "dust/Context.h"
-#include "dust/SceneNode.h"
+#include "moon/Graphics.h"
+#include "moon/Module.h"
+#include "moon/runtime.h"
+#include "moon/Blackboard.h"
+#include "moon/Context.h"
+#include "moon/SceneNode.h"
 
 #include <vector>
 #include <algorithm>
 
 struct lua_State;
 
-namespace dust
+namespace moon
 {
 
 #define INSTANCE() (Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<Graphics>(Module::M_GRAPHICS))
@@ -161,7 +161,7 @@ static const lua_CFunction types[] =
 	0
 };
 
-extern "C" int luaopen_dust_graphics(lua_State* L)
+extern "C" int luaopen_moon_graphics(lua_State* L)
 {
 	Graphics* instance = INSTANCE();
 	if (instance == nullptr) {

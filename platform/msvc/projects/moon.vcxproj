@@ -11,25 +11,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\dust\Blackboard.h" />
-    <ClInclude Include="..\..\..\include\dust\dust.h" />
-    <ClInclude Include="..\..\..\include\dust\Graphics.h" />
-    <ClInclude Include="..\..\..\include\dust\Context.h" />
-    <ClInclude Include="..\..\..\include\dust\Module.h" />
-    <ClInclude Include="..\..\..\include\dust\ModuleMgr.h" />
-    <ClInclude Include="..\..\..\include\dust\Object.h" />
-    <ClInclude Include="..\..\..\include\dust\runtime.h" />
-    <ClInclude Include="..\..\..\include\dust\SceneGraph.h" />
-    <ClInclude Include="..\..\..\include\dust\SceneNode.h" />
-    <ClInclude Include="..\..\..\include\dust\SceneNodeScript.h" />
-    <ClInclude Include="..\..\..\include\dust\StagePageScript.h" />
-    <ClInclude Include="..\..\..\include\dust\StringMap.h" />
-    <ClInclude Include="..\..\..\include\dust\typedef.h" />
-    <ClInclude Include="..\..\..\include\dust\types.h" />
+    <ClInclude Include="..\..\..\include\moon\Blackboard.h" />
+    <ClInclude Include="..\..\..\include\moon\moon.h" />
+    <ClInclude Include="..\..\..\include\moon\Graphics.h" />
+    <ClInclude Include="..\..\..\include\moon\Context.h" />
+    <ClInclude Include="..\..\..\include\moon\Module.h" />
+    <ClInclude Include="..\..\..\include\moon\ModuleMgr.h" />
+    <ClInclude Include="..\..\..\include\moon\Object.h" />
+    <ClInclude Include="..\..\..\include\moon\runtime.h" />
+    <ClInclude Include="..\..\..\include\moon\SceneGraph.h" />
+    <ClInclude Include="..\..\..\include\moon\SceneNode.h" />
+    <ClInclude Include="..\..\..\include\moon\SceneNodeScript.h" />
+    <ClInclude Include="..\..\..\include\moon\StagePageScript.h" />
+    <ClInclude Include="..\..\..\include\moon\StringMap.h" />
+    <ClInclude Include="..\..\..\include\moon\typedef.h" />
+    <ClInclude Include="..\..\..\include\moon\types.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\Blackboard.cpp" />
-    <ClCompile Include="..\..\..\source\dust.cpp" />
+    <ClCompile Include="..\..\..\source\moon.cpp" />
     <ClCompile Include="..\..\..\source\Graphics.cpp" />
     <ClCompile Include="..\..\..\source\Context.cpp" />
     <ClCompile Include="..\..\..\source\ModuleMgr.cpp" />
@@ -45,9 +45,9 @@
     <ClCompile Include="..\..\..\source\wrap_SceneNode.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>4.dust</ProjectName>
+    <ProjectName>4.moon</ProjectName>
     <ProjectGuid>{9FB05942-DCAE-4A6F-8F99-86E20DE9DFCC}</ProjectGuid>
-    <RootNamespace>dust</RootNamespace>
+    <RootNamespace>moon</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -77,12 +77,12 @@
     <_ProjectFileVersion>15.0.26730.12</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\dust\x86\Debug\</OutDir>
-    <IntDir>..\dust\x86\Debug\obj\</IntDir>
+    <OutDir>..\moon\x86\Debug\</OutDir>
+    <IntDir>..\moon\x86\Debug\obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>..\dust\x86\Release\</OutDir>
-    <IntDir>..\dust\x86\Release\obj\</IntDir>
+    <OutDir>..\moon\x86\Release\</OutDir>
+    <IntDir>..\moon\x86\Release\obj\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

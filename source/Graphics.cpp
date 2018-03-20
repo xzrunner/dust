@@ -1,10 +1,10 @@
-#include "dust/Graphics.h"
+#include "moon/Graphics.h"
 
 #include <unirender/Blackboard.h>
 #include <unirender/RenderContext.h>
 #include <painting2/PrimitiveDraw.h>
 
-namespace dust
+namespace moon
 {
 
 StringMap<Graphics::DrawMode, Graphics::DRAW_MAX_ENUM>::Entry Graphics::m_draw_mode_entries[] =

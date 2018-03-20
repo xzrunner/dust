@@ -22,7 +22,7 @@
 
 #include <atomic>
 
-namespace dust
+namespace moon
 {
 
 /**
@@ -74,4 +74,4 @@ private:
 
 }; // Object
 
-} // dust
+} // moon

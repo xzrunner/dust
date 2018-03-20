@@ -1,8 +1,8 @@
-#include "dust/SceneNodeScript.h"
-#include "dust/SceneNode.h"
-#include "dust/Context.h"
-#include "dust/Blackboard.h"
-#include "dust/runtime.h"
+#include "moon/SceneNodeScript.h"
+#include "moon/SceneNode.h"
+#include "moon/Context.h"
+#include "moon/Blackboard.h"
+#include "moon/runtime.h"
 
 #include <guard/check.h>
 
@@ -12,10 +12,10 @@ extern "C" {
 	#include <lauxlib.h>
 };
 
-namespace dust
+namespace moon
 {
 
-#define DUST_SCENE_NODE "_dust_scene_nodes"
+#define MOON_SCENE_NODE "_moon_scene_nodes"
 
 #define LOAD_FUNC   "load"
 #define UPDATE_FUNC "update"
@@ -43,7 +43,7 @@ int SceneNodeScript::LoadScript(const std::string& filepath, const n0::SceneNode
 		return luaL_error(L, "Fail to load %s.", filepath.c_str());
 	}
 
-	lua_getfield(L, LUA_REGISTRYINDEX, DUST_SCENE_NODE);
+	lua_getfield(L, LUA_REGISTRYINDEX, MOON_SCENE_NODE);
 	if (!lua_istable(L, -1))
 	{
 		lua_pop(L, 1);
@@ -54,9 +54,9 @@ int SceneNodeScript::LoadScript(const std::string& filepath, const n0::SceneNode
 		lua_setfield(L, -2, "__mode");
 		lua_setmetatable(L, -2);
 
-		lua_setfield(L, LUA_REGISTRYINDEX, DUST_SCENE_NODE);
+		lua_setfield(L, LUA_REGISTRYINDEX, MOON_SCENE_NODE);
 
-		lua_getfield(L, LUA_REGISTRYINDEX, DUST_SCENE_NODE);
+		lua_getfield(L, LUA_REGISTRYINDEX, MOON_SCENE_NODE);
 	}
 
 	// obj
@@ -94,7 +94,7 @@ int SceneNodeScript::LoadScript(const std::string& filepath, const n0::SceneNode
 	// setmetatable({v_node}, mt)
 	lua_setmetatable(L, -2);
 
-	// regist obj to DUST_SCENE_NODE
+	// regist obj to MOON_SCENE_NODE
 	lua_pushlightuserdata(L, this);
 	lua_pushvalue(L, -2);
 	lua_settable(L, -4);
@@ -118,7 +118,7 @@ void SceneNodeScript::CallFunc(const char* func_name) const
 {
 	auto L = Blackboard::Instance()->GetContext()->GetState();
 
-	lua_getfield(L, LUA_REGISTRYINDEX, DUST_SCENE_NODE);
+	lua_getfield(L, LUA_REGISTRYINDEX, MOON_SCENE_NODE);
 
 	lua_pushlightuserdata(L, const_cast<SceneNodeScript*>(this));
 	lua_gettable(L, -2);

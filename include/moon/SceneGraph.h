@@ -1,15 +1,15 @@
 #pragma once
 
-#include "dust/Module.h"
+#include "moon/Module.h"
 
-namespace dust
+namespace moon
 {
 
 class SceneGraph : public Module
 {
 public:
 	virtual ModuleType GetModuleType() const { return M_SCENE_GRAPH; }
-	virtual const char* GetName() const { return "dust.scenegraph"; }
+	virtual const char* GetName() const { return "moon.scenegraph"; }
 
 }; // SceneGraph
 

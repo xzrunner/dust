@@ -1,13 +1,13 @@
-#include "dust/SceneGraph.h"
-#include "dust/Module.h"
-#include "dust/runtime.h"
-#include "dust/Blackboard.h"
-#include "dust/Context.h"
-#include "dust/SceneNode.h"
+#include "moon/SceneGraph.h"
+#include "moon/Module.h"
+#include "moon/runtime.h"
+#include "moon/Blackboard.h"
+#include "moon/Context.h"
+#include "moon/SceneNode.h"
 
 #include <boost/filesystem.hpp>
 
-namespace dust
+namespace moon
 {
 
 #define INSTANCE() (Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<SceneGraph>(Module::M_SCENE_GRAPH))
@@ -42,7 +42,7 @@ static const lua_CFunction types[] =
 	0
 };
 
-extern "C" int luaopen_dust_scene_graph(lua_State* L)
+extern "C" int luaopen_moon_scene_graph(lua_State* L)
 {
 	SceneGraph* instance = INSTANCE();
 	if (instance == nullptr) {

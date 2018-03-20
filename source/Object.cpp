@@ -18,9 +18,9 @@
  * 3. This notice may not be removed or altered from any source distribution.
  **/
 
-#include "dust/Object.h"
+#include "moon/Object.h"
 
-namespace dust
+namespace moon
 {
 
 Object::Object()
@@ -57,4 +57,4 @@ void Object::Release()
 	}
 }
 
-} // dust
+} // moon

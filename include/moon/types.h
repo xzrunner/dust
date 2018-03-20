@@ -2,7 +2,7 @@
 
 #include <bitset>
 
-namespace dust
+namespace moon
 {
 
 enum Type

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "dust/Object.h"
+#include "moon/Object.h"
 
 #include <SM_Vector.h>
 #include <SM_Matrix2D.h>
@@ -8,7 +8,7 @@
 
 #include <string>
 
-namespace dust
+namespace moon
 {
 
 class SceneNode : public Object

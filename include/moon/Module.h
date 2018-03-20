@@ -20,9 +20,9 @@
 
 #pragma once
 
-#include "dust/Object.h"
+#include "moon/Object.h"
 
-namespace dust
+namespace moon
 {
 
 class Module : public Object

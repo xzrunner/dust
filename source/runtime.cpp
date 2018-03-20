@@ -18,12 +18,12 @@
 * 3. This notice may not be removed or altered from any source distribution.
 **/
 
-#include "dust/runtime.h"
-#include "dust/Module.h"
-#include "dust/Blackboard.h"
-#include "dust/Context.h"
+#include "moon/runtime.h"
+#include "moon/Module.h"
+#include "moon/Blackboard.h"
+#include "moon/Context.h"
 
-namespace dust
+namespace moon
 {
 
 /**
@@ -106,8 +106,8 @@ int luax_register_module(lua_State* L, const WrappedModule& m)
 	lua_setfield(L, -2, m.name); // _modules[name] = proxy
 	lua_pop(L, 1);
 
-	// Gets the dust table.
-	luax_insistglobal(L, "dust");
+	// Gets the moon table.
+	luax_insistglobal(L, "moon");
 
 	// Create new table for module.
 	lua_newtable(L);
@@ -124,8 +124,8 @@ int luax_register_module(lua_State* L, const WrappedModule& m)
 	}
 
 	lua_pushvalue(L, -1);
-	lua_setfield(L, -3, m.name); // dust.graphics = table
-	lua_remove(L, -2); // dust
+	lua_setfield(L, -3, m.name); // moon.graphics = table
+	lua_remove(L, -2); // moon
 
 	// Register module instance
 	
@@ -205,21 +205,21 @@ int luax_c_insistglobal(lua_State* L, const char *k)
 	return luax_insistglobal(L, k);
 }
 
-int luax_insistdust(lua_State* L, const char *k)
+int luax_insistmoon(lua_State* L, const char *k)
 {
-	luax_insistglobal(L, "dust");
+	luax_insistglobal(L, "moon");
 	luax_insist(L, -1, k);
 
-	// The dust table should be replaced with the top stack
+	// The moon table should be replaced with the top stack
 	// item. Only the reqested table should remain on the stack.
 	lua_replace(L, -2);
 
 	return 1;
 }
 
-int luax_getdust(lua_State* L, const char *k)
+int luax_getmoon(lua_State* L, const char *k)
 {
-	lua_getglobal(L, "dust");
+	lua_getglobal(L, "moon");
 
 	if (!lua_isnil(L, -1))
 	{
@@ -244,10 +244,10 @@ int luax_register_type(lua_State* L, Type type, const char *name, ...)
 {
 	AddTypeName(type, name);
 
-	// Get the place for storing and re-using instantiated dust types.
+	// Get the place for storing and re-using instantiated moon types.
 	luax_getregistry(L, REGISTRY_OBJECTS);
 
-	// Create registry._dustobjects if it doesn't exist yet.
+	// Create registry._moonobjects if it doesn't exist yet.
 	if (!lua_istable(L, -1))
 	{
 		lua_newtable(L);
@@ -263,8 +263,8 @@ int luax_register_type(lua_State* L, Type type, const char *name, ...)
 		// setmetatable(newtable, metatable)
 		lua_setmetatable(L, -2);
 
-		// registry._dustobjects = newtable
-		lua_setfield(L, LUA_REGISTRYINDEX, "_dustobjects");
+		// registry._moonobjects = newtable
+		lua_setfield(L, LUA_REGISTRYINDEX, "_moonobjects");
 	}
 	else
 		lua_pop(L, 1);
@@ -325,7 +325,7 @@ void luax_pushtype(lua_State* L, Type type, Object *object)
 		return luax_rawnewtype(L, type, object);
 	}
 
-	// Get the value of dustobjects[object] on the stack.
+	// Get the value of moonobjects[object] on the stack.
 	lua_pushlightuserdata(L, object);
 	lua_gettable(L, -2);
 
@@ -339,11 +339,11 @@ void luax_pushtype(lua_State* L, Type type, Object *object)
 		lua_pushlightuserdata(L, object);
 		lua_pushvalue(L, -2);
 
-		// dustobjects[object] = Proxy.
+		// moonobjects[object] = Proxy.
 		lua_settable(L, -4);
 	}
 
-	// Remove the dustobjects table from the stack.
+	// Remove the moonobjects table from the stack.
 	lua_remove(L, -2);
 
 	// Keep the Proxy userdata on the stack.
@@ -354,9 +354,9 @@ int luax_insistregistry(lua_State* L, Registry r)
 	switch (r)
 	{
 	case REGISTRY_MODULES:
-		return luax_insistdust(L, "_modules");
+		return luax_insistmoon(L, "_modules");
 	case REGISTRY_OBJECTS:
-		return luax_insist(L, LUA_REGISTRYINDEX, "_dustobjects");
+		return luax_insist(L, LUA_REGISTRYINDEX, "_moonobjects");
 	default:
 		return luaL_error(L, "Attempted to use invalid registry.");
 	}
@@ -367,9 +367,9 @@ int luax_getregistry(lua_State* L, Registry r)
 	switch (r)
 	{
 	case REGISTRY_MODULES:
-		return luax_getdust(L, "_modules");
+		return luax_getmoon(L, "_modules");
 	case REGISTRY_OBJECTS:
-		lua_getfield(L, LUA_REGISTRYINDEX, "_dustobjects");
+		lua_getfield(L, LUA_REGISTRYINDEX, "_moonobjects");
 		return 1;
 	default:
 		return luaL_error(L, "Attempted to use invalid registry.");
@@ -381,7 +381,7 @@ extern "C" int luax_typerror(lua_State* L, int narg, const char *tname)
 	int argtype = lua_type(L, narg);
 	const char *argtname = 0;
 
-	// We want to use the dust type name for userdata, if possible.
+	// We want to use the moon type name for userdata, if possible.
 	if (argtype == LUA_TUSERDATA && luaL_getmetafield(L, narg, "type") != 0)
 	{
 		lua_pushvalue(L, narg);
@@ -389,8 +389,8 @@ extern "C" int luax_typerror(lua_State* L, int narg, const char *tname)
 		{
 			argtname = lua_tostring(L, -1);
 
-			// Non-dust userdata might have a type metamethod which doesn't
-			// describe its type properly, so we only use it for dust types.
+			// Non-moon userdata might have a type metamethod which doesn't
+			// describe its type properly, so we only use it for moon types.
 			Type t;
 			if (!GetTypeName(argtname, t))
 				argtname = 0;

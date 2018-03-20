@@ -6,7 +6,7 @@
 
 struct lua_State;
 
-namespace dust
+namespace moon
 {
 
 class SceneNodeScript
