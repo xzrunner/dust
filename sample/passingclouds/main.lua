@@ -25,7 +25,7 @@ function moon.load()
 		spawn_cloud(math.random(-100, 900), math.random(-100, 700), 80 + math.random(0, 50))
 	end
 	
-	-- moon.graphics.setColor(255, 255, 255, 200)
+	moon.graphics.set_color(255, 255, 255, 200)
 	
 	-- moon.audio.play(music, 0)
 	

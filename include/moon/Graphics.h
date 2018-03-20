@@ -28,6 +28,7 @@ public:
 	void Rectangle(DrawMode mode, float x, float y, float w, float h);
 	void Circle(DrawMode mode, float x, float y, float radius, int points = 10);
 
+	void SetColor(const pt2::Color& color);
 	void SetBackgroundColor(const pt2::Color& color) { m_background_color = color; }
 	void ClearColor();
 

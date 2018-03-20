@@ -88,6 +88,32 @@ int w_circle(lua_State* L)
 	return 0;
 }
 
+int w_set_color(lua_State* L)
+{
+	pt2::Color c;
+	if (lua_istable(L, 1))
+	{
+		for (int i = 1; i <= 4; i++)
+			lua_rawgeti(L, 1, i);
+
+		c.r = (float)luaL_checknumber(L, -4);
+		c.g = (float)luaL_checknumber(L, -3);
+		c.b = (float)luaL_checknumber(L, -2);
+		c.a = (float)luaL_optnumber(L, -1, 255);
+
+		lua_pop(L, 4);
+	}
+	else
+	{
+		c.r = (float)luaL_checknumber(L, 1);
+		c.g = (float)luaL_checknumber(L, 2);
+		c.b = (float)luaL_checknumber(L, 3);
+		c.a = (float)luaL_optnumber(L, 4, 255);
+	}
+	INSTANCE()->SetColor(c);
+	return 0;
+}
+
 int w_set_background_color(lua_State* L)
 {
 	pt2::Color c;
@@ -147,6 +173,7 @@ static const luaL_Reg functions[] =
 	{ "circle", w_circle },
 
 	// state
+	{ "set_color", w_set_color },
 	{ "set_background_color", w_set_background_color },
 
 	{ "draw", w_draw },

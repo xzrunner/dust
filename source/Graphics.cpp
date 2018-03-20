@@ -3,6 +3,8 @@
 #include <unirender/Blackboard.h>
 #include <unirender/RenderContext.h>
 #include <painting2/PrimitiveDraw.h>
+#include <painting2/RenderSystem.h>
+#include <painting2/RenderColorCommon.h>
 
 namespace moon
 {
@@ -40,6 +42,13 @@ void Graphics::Rectangle(DrawMode mode, float x, float y, float w, float h)
 void Graphics::Circle(DrawMode mode, float x, float y, float radius, int points)
 {
 	pt2::PrimitiveDraw::Circle(nullptr, sm::vec2(x, y), radius, mode == DRAW_FILL, points);
+}
+
+void Graphics::SetColor(const pt2::Color& color)
+{
+	pt2::RenderColorCommon rc;
+	rc.mul = color;
+	pt2::RenderSystem::SetColor(rc);
 }
 
 bool Graphics::GetConstant(const char *in, DrawMode &out)
