@@ -196,6 +196,12 @@
     <ClCompile Include="..\..\..\source\Exception.cpp">
       <Filter>common</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\Mouse.cpp">
+      <Filter>modules\mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\wrap_Mouse.cpp">
+      <Filter>modules\mouse</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\moon\Graphics.h">
@@ -393,6 +399,9 @@
     <ClInclude Include="..\..\..\include\moon\Exception.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\Mouse.h">
+      <Filter>modules\mouse</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="modules">
@@ -415,6 +424,9 @@
     </Filter>
     <Filter Include="modules\physics\box2d">
       <UniqueIdentifier>{e1665777-b6f8-49f7-b2f1-6ac1d25f6c1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\mouse">
+      <UniqueIdentifier>{44c9ffcd-59f3-452e-ab70-dc78a07c1566}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

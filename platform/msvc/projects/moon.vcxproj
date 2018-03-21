@@ -19,6 +19,7 @@
     <ClInclude Include="..\..\..\include\moon\Context.h" />
     <ClInclude Include="..\..\..\include\moon\Module.h" />
     <ClInclude Include="..\..\..\include\moon\ModuleMgr.h" />
+    <ClInclude Include="..\..\..\include\moon\Mouse.h" />
     <ClInclude Include="..\..\..\include\moon\Object.h" />
     <ClInclude Include="..\..\..\include\moon\physics\Body.h" />
     <ClInclude Include="..\..\..\include\moon\physics\box2d\Body.h" />
@@ -85,6 +86,7 @@
     <ClCompile Include="..\..\..\source\Graphics.cpp" />
     <ClCompile Include="..\..\..\source\Context.cpp" />
     <ClCompile Include="..\..\..\source\ModuleMgr.cpp" />
+    <ClCompile Include="..\..\..\source\Mouse.cpp" />
     <ClCompile Include="..\..\..\source\Object.cpp" />
     <ClCompile Include="..\..\..\source\physics\Body.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
@@ -159,6 +161,7 @@
     <ClCompile Include="..\..\..\source\StagePageScript.cpp" />
     <ClCompile Include="..\..\..\source\types.cpp" />
     <ClCompile Include="..\..\..\source\wrap_Graphics.cpp" />
+    <ClCompile Include="..\..\..\source\wrap_Mouse.cpp" />
     <ClCompile Include="..\..\..\source\wrap_SceneGraph.cpp" />
     <ClCompile Include="..\..\..\source\wrap_SceneNode.cpp" />
   </ItemGroup>

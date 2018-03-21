@@ -10,11 +10,13 @@ extern "C" {
 extern "C" int luaopen_moon_graphics(lua_State* L);
 extern "C" int luaopen_moon_scene_graph(lua_State* L);
 extern "C" int luaopen_moon_physics(lua_State* L);
+extern "C" int luaopen_moon_mouse(lua_State* L);
 
 static const luaL_Reg modules[] = {
 	{ "moon.graphics", luaopen_moon_graphics },
 	{ "moon.scene_graph", luaopen_moon_scene_graph },
 	{ "moon.physics", luaopen_moon_physics },
+	{ "moon.mouse", luaopen_moon_mouse },
 	{ 0, 0 }
 };
 
