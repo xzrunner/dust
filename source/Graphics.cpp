@@ -5,6 +5,9 @@
 #include <painting2/PrimitiveDraw.h>
 #include <painting2/RenderSystem.h>
 #include <painting2/RenderColorCommon.h>
+#include <painting2/Text.h>
+#include <painting2/Blackboard.h>
+#include <painting2/WindowContext.h>
 
 namespace moon
 {
@@ -59,6 +62,8 @@ void Graphics::SetColor(const pt2::Color& color)
 	pt2::RenderColorCommon rc;
 	rc.mul = color;
 	pt2::RenderSystem::SetColor(rc);
+
+	pt2::PrimitiveDraw::SetColor(color);
 }
 
 bool Graphics::GetConstant(const char *in, DrawMode &out)
@@ -84,6 +89,25 @@ void Graphics::ClearColor()
 void Graphics::SetLineWidth(float width)
 {
 	pt2::PrimitiveDraw::LineWidth(width);
+}
+
+void Graphics::Print(const char* str, const sm::Matrix2D& mt) const
+{
+	pt2::Text text;
+	text.text = str;
+	pt2::RenderSystem::DrawText(text, mt);
+}
+
+int Graphics::GetWidth() const
+{
+	auto& wnd_ctx = pt2::Blackboard::Instance()->GetWindowContext();
+	return wnd_ctx->GetScreenWidth();
+}
+
+int Graphics::GetHeight() const
+{
+	auto& wnd_ctx = pt2::Blackboard::Instance()->GetWindowContext();
+	return wnd_ctx->GetScreenHeight();
 }
 
 }

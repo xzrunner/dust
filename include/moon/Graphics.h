@@ -4,6 +4,7 @@
 #include "moon/StringMap.h"
 
 #include <painting2/Color.h>
+#include <SM_Matrix2D.h>
 
 namespace moon
 {
@@ -34,6 +35,11 @@ public:
 	void ClearColor();
 
 	void SetLineWidth(float width);
+
+	void Print(const char* str, const sm::Matrix2D& mt) const;
+
+	int GetWidth() const;
+	int GetHeight() const;
 
 	static bool GetConstant(const char *in, DrawMode &out);
 	static bool GetConstant(DrawMode in, const char *&out);

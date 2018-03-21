@@ -30,6 +30,11 @@ int w_line(lua_State* L)
 		coords.push_back(luax_tofloat(L, i + 1));
 	}
 
+	// reverse y
+	for (int i = 1; i < args; i += 2) {
+		coords[i] = -coords[i];
+	}
+
 	INSTANCE()->Polyline(&coords[0], coords.size());
 
 	return 0;
@@ -43,9 +48,9 @@ int w_rectangle(lua_State* L)
 		return luaL_error(L, "Invalid draw mode: %s", str);
 
 	float x = (float)luaL_checknumber(L, 2);
-	float y = (float)luaL_checknumber(L, 3);
+	float y = -(float)luaL_checknumber(L, 3);
 	float w = (float)luaL_checknumber(L, 4);
-	float h = (float)luaL_checknumber(L, 5);
+	float h = -(float)luaL_checknumber(L, 5);
 
 	if (lua_isnoneornil(L, 6))
 	{
@@ -76,7 +81,7 @@ int w_circle(lua_State* L)
 	}
 
 	float x = (float)luaL_checknumber(L, 2);
-	float y = (float)luaL_checknumber(L, 3);
+	float y = -(float)luaL_checknumber(L, 3);
 	float radius = (float)luaL_checknumber(L, 4);
 	int points;
 	if (lua_isnoneornil(L, 5))
@@ -153,19 +158,19 @@ int w_set_color(lua_State* L)
 		for (int i = 1; i <= 4; i++)
 			lua_rawgeti(L, 1, i);
 
-		c.r = (float)luaL_checknumber(L, -4);
-		c.g = (float)luaL_checknumber(L, -3);
-		c.b = (float)luaL_checknumber(L, -2);
-		c.a = (float)luaL_optnumber(L, -1, 255);
+		c.r = (uint8_t)luaL_checknumber(L, -4);
+		c.g = (uint8_t)luaL_checknumber(L, -3);
+		c.b = (uint8_t)luaL_checknumber(L, -2);
+		c.a = (uint8_t)luaL_optnumber(L, -1, 255);
 
 		lua_pop(L, 4);
 	}
 	else
 	{
-		c.r = (float)luaL_checknumber(L, 1);
-		c.g = (float)luaL_checknumber(L, 2);
-		c.b = (float)luaL_checknumber(L, 3);
-		c.a = (float)luaL_optnumber(L, 4, 255);
+		c.r = (uint8_t)luaL_checknumber(L, 1);
+		c.g = (uint8_t)luaL_checknumber(L, 2);
+		c.b = (uint8_t)luaL_checknumber(L, 3);
+		c.a = (uint8_t)luaL_optnumber(L, 4, 255);
 	}
 	INSTANCE()->SetColor(c);
 	return 0;
@@ -224,8 +229,90 @@ int w_draw(lua_State* L)
 	auto node = luax_checktype<SceneNode>(L, 1, SCENE_NODE_ID);
 	sm::Matrix2D mt;
 	mt.SetTransformation(x, -y, -a, sx, sy, ox, -oy, kx, ky);
-	node->Draw(mt);
+	luax_catchexcept(L, [&]() {
+		node->Draw(mt);
+	});
 	return 0;
+}
+
+int w_print(lua_State *L)
+{
+	const char* str = luaL_checkstring(L, 1);
+	float x  = (float)luaL_optnumber(L, 2, 0.0);
+	float y  = (float)luaL_optnumber(L, 3, 0.0);
+	float a  = (float)luaL_optnumber(L, 4, 0.0f);
+	float sx = (float)luaL_optnumber(L, 5, 1.0f);
+	float sy = (float)luaL_optnumber(L, 6, sx);
+	float ox = (float)luaL_optnumber(L, 7, 0.0f);
+	float oy = (float)luaL_optnumber(L, 8, 0.0f);
+	float kx = (float)luaL_optnumber(L, 9, 0.0f);
+	float ky = (float)luaL_optnumber(L, 10, 0.0f);
+
+	sm::Matrix2D mt;
+	mt.SetTransformation(x, -y, -a, sx, sy, ox, -oy, kx, ky);
+	luax_catchexcept(L, [&]() { 
+		INSTANCE()->Print(str, mt);
+	});
+	return 0;
+}
+
+int w_printf(lua_State *L)
+{
+	const char* str = luaL_checkstring(L, 1);
+	float x  = (float)luaL_optnumber(L, 2, 0.0);
+	float y  = (float)luaL_optnumber(L, 3, 0.0);
+	float wrap = (float)luaL_checknumber(L, 4);
+
+	float a = 0.0f;
+	float sx = 1.0f, sy = 1.0f;
+	float ox = 0.0f, oy = 0.0f;
+	float kx = 0.0f, ky = 0.0f;
+
+	//Font::AlignMode align = Font::ALIGN_LEFT;
+	if (lua_gettop(L) >= 5)
+	{
+		if (!lua_isnil(L, 5))
+		{
+			const char *str = luaL_checkstring(L, 5);
+			//if (!Font::getConstant(str, align))
+			//	return luaL_error(L, "Incorrect alignment: %s", str);
+		}
+
+		a  = (float) luaL_optnumber(L, 6, 0.0f);
+		sx = (float) luaL_optnumber(L, 7, 1.0f);
+		sy = (float) luaL_optnumber(L, 8, sx);
+		ox = (float) luaL_optnumber(L, 9, 0.0f);
+		oy = (float) luaL_optnumber(L, 10, 0.0f);
+		kx = (float) luaL_optnumber(L, 11, 0.0f);
+		ky = (float) luaL_optnumber(L, 12, 0.0f);
+	}
+
+	sm::Matrix2D mt;
+	mt.SetTransformation(x, -y, -a, sx, sy, ox, -oy, kx, ky);
+	luax_catchexcept(L, [&]() { 
+		INSTANCE()->Print(str, mt);
+	});
+	return 0;
+}
+
+int w_get_width(lua_State *L)
+{
+	int w;
+	luax_catchexcept(L, [&]() {
+		w = INSTANCE()->GetWidth();
+	});
+	lua_pushinteger(L, w);
+	return 1;
+}
+
+int w_get_height(lua_State *L)
+{
+	int h;
+	luax_catchexcept(L, [&]() {
+		h = INSTANCE()->GetHeight();
+	});
+	lua_pushinteger(L, h);
+	return 1;
 }
 
 // List of functions to wrap.
@@ -243,6 +330,12 @@ static const luaL_Reg functions[] =
 	{ "set_line_width", w_set_line_width },
 
 	{ "draw", w_draw },
+
+	{ "print", w_print },
+	{ "printf", w_printf },
+
+	{ "get_width", w_get_width },
+	{ "get_height", w_get_height },
 
 	{ 0, 0 }
 };
