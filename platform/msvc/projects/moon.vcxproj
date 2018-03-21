@@ -77,10 +77,12 @@
     <ClInclude Include="..\..\..\include\moon\StringMap.h" />
     <ClInclude Include="..\..\..\include\moon\typedef.h" />
     <ClInclude Include="..\..\..\include\moon\types.h" />
+    <ClInclude Include="..\..\..\include\moon\Filesystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\Blackboard.cpp" />
     <ClCompile Include="..\..\..\source\Exception.cpp" />
+    <ClCompile Include="..\..\..\source\Filesystem.cpp" />
     <ClCompile Include="..\..\..\source\Memoizer.cpp" />
     <ClCompile Include="..\..\..\source\moon.cpp" />
     <ClCompile Include="..\..\..\source\Graphics.cpp" />
@@ -160,6 +162,7 @@
     <ClCompile Include="..\..\..\source\SceneNodeScript.cpp" />
     <ClCompile Include="..\..\..\source\StagePageScript.cpp" />
     <ClCompile Include="..\..\..\source\types.cpp" />
+    <ClCompile Include="..\..\..\source\wrap_Filesystem.cpp" />
     <ClCompile Include="..\..\..\source\wrap_Graphics.cpp" />
     <ClCompile Include="..\..\..\source\wrap_Mouse.cpp" />
     <ClCompile Include="..\..\..\source\wrap_SceneGraph.cpp" />

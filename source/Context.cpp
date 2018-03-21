@@ -14,6 +14,7 @@ const char* INIT_SCRIPT = R"(
 	require "moon.scene_graph"
 	require "moon.physics"
 	require "moon.mouse"
+	require "moon.filesystem"
 )";
 
 namespace moon

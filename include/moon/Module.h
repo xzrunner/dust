@@ -34,6 +34,7 @@ public:
 		M_SCENE_GRAPH,
 		M_PHYSICS,
 		M_MOUSE,
+		M_FILESYSTEM,
 		M_MAX_ENUM
 	};
 
