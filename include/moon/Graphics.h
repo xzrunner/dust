@@ -31,6 +31,7 @@ public:
 	void Polygon(DrawMode mode, const float* coords, size_t count);
 
 	void SetColor(const pt2::Color& color);
+	const pt2::Color& GetColor() const;
 	void SetBackgroundColor(const pt2::Color& color) { m_background_color = color; }
 	void ClearColor();
 
@@ -48,6 +49,7 @@ private:
 	static StringMap<DrawMode, DRAW_MAX_ENUM>::Entry m_draw_mode_entries[];
 	static StringMap<DrawMode, DRAW_MAX_ENUM> m_draw_modes;
 
+	pt2::Color m_shader_color;
 	pt2::Color m_background_color;
 
 }; // Graphics

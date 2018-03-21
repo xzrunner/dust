@@ -59,11 +59,18 @@ void Graphics::Polygon(DrawMode mode, const float* coords, size_t count)
 
 void Graphics::SetColor(const pt2::Color& color)
 {
+	m_shader_color = color;
+
 	pt2::RenderColorCommon rc;
 	rc.mul = color;
 	pt2::RenderSystem::SetColor(rc);
 
 	pt2::PrimitiveDraw::SetColor(color);
+}
+
+const pt2::Color& Graphics::GetColor() const
+{
+	return m_shader_color;
 }
 
 bool Graphics::GetConstant(const char *in, DrawMode &out)

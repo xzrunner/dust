@@ -34,10 +34,14 @@ StagePageScript::StagePageScript(lua_State* L, const std::string& filepath)
 void StagePageScript::OnLoad() const
 {
 	lua_getfield(L, LUA_REGISTRYINDEX, MOON_LOAD);
-	int err = lua_pcall(L, 0, 0, 0);
-	if (err != LUA_OK) {
-		GD_REPORT_ASSERT(lua_tostring(L, -1));
-		lua_error(L);
+	try {
+		int err = lua_pcall(L, 0, 0, 0);
+		if (err != LUA_OK) {
+			GD_REPORT_ASSERT(lua_tostring(L, -1));
+			lua_error(L);
+		}
+	} catch (std::exception& e) {
+		GD_REPORT_ASSERT(e.what());
 	}
 
 	m_loaded = true;
@@ -50,12 +54,15 @@ void StagePageScript::OnUpdate() const
 	}
 
 	lua_getfield(L, LUA_REGISTRYINDEX, MOON_UPDATE);
-
-	lua_pushnumber(L, 1.0f / 30);
-	int err = lua_pcall(L, 1, 0, 0);
-	if (err != LUA_OK) {
-		GD_REPORT_ASSERT(lua_tostring(L, -1));
-		lua_error(L);
+	try {
+		lua_pushnumber(L, 1.0f / 30);
+		int err = lua_pcall(L, 1, 0, 0);
+		if (err != LUA_OK) {
+			GD_REPORT_ASSERT(lua_tostring(L, -1));
+			lua_error(L);
+		}
+	} catch (std::exception& e) {
+		GD_REPORT_ASSERT(e.what());
 	}
 }
 
@@ -68,11 +75,15 @@ void StagePageScript::OnDraw() const
 	Blackboard::Instance()->GetContext()->GetModuleMgr().
 		GetModule<Graphics>(Module::M_GRAPHICS)->ClearColor();
 
-	lua_getfield(L, LUA_REGISTRYINDEX, MOON_DRAW);
-	int err = lua_pcall(L, 0, 0, 0);
-	if (err != LUA_OK) {
-		GD_REPORT_ASSERT(lua_tostring(L, -1));
-		lua_error(L);
+	try {
+		lua_getfield(L, LUA_REGISTRYINDEX, MOON_DRAW);
+		int err = lua_pcall(L, 0, 0, 0);
+		if (err != LUA_OK) {
+			GD_REPORT_ASSERT(lua_tostring(L, -1));
+			lua_error(L);
+		}
+	} catch (std::exception& e) {
+		GD_REPORT_ASSERT(e.what());
 	}
 }
 
@@ -87,13 +98,17 @@ void StagePageScript::OnMousePressed(int x, int y, int button) const
 		return;
 	}
 
-	lua_pushinteger(L, x);
-	lua_pushinteger(L, y);
-	lua_pushinteger(L, button);
-	int err = lua_pcall(L, 3, 0, 0);
-	if (err != LUA_OK) {
-		GD_REPORT_ASSERT(lua_tostring(L, -1));
-		lua_error(L);
+	try {
+		lua_pushinteger(L, x);
+		lua_pushinteger(L, y);
+		lua_pushinteger(L, button);
+		int err = lua_pcall(L, 3, 0, 0);
+		if (err != LUA_OK) {
+			GD_REPORT_ASSERT(lua_tostring(L, -1));
+			lua_error(L);
+		}
+	} catch (std::exception& e) {
+		GD_REPORT_ASSERT(e.what());
 	}
 }
 
@@ -108,13 +123,17 @@ void StagePageScript::OnMouseReleased(int x, int y, int button) const
 		return;
 	}
 
-	lua_pushinteger(L, x);
-	lua_pushinteger(L, y);
-	lua_pushinteger(L, button);
-	int err = lua_pcall(L, 3, 0, 0);
-	if (err != LUA_OK) {
-		GD_REPORT_ASSERT(lua_tostring(L, -1));
-		lua_error(L);
+	try {
+		lua_pushinteger(L, x);
+		lua_pushinteger(L, y);
+		lua_pushinteger(L, button);
+		int err = lua_pcall(L, 3, 0, 0);
+		if (err != LUA_OK) {
+			GD_REPORT_ASSERT(lua_tostring(L, -1));
+			lua_error(L);
+		}
+	} catch (std::exception& e) {
+		GD_REPORT_ASSERT(e.what());
 	}
 }
 
@@ -129,22 +148,30 @@ void StagePageScript::OnKeyPressed(const char* key) const
 		return;
 	}
 
-	lua_pushstring(L, key);
-	int err = lua_pcall(L, 1, 0, 0);
-	if (err != LUA_OK) {
-		GD_REPORT_ASSERT(lua_tostring(L, -1));
-		lua_error(L);
+	try {
+		lua_pushstring(L, key);
+		int err = lua_pcall(L, 1, 0, 0);
+		if (err != LUA_OK) {
+			GD_REPORT_ASSERT(lua_tostring(L, -1));
+			lua_error(L);
+		}
+	} catch (std::exception& e) {
+		GD_REPORT_ASSERT(e.what());
 	}
 }
 
 int StagePageScript::LoadScript()
 {
 	auto dir = boost::filesystem::path(m_filepath).parent_path().string();
-	SetLuaPath((dir + "\\?.lua").c_str());
+	SetLuaPath((dir + "\\?.lua" + ";" + dir + "\\?\\init.lua").c_str());
 
-	if (luaL_loadfile(L, m_filepath.c_str()) || lua_pcall(L, 0, 0, 0)) {
-		GD_REPORT_ASSERT(lua_tostring(L, -1));
-		lua_error(L);
+	try {
+		if (luaL_loadfile(L, m_filepath.c_str()) || lua_pcall(L, 0, 0, 0)) {
+			GD_REPORT_ASSERT(lua_tostring(L, -1));
+			lua_error(L);
+		}
+	} catch (std::exception& e) {
+		GD_REPORT_ASSERT(e.what());
 	}
 
 	lua_getglobal(L, "moon");

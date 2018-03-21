@@ -3,6 +3,7 @@
 #include <node0/SceneNode.h>
 #include <node2/RenderSystem.h>
 #include <node2/CompTransform.h>
+#include <node2/CompBoundingBox.h>
 #include <ns/NodeFactory.h>
 
 namespace moon
@@ -36,6 +37,11 @@ void SceneNode::SetPosition(const sm::vec2& pos)
 {
 	m_node->GetUniqueComp<n2::CompTransform>().SetPosition(
 		*m_node, sm::vec2(pos.x, pos.y));
+}
+
+const sm::rect& SceneNode::GetBounding() const
+{
+	return m_node->GetUniqueComp<n2::CompBoundingBox>().GetSize();
 }
 
 }

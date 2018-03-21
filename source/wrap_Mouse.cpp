@@ -4,10 +4,10 @@
 #include "moon/Blackboard.h"
 #include "moon/Context.h"
 
-namespace moon
+namespace
 {
 
-#define INSTANCE() (Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<Mouse>(Module::M_MOUSE))
+#define INSTANCE() (moon::Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<moon::Mouse>(moon::Module::M_MOUSE))
 
 int w_get_position(lua_State* L)
 {
@@ -16,6 +16,11 @@ int w_get_position(lua_State* L)
 	lua_pushnumber(L, -pos.y);
 	return 2;
 }
+
+}
+
+namespace moon
+{
 
 // List of functions to wrap.
 static const luaL_Reg functions[] =

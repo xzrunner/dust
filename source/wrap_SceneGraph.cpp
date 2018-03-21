@@ -7,24 +7,29 @@
 
 #include <boost/filesystem.hpp>
 
-namespace moon
+namespace
 {
 
-#define INSTANCE() (Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<SceneGraph>(Module::M_SCENE_GRAPH))
+#define INSTANCE() (moon::Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<moon::SceneGraph>(moon::Module::M_SCENE_GRAPH))
 
 int w_new_scene_node(lua_State* L)
 {
 	const char* filepath = luaL_checkstring(L, 1);
-	auto work_dir = Blackboard::Instance()->GetContext()->GetWorkDir();
+	auto& work_dir = moon::Blackboard::Instance()->GetWorkDir();
 	auto real_path = boost::filesystem::absolute(filepath, work_dir);
 
-	SceneNode* node = nullptr;
-	luax_catchexcept(L, [&]() { node = new SceneNode(real_path.string()); });
-	luax_pushtype(L, SCENE_NODE_ID, node);
+	moon::SceneNode* node = nullptr;
+	moon::luax_catchexcept(L, [&]() { node = new moon::SceneNode(real_path.string()); });
+	moon::luax_pushtype(L, moon::SCENE_NODE_ID, node);
 	node->Release();
 
 	return 1;
 }
+
+}
+
+namespace moon
+{
 
 // List of functions to wrap.
 static const luaL_Reg functions[] =

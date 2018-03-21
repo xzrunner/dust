@@ -4,6 +4,7 @@
 
 #include <SM_Vector.h>
 #include <SM_Matrix2D.h>
+#include <SM_Rect.h>
 #include <node0/typedef.h>
 
 #include <string>
@@ -20,8 +21,9 @@ public:
 	void Draw(const sm::Matrix2D& mt) const;
 
 	const sm::vec2& GetPosition() const;
-
 	void SetPosition(const sm::vec2& pos);
+
+	const sm::rect& GetBounding() const;
 
 private:
 	n0::SceneNodePtr m_node = nullptr;

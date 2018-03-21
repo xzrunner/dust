@@ -10,10 +10,10 @@
 
 struct lua_State;
 
-namespace moon
+namespace
 {
 
-#define INSTANCE() (Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<Graphics>(Module::M_GRAPHICS))
+#define INSTANCE() (moon::Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<moon::Graphics>(moon::Module::M_GRAPHICS))
 
 int w_line(lua_State* L)
 {
@@ -27,7 +27,7 @@ int w_line(lua_State* L)
 	std::vector<float> coords;
 	coords.reserve(args);
 	for (int i = 0; i < args; ++i) {
-		coords.push_back(luax_tofloat(L, i + 1));
+		coords.push_back(moon::luax_tofloat(L, i + 1));
 	}
 
 	// reverse y
@@ -42,9 +42,9 @@ int w_line(lua_State* L)
 
 int w_rectangle(lua_State* L)
 {
-	Graphics::DrawMode mode;
+	moon::Graphics::DrawMode mode;
 	const char *str = luaL_checkstring(L, 1);
-	if (!Graphics::GetConstant(str, mode))
+	if (!moon::Graphics::GetConstant(str, mode))
 		return luaL_error(L, "Invalid draw mode: %s", str);
 
 	float x = (float)luaL_checknumber(L, 2);
@@ -74,9 +74,9 @@ int w_rectangle(lua_State* L)
 
 int w_circle(lua_State* L)
 {
-	Graphics::DrawMode mode;
+	moon::Graphics::DrawMode mode;
 	const char *str = luaL_checkstring(L, 1);
-	if (!Graphics::GetConstant(str, mode)) {
+	if (!moon::Graphics::GetConstant(str, mode)) {
 		return luaL_error(L, "Invalid draw mode: %s", str);
 	}
 
@@ -97,9 +97,9 @@ int w_polygon(lua_State* L)
 {
 	int args = lua_gettop(L) - 1;
 
-	Graphics::DrawMode mode;
+	moon::Graphics::DrawMode mode;
 	const char *str = luaL_checkstring(L, 1);
-	if (!Graphics::GetConstant(str, mode)) {
+	if (!moon::Graphics::GetConstant(str, mode)) {
 		return luaL_error(L, "Invalid draw mode: %s", str);
 	}
 
@@ -107,7 +107,7 @@ int w_polygon(lua_State* L)
 	float *coords;
 	if (args == 1 && lua_istable(L, 2))
 	{
-		args = (int) luax_objlen(L, 2);
+		args = (int)moon::luax_objlen(L, 2);
 		is_table = true;
 	}
 
@@ -124,14 +124,14 @@ int w_polygon(lua_State* L)
 		for (int i = 0; i < args; ++i)
 		{
 			lua_rawgeti(L, 2, i + 1);
-			coords[i] = luax_tofloat(L, -1);
+			coords[i] = moon::luax_tofloat(L, -1);
 			lua_pop(L, 1);
 		}
 	}
 	else
 	{
 		for (int i = 0; i < args; ++i) {
-			coords[i] = luax_tofloat(L, i + 2);
+			coords[i] = moon::luax_tofloat(L, i + 2);
 		}
 	}
 
@@ -176,6 +176,16 @@ int w_set_color(lua_State* L)
 	return 0;
 }
 
+int w_get_color(lua_State* L)
+{
+	auto& c = INSTANCE()->GetColor();
+	lua_pushnumber(L, c.r);
+	lua_pushnumber(L, c.g);
+	lua_pushnumber(L, c.b);
+	lua_pushnumber(L, c.a);
+	return 4;
+}
+
 int w_set_background_color(lua_State* L)
 {
 	pt2::Color c;
@@ -209,9 +219,19 @@ int w_set_line_width(lua_State *L)
 	return 0;
 }
 
+int w_get_font(lua_State *L)
+{
+	return 0;
+}
+
+int w_set_font(lua_State *L)
+{
+	return 0;
+}
+
 int w_draw(lua_State* L)
 {
-	if (!luax_istype(L, 1, SCENE_NODE_ID)) {
+	if (!moon::luax_istype(L, 1, moon::SCENE_NODE_ID)) {
 		return 0;
 	}
 
@@ -226,10 +246,10 @@ int w_draw(lua_State* L)
 	float kx = (float)luaL_optnumber(L, startidx + 7, 0.0);
 	float ky = (float)luaL_optnumber(L, startidx + 8, 0.0);
 
-	auto node = luax_checktype<SceneNode>(L, 1, SCENE_NODE_ID);
+	auto node = moon::luax_checktype<moon::SceneNode>(L, 1, moon::SCENE_NODE_ID);
 	sm::Matrix2D mt;
 	mt.SetTransformation(x, -y, -a, sx, sy, ox, -oy, kx, ky);
-	luax_catchexcept(L, [&]() {
+	moon::luax_catchexcept(L, [&]() {
 		node->Draw(mt);
 	});
 	return 0;
@@ -250,7 +270,7 @@ int w_print(lua_State *L)
 
 	sm::Matrix2D mt;
 	mt.SetTransformation(x, -y, -a, sx, sy, ox, -oy, kx, ky);
-	luax_catchexcept(L, [&]() { 
+	moon::luax_catchexcept(L, [&]() {
 		INSTANCE()->Print(str, mt);
 	});
 	return 0;
@@ -289,7 +309,7 @@ int w_printf(lua_State *L)
 
 	sm::Matrix2D mt;
 	mt.SetTransformation(x, -y, -a, sx, sy, ox, -oy, kx, ky);
-	luax_catchexcept(L, [&]() { 
+	moon::luax_catchexcept(L, [&]() {
 		INSTANCE()->Print(str, mt);
 	});
 	return 0;
@@ -298,7 +318,7 @@ int w_printf(lua_State *L)
 int w_get_width(lua_State *L)
 {
 	int w;
-	luax_catchexcept(L, [&]() {
+	moon::luax_catchexcept(L, [&]() {
 		w = INSTANCE()->GetWidth();
 	});
 	lua_pushinteger(L, w);
@@ -308,12 +328,17 @@ int w_get_width(lua_State *L)
 int w_get_height(lua_State *L)
 {
 	int h;
-	luax_catchexcept(L, [&]() {
+	moon::luax_catchexcept(L, [&]() {
 		h = INSTANCE()->GetHeight();
 	});
 	lua_pushinteger(L, h);
 	return 1;
 }
+
+}
+
+namespace moon
+{
 
 // List of functions to wrap.
 static const luaL_Reg functions[] =
@@ -326,8 +351,11 @@ static const luaL_Reg functions[] =
 
 	// state
 	{ "set_color", w_set_color },
+	{ "get_color", w_get_color },
 	{ "set_background_color", w_set_background_color },
 	{ "set_line_width", w_set_line_width },
+	{ "get_font", w_get_font },
+	{ "set_font", w_set_font },
 
 	{ "draw", w_draw },
 

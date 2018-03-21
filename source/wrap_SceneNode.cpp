@@ -3,12 +3,12 @@
 
 #include <SM_Vector.h>
 
-namespace moon
+namespace
 {
 
-SceneNode* luax_checkcanvas(lua_State* L, int idx)
+moon::SceneNode* luax_checkcanvas(lua_State* L, int idx)
 {
-	return luax_checktype<SceneNode>(L, idx, SCENE_NODE_ID);
+	return moon::luax_checktype<moon::SceneNode>(L, idx, moon::SCENE_NODE_ID);
 }
 
 int w_get_pos(lua_State* L)
@@ -29,10 +29,34 @@ int w_set_pos(lua_State* L)
 	return 0;
 }
 
+int w_get_width(lua_State *L)
+{
+	auto node = luax_checkcanvas(L, 1);
+	auto& rect = node->GetBounding();
+	lua_pushnumber(L, rect.Width());
+	return 1;
+}
+
+int w_get_height(lua_State *L)
+{
+	auto node = luax_checkcanvas(L, 1);
+	auto& rect = node->GetBounding();
+	lua_pushnumber(L, rect.Height());
+	return 1;
+}
+
+}
+namespace moon
+{
+
 static const luaL_Reg w_functions[] =
 {
 	{ "get_pos", w_get_pos },
 	{ "set_pos", w_set_pos },
+
+	{ "get_width", w_get_width },
+	{ "get_height", w_get_height },	
+
 	{ 0, 0 }
 };
 
