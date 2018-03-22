@@ -34,6 +34,12 @@ StagePageScript::StagePageScript(lua_State* L, const std::string& filepath)
 void StagePageScript::OnLoad() const
 {
 	lua_getfield(L, LUA_REGISTRYINDEX, MOON_LOAD);
+	if (lua_isnil(L, -1)) {
+		lua_pop(L, 1);
+		m_loaded = true;
+		return;
+	}
+
 	try {
 		int err = lua_pcall(L, 0, 0, 0);
 		if (err != LUA_OK) {
@@ -54,6 +60,11 @@ void StagePageScript::OnUpdate() const
 	}
 
 	lua_getfield(L, LUA_REGISTRYINDEX, MOON_UPDATE);
+	if (lua_isnil(L, -1)) {
+		lua_pop(L, 1);
+		return;
+	}
+
 	try {
 		lua_pushnumber(L, 1.0f / 30);
 		int err = lua_pcall(L, 1, 0, 0);
@@ -75,8 +86,12 @@ void StagePageScript::OnDraw() const
 	Blackboard::Instance()->GetContext()->GetModuleMgr().
 		GetModule<Graphics>(Module::M_GRAPHICS)->ClearColor();
 
+	lua_getfield(L, LUA_REGISTRYINDEX, MOON_DRAW);
+	if (lua_isnil(L, -1)) {
+		lua_pop(L, 1);
+		return;
+	}
 	try {
-		lua_getfield(L, LUA_REGISTRYINDEX, MOON_DRAW);
 		int err = lua_pcall(L, 0, 0, 0);
 		if (err != LUA_OK) {
 			GD_REPORT_ASSERT(lua_tostring(L, -1));
@@ -95,6 +110,7 @@ void StagePageScript::OnMousePressed(int x, int y, int button) const
 
 	lua_getfield(L, LUA_REGISTRYINDEX, MOON_MOUSE_PRESSED);
 	if (lua_isnil(L, -1)) {
+		lua_pop(L, 1);
 		return;
 	}
 
@@ -120,6 +136,7 @@ void StagePageScript::OnMouseReleased(int x, int y, int button) const
 
 	lua_getfield(L, LUA_REGISTRYINDEX, MOON_MOUSE_RELEASED);
 	if (lua_isnil(L, -1)) {
+		lua_pop(L, 1);
 		return;
 	}
 
@@ -145,9 +162,9 @@ void StagePageScript::OnKeyPressed(const char* key) const
 
 	lua_getfield(L, LUA_REGISTRYINDEX, MOON_KEY_PRESSED);
 	if (lua_isnil(L, -1)) {
+		lua_pop(L, 1);
 		return;
 	}
-
 	try {
 		lua_pushstring(L, key);
 		int err = lua_pcall(L, 1, 0, 0);
