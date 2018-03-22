@@ -18,6 +18,13 @@ namespace
 int w_line(lua_State* L)
 {
 	int args = lua_gettop(L);
+	bool is_table = false;
+	if (args == 1 && lua_istable(L, 1))
+	{
+		args = (int)moon::luax_objlen(L, 1);
+		is_table = true;
+	}
+
 	if (args % 2 != 0) {
 		return luaL_error(L, "Number of vertex components must be a multiple of two");
 	} else if (args < 4) {
@@ -26,6 +33,21 @@ int w_line(lua_State* L)
 
 	std::vector<float> coords;
 	coords.reserve(args);
+	if (is_table)
+	{
+		for (int i = 0; i < args; ++i)
+		{
+			lua_rawgeti(L, 1, i + 1);
+			coords.push_back(moon::luax_tofloat(L, -1));
+			lua_pop(L, 1);
+		}
+	}
+	else
+	{
+		for (int i = 0; i < args; ++i) {
+			coords.push_back(moon::luax_tofloat(L, i + 1));
+		}
+	}
 	for (int i = 0; i < args; ++i) {
 		coords.push_back(moon::luax_tofloat(L, i + 1));
 	}
