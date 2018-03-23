@@ -90,13 +90,10 @@
     <ClCompile Include="..\..\..\source\ModuleMgr.cpp" />
     <ClCompile Include="..\..\..\source\Mouse.cpp" />
     <ClCompile Include="..\..\..\source\Object.cpp" />
-    <ClCompile Include="..\..\..\source\physics\Body.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
-    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\Body.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\Body.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/box2d/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/box2d/</ObjectFileName>
     </ClCompile>
     <ClCompile Include="..\..\..\source\physics\box2d\ChainShape.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\CircleShape.cpp" />
@@ -107,8 +104,8 @@
     <ClCompile Include="..\..\..\source\physics\box2d\FrictionJoint.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\GearJoint.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\Joint.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/box2d/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/box2d/</ObjectFileName>
     </ClCompile>
     <ClCompile Include="..\..\..\source\physics\box2d\MotorJoint.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\MouseJoint.cpp" />
@@ -119,8 +116,8 @@
     <ClCompile Include="..\..\..\source\physics\box2d\RevoluteJoint.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\RopeJoint.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\Shape.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/box2d/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/box2d/</ObjectFileName>
     </ClCompile>
     <ClCompile Include="..\..\..\source\physics\box2d\WeldJoint.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\WheelJoint.cpp" />
@@ -138,7 +135,7 @@
     <ClCompile Include="..\..\..\source\physics\box2d\wrap_MotorJoint.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\wrap_MouseJoint.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\wrap_Physics.cpp" />
-    <ClCompile Include="..\..\..\source\physics\box2d\wrap_PolygonShape.cpp" />
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_PolygonShape.cpp" /> 
     <ClCompile Include="..\..\..\source\physics\box2d\wrap_PrismaticJoint.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\wrap_PulleyJoint.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\wrap_RevoluteJoint.cpp" />
@@ -147,14 +144,8 @@
     <ClCompile Include="..\..\..\source\physics\box2d\wrap_WeldJoint.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\wrap_WheelJoint.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\wrap_World.cpp" />
-    <ClCompile Include="..\..\..\source\physics\Joint.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\physics\Shape.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/%(RelativeDir)/</ObjectFileName>
-    </ClCompile>
+    <ClCompile Include="..\..\..\source\physics\Joint.cpp" />
+    <ClCompile Include="..\..\..\source\physics\Shape.cpp" />
     <ClCompile Include="..\..\..\source\Reference.cpp" />
     <ClCompile Include="..\..\..\source\runtime.cpp" />
     <ClCompile Include="..\..\..\source\SceneGraph.cpp" />
