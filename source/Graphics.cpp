@@ -98,11 +98,11 @@ void Graphics::SetLineWidth(float width)
 	pt2::PrimitiveDraw::LineWidth(width);
 }
 
-void Graphics::Print(const char* str, const sm::Matrix2D& mt) const
+void Graphics::Print(const char* str, const sm::Matrix2D& mt, const pt2::RenderColorCommon& col) const
 {
 	pt2::Text text;
 	text.text = str;
-	pt2::RenderSystem::DrawText(text, mt);
+	pt2::RenderSystem::DrawText(text, mt, col);
 }
 
 int Graphics::GetWidth() const

@@ -5,6 +5,8 @@
 #include "moon/Context.h"
 #include "moon/SceneNode.h"
 
+#include <painting2/RenderColorCommon.h>
+
 #include <vector>
 #include <algorithm>
 
@@ -293,7 +295,7 @@ int w_print(lua_State *L)
 	sm::Matrix2D mt;
 	mt.SetTransformation(x, -y, -a, sx, sy, ox, -oy, kx, ky);
 	moon::luax_catchexcept(L, [&]() {
-		INSTANCE()->Print(str, mt);
+		INSTANCE()->Print(str, mt, pt2::RenderColorCommon());
 	});
 	return 0;
 }
@@ -332,7 +334,7 @@ int w_printf(lua_State *L)
 	sm::Matrix2D mt;
 	mt.SetTransformation(x, -y, -a, sx, sy, ox, -oy, kx, ky);
 	moon::luax_catchexcept(L, [&]() {
-		INSTANCE()->Print(str, mt);
+		INSTANCE()->Print(str, mt, pt2::RenderColorCommon());
 	});
 	return 0;
 }
