@@ -23,16 +23,16 @@
       <Filter>common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\wrap_SceneGraph.cpp">
-      <Filter>modules\scene_graph</Filter>
+      <Filter>modules\scene</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\SceneNodeScript.cpp">
       <Filter>editor</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\SceneGraph.cpp">
-      <Filter>modules\scene_graph</Filter>
+      <Filter>modules\scene</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\wrap_SceneNode.cpp">
-      <Filter>modules\scene_graph</Filter>
+      <Filter>modules\scene</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\ModuleMgr.cpp">
       <Filter>common</Filter>
@@ -44,7 +44,7 @@
       <Filter>editor</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\SceneNode.cpp">
-      <Filter>modules\scene_graph</Filter>
+      <Filter>modules\scene</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\physics\Body.cpp">
       <Filter>modules\physics</Filter>
@@ -208,6 +208,9 @@
     <ClCompile Include="..\..\..\source\Filesystem.cpp">
       <Filter>modules\filesystem</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\ScriptHelper.cpp">
+      <Filter>editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\moon\Graphics.h">
@@ -241,10 +244,10 @@
       <Filter>editor</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\moon\SceneNode.h">
-      <Filter>modules\scene_graph</Filter>
+      <Filter>modules\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\moon\SceneGraph.h">
-      <Filter>modules\scene_graph</Filter>
+      <Filter>modules\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\moon\ModuleMgr.h">
       <Filter>common</Filter>
@@ -411,6 +414,9 @@
     <ClInclude Include="..\..\..\include\moon\Filesystem.h">
       <Filter>modules\filesystem</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\ScriptHelper.h">
+      <Filter>editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="modules">
@@ -421,9 +427,6 @@
     </Filter>
     <Filter Include="common">
       <UniqueIdentifier>{3fc3d4d0-81b5-4f3a-acf6-927d4c1108ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="modules\scene_graph">
-      <UniqueIdentifier>{d178a3dd-8716-4f40-95bc-2712adf9dac2}</UniqueIdentifier>
     </Filter>
     <Filter Include="editor">
       <UniqueIdentifier>{2355edfc-29bc-40b9-962f-3e7f442b37a9}</UniqueIdentifier>
@@ -439,6 +442,9 @@
     </Filter>
     <Filter Include="modules\filesystem">
       <UniqueIdentifier>{dc9c100c-de4e-4224-a4cf-03923639fa7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\scene">
+      <UniqueIdentifier>{d178a3dd-8716-4f40-95bc-2712adf9dac2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

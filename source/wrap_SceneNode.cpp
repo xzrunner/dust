@@ -6,14 +6,14 @@
 namespace
 {
 
-moon::SceneNode* luax_checkcanvas(lua_State* L, int idx)
+moon::SceneNode* luax_checknode(lua_State* L, int idx)
 {
 	return moon::luax_checktype<moon::SceneNode>(L, idx, moon::SCENE_NODE_ID);
 }
 
 int w_get_pos(lua_State* L)
 {
-	auto node = luax_checkcanvas(L, 1);
+	auto node = luax_checknode(L, 1);
 	auto& pos = node->GetPosition();
 	lua_pushnumber(L, pos.x);
 	lua_pushnumber(L, pos.y);
@@ -22,7 +22,7 @@ int w_get_pos(lua_State* L)
 
 int w_set_pos(lua_State* L)
 {
-	auto node = luax_checkcanvas(L, 1);
+	auto node = luax_checknode(L, 1);
 	float x = static_cast<float>(luaL_optnumber(L, 2, 0));
 	float y = static_cast<float>(luaL_optnumber(L, 3, 0));
 	node->SetPosition(sm::vec2(x, y));
@@ -31,7 +31,7 @@ int w_set_pos(lua_State* L)
 
 int w_get_width(lua_State *L)
 {
-	auto node = luax_checkcanvas(L, 1);
+	auto node = luax_checknode(L, 1);
 	auto& rect = node->GetBounding();
 	lua_pushnumber(L, rect.Width());
 	return 1;
@@ -39,7 +39,7 @@ int w_get_width(lua_State *L)
 
 int w_get_height(lua_State *L)
 {
-	auto node = luax_checkcanvas(L, 1);
+	auto node = luax_checknode(L, 1);
 	auto& rect = node->GetBounding();
 	lua_pushnumber(L, rect.Height());
 	return 1;

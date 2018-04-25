@@ -11,7 +11,7 @@ extern "C" {
 const char* INIT_SCRIPT = R"(
 	require "moon"
 	require "moon.graphics"
-	require "moon.scene_graph"
+	require "moon.scene"
 	require "moon.physics"
 	require "moon.mouse"
 	require "moon.filesystem"

@@ -73,6 +73,7 @@
     <ClInclude Include="..\..\..\include\moon\SceneGraph.h" />
     <ClInclude Include="..\..\..\include\moon\SceneNode.h" />
     <ClInclude Include="..\..\..\include\moon\SceneNodeScript.h" />
+    <ClInclude Include="..\..\..\include\moon\ScriptHelper.h" />
     <ClInclude Include="..\..\..\include\moon\StagePageScript.h" />
     <ClInclude Include="..\..\..\include\moon\StringMap.h" />
     <ClInclude Include="..\..\..\include\moon\typedef.h" />
@@ -135,7 +136,7 @@
     <ClCompile Include="..\..\..\source\physics\box2d\wrap_MotorJoint.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\wrap_MouseJoint.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\wrap_Physics.cpp" />
-    <ClCompile Include="..\..\..\source\physics\box2d\wrap_PolygonShape.cpp" /> 
+    <ClCompile Include="..\..\..\source\physics\box2d\wrap_PolygonShape.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\wrap_PrismaticJoint.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\wrap_PulleyJoint.cpp" />
     <ClCompile Include="..\..\..\source\physics\box2d\wrap_RevoluteJoint.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="..\..\..\source\SceneGraph.cpp" />
     <ClCompile Include="..\..\..\source\SceneNode.cpp" />
     <ClCompile Include="..\..\..\source\SceneNodeScript.cpp" />
+    <ClCompile Include="..\..\..\source\ScriptHelper.cpp" />
     <ClCompile Include="..\..\..\source\StagePageScript.cpp" />
     <ClCompile Include="..\..\..\source\types.cpp" />
     <ClCompile Include="..\..\..\source\wrap_Filesystem.cpp" />
@@ -202,7 +204,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\node0\include;..\..\..\..\node2\include;..\..\..\..\nserializer\include;..\..\..\..\unirender\include;..\..\..\..\external\lua\include;..\..\..\..\external\boost\include;..\..\..\..\external\rapidjson\include;..\..\..\..\external\box2d\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\node0\include;..\..\..\..\node2\include;..\..\..\..\nserializer\include;..\..\..\..\unirender\include;..\..\..\..\easyeditor0\include;..\..\..\..\external\lua\include;..\..\..\..\external\boost\include;..\..\..\..\external\rapidjson\include;..\..\..\..\external\box2d\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -216,7 +218,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\node0\include;..\..\..\..\node2\include;..\..\..\..\nserializer\include;..\..\..\..\unirender\include;..\..\..\..\external\lua\include;..\..\..\..\external\boost\include;..\..\..\..\external\rapidjson\include;..\..\..\..\external\box2d\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\node0\include;..\..\..\..\node2\include;..\..\..\..\nserializer\include;..\..\..\..\unirender\include;..\..\..\..\easyeditor0\include;..\..\..\..\external\lua\include;..\..\..\..\external\boost\include;..\..\..\..\external\rapidjson\include;..\..\..\..\external\box2d\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
