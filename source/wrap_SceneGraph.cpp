@@ -8,6 +8,7 @@
 #include "moon/runtime.h"
 
 #include <ee0/CompNodeEditor.h>
+#include <ee0/MsgHelper.h>
 
 #include <node0/SceneNode.h>
 #include <node2/CompComplex.h>
@@ -89,16 +90,19 @@ int w_get_node(lua_State* L)
 	return 0;
 }
 
-int w_new_scene_node(lua_State* L)
+int w_new_node(lua_State* L)
 {
+	auto bb = moon::Blackboard::Instance();
+
 	const char* filepath = luaL_checkstring(L, 1);
-	auto& work_dir = moon::Blackboard::Instance()->GetWorkDir();
-	auto real_path = boost::filesystem::absolute(filepath, work_dir);
+	auto real_path = boost::filesystem::absolute(filepath, bb->GetWorkDir());
 
 	moon::SceneNode* node = nullptr;
 	moon::luax_catchexcept(L, [&]() { node = new moon::SceneNode(real_path.string()); });
 	moon::luax_pushtype(L, moon::SCENE_NODE_ID, node);
 	node->Release();
+
+	ee0::MsgHelper::InsertNode(*bb->GetSubMgr(), node->GetNode());
 
 	return 1;
 }
@@ -114,7 +118,7 @@ static const luaL_Reg functions[] =
 	{ "get_selected_nodes", w_get_selected_nodes },
 	{ "get_node", w_get_node },
 
-	{ "new_scene_node", w_new_scene_node },
+	{ "new_node", w_new_node },
 
 	{ 0, 0 }
 };
