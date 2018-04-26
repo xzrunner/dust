@@ -25,6 +25,8 @@ public:
 
 	const sm::rect& GetBounding() const;
 
+	const n0::SceneNodePtr& GetNode() const { return m_node; }
+
 private:
 	n0::SceneNodePtr m_node = nullptr;
 
