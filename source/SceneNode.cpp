@@ -1,5 +1,7 @@
 #include "moon/SceneNode.h"
 
+#include <ee0/CompNodeEditor.h>
+
 #include <node0/SceneNode.h>
 #include <node2/RenderSystem.h>
 #include <node2/CompTransform.h>
@@ -42,6 +44,11 @@ void SceneNode::SetPosition(const sm::vec2& pos)
 const sm::rect& SceneNode::GetBounding() const
 {
 	return m_node->GetUniqueComp<n2::CompBoundingBox>().GetSize();
+}
+
+const std::string& SceneNode::GetFilepath() const
+{
+	return m_node->GetUniqueComp<ee0::CompNodeEditor>().GetFilepath();
 }
 
 }

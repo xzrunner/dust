@@ -20,73 +20,110 @@ namespace
 
 #define INSTANCE() (moon::Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<moon::SceneGraph>(moon::Module::M_SCENE_GRAPH))
 
-int w_get_selected_nodes(lua_State* L)
+void return_node(lua_State* L, const n0::SceneNodePtr node)
 {
-	lua_newtable(L);
-
-	auto& selection = INSTANCE()->GetSelectioin();
-	for (int i = 0, n = selection.size(); i < n; ++i) 
-	{
-		moon::SceneNode* node = nullptr;
-		moon::luax_catchexcept(L, [&]() { 
-			node = new moon::SceneNode(selection[i]); 
-		});
-		moon::luax_pushtype(L, moon::SCENE_NODE_ID, node);
-		node->Release();
-		lua_rawseti(L, -2, i + 1);
-	}
-
-	return 1;
+	moon::SceneNode* w_node = nullptr;
+	moon::luax_catchexcept(L, [&]() {
+		w_node = new moon::SceneNode(node);
+	});
+	moon::luax_pushtype(L, moon::SCENE_NODE_ID, w_node);
+	w_node->Release();
 }
 
 int w_get_node(lua_State* L)
 {
-	auto& root = INSTANCE()->GetRoot();
-	if (!root->HasSharedComp<n2::CompComplex>()) {
-		return luaL_error(L, "root node is not complex.");
-	}
-	
-	auto& nodes = root->GetSharedComp<n2::CompComplex>().GetAllChildren();
+	int ret = 0;
 	if (lua_isstring(L, 1)) 
 	{
 		const char* name = lua_tostring(L, 1);
-		for (auto& node : nodes) 
+		INSTANCE()->TraverseAllNodes([&](const n0::SceneNodePtr& node)->bool 
 		{
 			auto& ceditor = node->GetUniqueComp<ee0::CompNodeEditor>();
-			if (ceditor.GetName() == name) 
-			{
-				moon::SceneNode* w_node = nullptr;
-				moon::luax_catchexcept(L, [&]() {
-					w_node = new moon::SceneNode(node);
-				});
-				moon::luax_pushtype(L, moon::SCENE_NODE_ID, w_node);
-				w_node->Release();
-				return 1;
+			if (ceditor.GetName() == name) {
+				return_node(L, node);
+				ret = 1;
+				return false;
 			}
-		}
+			return true;
+		});
 	} 
 	else if (lua_isinteger(L, 1)) 
 	{
 		auto id = lua_tointeger(L, 1);
-		for (auto& node : nodes)
+		INSTANCE()->TraverseAllNodes([&](const n0::SceneNodePtr& node)->bool 
 		{
 			auto& ceditor = node->GetUniqueComp<ee0::CompNodeEditor>();
-			if (ceditor.GetID() == id)
-			{
-				moon::SceneNode* w_node = nullptr;
-				moon::luax_catchexcept(L, [&]() {
-					w_node = new moon::SceneNode(node);
-				});
-				moon::luax_pushtype(L, moon::SCENE_NODE_ID, w_node);
-				w_node->Release();
-				return 1;
+			if (ceditor.GetID() == id) {
+				return_node(L, node);
+				ret = 1;
+				return false;
 			}
-		}
+			return true;
+		});
 	} 
 	else 
 	{
 		return luaL_error(L, "should pass name or id.");
 	}
+	return ret;
+}
+
+int w_get_selection(lua_State* L)
+{
+	lua_newtable(L);
+
+	int idx = 0;
+	INSTANCE()->TraverseSelection([&](const n0::SceneNodePtr& node)->bool
+	{
+		return_node(L, node);
+		lua_rawseti(L, -2, idx + 1);
+		++idx;
+		return true;
+	});
+
+	return 1;
+}
+
+int w_get_all_nodes(lua_State* L)
+{
+	lua_newtable(L);
+
+	int idx = 0;
+	INSTANCE()->TraverseAllNodes([&](const n0::SceneNodePtr& node)->bool
+	{
+		return_node(L, node);
+		lua_rawseti(L, -2, idx + 1);
+		++idx;
+		return true;
+	});
+
+	return 1;
+}
+
+int w_set_selection(lua_State* L)
+{
+	if (!lua_istable(L, 1)) {
+		return 0;
+	}
+
+	int n = (int)moon::luax_objlen(L, 1);
+	if (n == 0) {
+		return 0;
+	}
+
+	std::vector<n0::SceneNodePtr> nodes;
+	nodes.reserve(n);
+	for (int i = 1; i <= n; ++i)
+	{
+		lua_rawgeti(L, 1, i);
+		
+		auto sn = moon::luax_checktype<moon::SceneNode>(L, -1, moon::SCENE_NODE_ID);
+		nodes.push_back(sn->GetNode());
+
+		lua_pop(L, 1);
+	}
+	INSTANCE()->SetSelection(nodes);
+
 	return 0;
 }
 
@@ -115,8 +152,11 @@ namespace moon
 // List of functions to wrap.
 static const luaL_Reg functions[] =
 {
-	{ "get_selected_nodes", w_get_selected_nodes },
 	{ "get_node", w_get_node },
+	{ "get_selection", w_get_selection },
+	{ "get_all_nodes", w_get_all_nodes },
+	
+	{ "set_selection", w_set_selection },
 
 	{ "new_node", w_new_node },
 

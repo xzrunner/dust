@@ -236,19 +236,19 @@ int w_set_background_color(lua_State* L)
 	return 0;
 }
 
-int w_set_line_width(lua_State *L)
+int w_set_line_width(lua_State* L)
 {
 	float width = (float)luaL_checknumber(L, 1);
 	INSTANCE()->SetLineWidth(width);
 	return 0;
 }
 
-int w_get_font(lua_State *L)
+int w_get_font(lua_State* L)
 {
 	return 0;
 }
 
-int w_set_font(lua_State *L)
+int w_set_font(lua_State* L)
 {
 	return 0;
 }
@@ -279,7 +279,7 @@ int w_draw(lua_State* L)
 	return 0;
 }
 
-int w_print(lua_State *L)
+int w_print(lua_State* L)
 {
 	const char* str = luaL_checkstring(L, 1);
 	float x  = (float)luaL_optnumber(L, 2, 0.0);
@@ -300,7 +300,7 @@ int w_print(lua_State *L)
 	return 0;
 }
 
-int w_printf(lua_State *L)
+int w_printf(lua_State* L)
 {
 	const char* str = luaL_checkstring(L, 1);
 	float x  = (float)luaL_optnumber(L, 2, 0.0);
@@ -339,7 +339,7 @@ int w_printf(lua_State *L)
 	return 0;
 }
 
-int w_get_width(lua_State *L)
+int w_get_width(lua_State* L)
 {
 	int w;
 	moon::luax_catchexcept(L, [&]() {
@@ -349,7 +349,7 @@ int w_get_width(lua_State *L)
 	return 1;
 }
 
-int w_get_height(lua_State *L)
+int w_get_height(lua_State* L)
 {
 	int h;
 	moon::luax_catchexcept(L, [&]() {

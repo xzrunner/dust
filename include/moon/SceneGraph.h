@@ -5,6 +5,7 @@
 #include <node0/typedef.h>
 
 #include <vector>
+#include <functional>
 
 namespace moon
 {
@@ -12,19 +13,25 @@ namespace moon
 class SceneGraph : public Module
 {
 public:
+	using TRAVERSE_FUNC = std::function<bool(const n0::SceneNodePtr&)>;
+
+public:
 	virtual ModuleType GetModuleType() const { return M_SCENE_GRAPH; }
 	virtual const char* GetName() const { return "moon.scene"; }
 
-	void SetSelection(const std::vector<n0::SceneNodePtr>& selection) { m_selection = selection; }
-	const std::vector<n0::SceneNodePtr>& GetSelectioin() const { return m_selection; }
+	void SetTraverseAllNodesFunc(std::function<void(TRAVERSE_FUNC)> func) { m_trav_all_node = func; }
+	void SetTraverseSelectionFunc(std::function<void(TRAVERSE_FUNC)> func) { m_trav_selection = func; }
+	void SetSetSelectionFunc(std::function<void(const std::vector<n0::SceneNodePtr>&)> func) { m_set_selection = func; }
 
-	const n0::SceneNodePtr& GetRoot() const { return m_root; }
-	void SetRoot(const n0::SceneNodePtr& root) { m_root = root; }
-	
+	void TraverseAllNodes(std::function<bool(const n0::SceneNodePtr&)> func) { m_trav_all_node(func); }
+	void TraverseSelection(std::function<bool(const n0::SceneNodePtr&)> func) { m_trav_selection(func); }
+	void SetSelection(const std::vector<n0::SceneNodePtr>& nodes) { m_set_selection(nodes); }
+
 private:
-	std::vector<n0::SceneNodePtr> m_selection;
+	std::function<void(TRAVERSE_FUNC)> m_trav_all_node;
+	std::function<void(TRAVERSE_FUNC)> m_trav_selection;
 
-	n0::SceneNodePtr m_root = nullptr;
+	std::function<void(const std::vector<n0::SceneNodePtr>&)> m_set_selection;
 
 }; // SceneGraph
 

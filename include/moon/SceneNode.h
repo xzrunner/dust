@@ -25,6 +25,8 @@ public:
 
 	const sm::rect& GetBounding() const;
 
+	const std::string& GetFilepath() const;
+
 	const n0::SceneNodePtr& GetNode() const { return m_node; }
 
 private:

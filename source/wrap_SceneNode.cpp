@@ -29,7 +29,7 @@ int w_set_pos(lua_State* L)
 	return 0;
 }
 
-int w_get_width(lua_State *L)
+int w_get_width(lua_State* L)
 {
 	auto node = luax_checknode(L, 1);
 	auto& rect = node->GetBounding();
@@ -37,11 +37,19 @@ int w_get_width(lua_State *L)
 	return 1;
 }
 
-int w_get_height(lua_State *L)
+int w_get_height(lua_State* L)
 {
 	auto node = luax_checknode(L, 1);
 	auto& rect = node->GetBounding();
 	lua_pushnumber(L, rect.Height());
+	return 1;
+}
+
+int w_get_filepath(lua_State* L)
+{
+	auto node = luax_checknode(L, 1);
+	auto& filepath = node->GetFilepath();
+	lua_pushstring(L, filepath.c_str());
 	return 1;
 }
 
@@ -56,6 +64,8 @@ static const luaL_Reg w_functions[] =
 
 	{ "get_width", w_get_width },
 	{ "get_height", w_get_height },	
+
+	{ "get_filepath", w_get_filepath },
 
 	{ 0, 0 }
 };
