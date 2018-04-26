@@ -35,6 +35,7 @@ public:
 		M_PHYSICS,
 		M_MOUSE,
 		M_FILESYSTEM,
+		M_GUI,
 		M_MAX_ENUM
 	};
 

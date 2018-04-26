@@ -211,6 +211,12 @@
     <ClCompile Include="..\..\..\source\ScriptHelper.cpp">
       <Filter>editor</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\Gui.cpp">
+      <Filter>modules\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\wrap_Gui.cpp">
+      <Filter>modules\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\moon\Graphics.h">
@@ -417,6 +423,9 @@
     <ClInclude Include="..\..\..\include\moon\ScriptHelper.h">
       <Filter>editor</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\Gui.h">
+      <Filter>modules\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="modules">
@@ -445,6 +454,9 @@
     </Filter>
     <Filter Include="modules\scene">
       <UniqueIdentifier>{d178a3dd-8716-4f40-95bc-2712adf9dac2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\gui">
+      <UniqueIdentifier>{e1a943c2-0371-47eb-8820-7abbdb409379}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

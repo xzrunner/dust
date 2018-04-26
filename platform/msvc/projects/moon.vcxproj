@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\include\moon\Blackboard.h" />
     <ClInclude Include="..\..\..\include\moon\Exception.h" />
+    <ClInclude Include="..\..\..\include\moon\Gui.h" />
     <ClInclude Include="..\..\..\include\moon\Memoizer.h" />
     <ClInclude Include="..\..\..\include\moon\moon.h" />
     <ClInclude Include="..\..\..\include\moon\Graphics.h" />
@@ -84,6 +85,7 @@
     <ClCompile Include="..\..\..\source\Blackboard.cpp" />
     <ClCompile Include="..\..\..\source\Exception.cpp" />
     <ClCompile Include="..\..\..\source\Filesystem.cpp" />
+    <ClCompile Include="..\..\..\source\Gui.cpp" />
     <ClCompile Include="..\..\..\source\Memoizer.cpp" />
     <ClCompile Include="..\..\..\source\moon.cpp" />
     <ClCompile Include="..\..\..\source\Graphics.cpp" />
@@ -157,6 +159,7 @@
     <ClCompile Include="..\..\..\source\types.cpp" />
     <ClCompile Include="..\..\..\source\wrap_Filesystem.cpp" />
     <ClCompile Include="..\..\..\source\wrap_Graphics.cpp" />
+    <ClCompile Include="..\..\..\source\wrap_Gui.cpp" />
     <ClCompile Include="..\..\..\source\wrap_Mouse.cpp" />
     <ClCompile Include="..\..\..\source\wrap_SceneGraph.cpp" />
     <ClCompile Include="..\..\..\source\wrap_SceneNode.cpp" />
@@ -204,7 +207,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\node0\include;..\..\..\..\node2\include;..\..\..\..\nserializer\include;..\..\..\..\unirender\include;..\..\..\..\easyeditor0\include;..\..\..\..\external\lua\include;..\..\..\..\external\boost\include;..\..\..\..\external\rapidjson\include;..\..\..\..\external\box2d\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\node0\include;..\..\..\..\node2\include;..\..\..\..\nserializer\include;..\..\..\..\unirender\include;..\..\..\..\easyeditor0\include;..\..\..\..\external\lua\include;..\..\..\..\external\boost\include;..\..\..\..\external\rapidjson\include;..\..\..\..\external\box2d\include;..\..\..\..\external-editor\wx\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -218,7 +221,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\node0\include;..\..\..\..\node2\include;..\..\..\..\nserializer\include;..\..\..\..\unirender\include;..\..\..\..\easyeditor0\include;..\..\..\..\external\lua\include;..\..\..\..\external\boost\include;..\..\..\..\external\rapidjson\include;..\..\..\..\external\box2d\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\node0\include;..\..\..\..\node2\include;..\..\..\..\nserializer\include;..\..\..\..\unirender\include;..\..\..\..\easyeditor0\include;..\..\..\..\external\lua\include;..\..\..\..\external\boost\include;..\..\..\..\external\rapidjson\include;..\..\..\..\external\box2d\include;..\..\..\..\external-editor\wx\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
