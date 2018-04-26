@@ -21,4 +21,14 @@ const char* ScriptHelper::DoString(lua_State* L, const char* str)
 	}
 }
 
+const char* ScriptHelper::DoFile(lua_State* L, const char* filename)
+{
+	int err = luaL_dofile(L, filename);
+	if (err) {
+		return lua_tostring(L, -1);
+	} else {
+		return nullptr;
+	}
+}
+
 }
