@@ -13,7 +13,7 @@ int w_get_position(lua_State* L)
 {
 	auto& pos = INSTANCE()->GetPosition();
 	lua_pushnumber(L, pos.x);
-	lua_pushnumber(L, -pos.y);
+	lua_pushnumber(L, pos.y);
 	return 2;
 }
 
