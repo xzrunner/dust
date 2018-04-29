@@ -11,7 +11,7 @@
 #include <ee0/MsgHelper.h>
 
 #include <node0/SceneNode.h>
-#include <node2/CompComplex.h>
+#include <node0/CompComplex.h>
 
 #include <boost/filesystem.hpp>
 
