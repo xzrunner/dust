@@ -33,7 +33,8 @@ void return_node(lua_State* L, const n0::SceneNodePtr node)
 int w_get_node(lua_State* L)
 {
 	int ret = 0;
-	if (lua_isstring(L, 1)) 
+	auto type = lua_type(L, 1);
+	if (type == LUA_TSTRING)
 	{
 		const char* name = lua_tostring(L, 1);
 		INSTANCE()->TraverseAllNodes([&](const n0::SceneNodePtr& node)->bool 
@@ -47,7 +48,7 @@ int w_get_node(lua_State* L)
 			return true;
 		});
 	} 
-	else if (lua_isinteger(L, 1)) 
+	else if (type == LUA_TNUMBER)
 	{
 		auto id = lua_tointeger(L, 1);
 		INSTANCE()->TraverseAllNodes([&](const n0::SceneNodePtr& node)->bool 
