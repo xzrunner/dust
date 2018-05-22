@@ -29,10 +29,10 @@ public:
 	void SetWorkDir(const std::string& work_dir) { m_work_dir = work_dir; }
 	const std::string& GetWorkDir() const { return m_work_dir; }
 
+#ifdef EASYEDITOR
 	void SetWindow(wxWindow* wnd) { m_wnd = wnd; }
 	wxWindow* GetWindow() { return m_wnd; }
 
-#ifdef EASYEDITOR
 	void SetSubMgr(const ee0::SubjectMgrPtr& sub_mgr) { m_sub_mgr = sub_mgr; }
 	const ee0::SubjectMgrPtr& GetSubMgr() { return m_sub_mgr; }
 #endif // EASYEDITOR
@@ -45,7 +45,7 @@ private:
 	std::string m_work_dir;
 
 #ifdef EASYEDITOR
-	wxWindow* m_wnd;
+	wxWindow* m_wnd = nullptr;
 	ee0::SubjectMgrPtr m_sub_mgr = nullptr;
 #endif // EASYEDITOR
 

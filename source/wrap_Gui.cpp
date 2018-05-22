@@ -5,7 +5,9 @@
 #include "moon/Context.h"
 #include "moon/Blackboard.h"
 
+#ifdef EASYEDITOR
 #include <wx/filedlg.h>
+#endif // EASYEDITOR
 
 namespace
 {
@@ -14,6 +16,7 @@ namespace
 
 int w_open_file_dlg(lua_State* L)
 {
+#ifdef EASYEDITOR
 	wxWindow* wnd = moon::Blackboard::Instance()->GetWindow();
 
 	std::string name, filter;
@@ -26,13 +29,14 @@ int w_open_file_dlg(lua_State* L)
 		filter = luaL_checkstring(L, 2);
 	}
 
-	wxFileDialog dlg(wnd, name, wxEmptyString, wxEmptyString, 
+	wxFileDialog dlg(wnd, name, wxEmptyString, wxEmptyString,
 		filter, wxFD_OPEN);
 	if (dlg.ShowModal() == wxID_OK)
 	{
 		lua_pushstring(L, dlg.GetPath().ToStdString().c_str());
 		return 1;
 	}
+#endif // EASYEDITOR
 
 	return 0;
 }
