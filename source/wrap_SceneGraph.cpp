@@ -7,7 +7,9 @@
 #include "moon/SceneNode.h"
 #include "moon/runtime.h"
 
+#ifdef EASYEDITOR
 #include <ee0/MsgHelper.h>
+#endif // EASYEDITOR
 
 #include <node0/SceneNode.h>
 #include <node0/CompIdentity.h>
@@ -140,7 +142,9 @@ int w_new_node(lua_State* L)
 	moon::luax_pushtype(L, moon::SCENE_NODE_ID, node);
 	node->Release();
 
+#ifdef EASYEDITOR
 	ee0::MsgHelper::InsertNode(*bb->GetSubMgr(), node->GetNode());
+#endif // EASYEDITOR
 
 	return 1;
 }

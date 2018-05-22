@@ -1,6 +1,8 @@
 #pragma once
 
+#ifdef EASYEDITOR
 #include <ee0/typedef.h>
+#endif // EASYEDITOR
 
 #include <cu/cu_macro.h>
 #include <SM_Vector.h>
@@ -30,9 +32,11 @@ public:
 	void SetWindow(wxWindow* wnd) { m_wnd = wnd; }
 	wxWindow* GetWindow() { return m_wnd; }
 
+#ifdef EASYEDITOR
 	void SetSubMgr(const ee0::SubjectMgrPtr& sub_mgr) { m_sub_mgr = sub_mgr; }
 	const ee0::SubjectMgrPtr& GetSubMgr() { return m_sub_mgr; }
-	
+#endif // EASYEDITOR
+
 private:
 	std::shared_ptr<Context> m_ctx = nullptr;
 
@@ -40,9 +44,10 @@ private:
 
 	std::string m_work_dir;
 
-	// todo only for editor
+#ifdef EASYEDITOR
 	wxWindow* m_wnd;
 	ee0::SubjectMgrPtr m_sub_mgr = nullptr;
+#endif // EASYEDITOR
 
 	CU_SINGLETON_DECLARATION(Blackboard);
 
