@@ -7,10 +7,10 @@
 #include "moon/SceneNode.h"
 #include "moon/runtime.h"
 
-#include <ee0/CompNodeEditor.h>
 #include <ee0/MsgHelper.h>
 
 #include <node0/SceneNode.h>
+#include <node0/CompIdentity.h>
 #include <node0/CompComplex.h>
 
 #include <boost/filesystem.hpp>
@@ -37,32 +37,32 @@ int w_get_node(lua_State* L)
 	if (type == LUA_TSTRING)
 	{
 		const char* name = lua_tostring(L, 1);
-		INSTANCE()->TraverseAllNodes([&](const n0::SceneNodePtr& node)->bool 
+		INSTANCE()->TraverseAllNodes([&](const n0::SceneNodePtr& node)->bool
 		{
-			auto& ceditor = node->GetUniqueComp<ee0::CompNodeEditor>();
-			if (ceditor.GetName() == name) {
+			auto& cid = node->GetUniqueComp<n0::CompIdentity>();
+			if (cid.GetName() == name) {
 				return_node(L, node);
 				ret = 1;
 				return false;
 			}
 			return true;
 		});
-	} 
+	}
 	else if (type == LUA_TNUMBER)
 	{
 		auto id = lua_tointeger(L, 1);
-		INSTANCE()->TraverseAllNodes([&](const n0::SceneNodePtr& node)->bool 
+		INSTANCE()->TraverseAllNodes([&](const n0::SceneNodePtr& node)->bool
 		{
-			auto& ceditor = node->GetUniqueComp<ee0::CompNodeEditor>();
-			if (ceditor.GetID() == id) {
+			auto& cid = node->GetUniqueComp<n0::CompIdentity>();
+			if (cid.GetID() == id) {
 				return_node(L, node);
 				ret = 1;
 				return false;
 			}
 			return true;
 		});
-	} 
-	else 
+	}
+	else
 	{
 		return luaL_error(L, "should pass name or id.");
 	}
@@ -117,7 +117,7 @@ int w_set_selection(lua_State* L)
 	for (int i = 1; i <= n; ++i)
 	{
 		lua_rawgeti(L, 1, i);
-		
+
 		auto sn = moon::luax_checktype<moon::SceneNode>(L, -1, moon::SCENE_NODE_ID);
 		nodes.push_back(sn->GetNode());
 
@@ -156,7 +156,7 @@ static const luaL_Reg functions[] =
 	{ "get_node", w_get_node },
 	{ "get_selection", w_get_selection },
 	{ "get_all_nodes", w_get_all_nodes },
-	
+
 	{ "set_selection", w_set_selection },
 
 	{ "new_node", w_new_node },

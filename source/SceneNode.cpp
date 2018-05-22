@@ -1,8 +1,7 @@
 #include "moon/SceneNode.h"
 
-#include <ee0/CompNodeEditor.h>
-
 #include <node0/SceneNode.h>
+#include <node0/CompIdentity.h>
 #include <node2/RenderSystem.h>
 #include <node2/CompTransform.h>
 #include <node2/CompBoundingBox.h>
@@ -12,7 +11,7 @@ namespace moon
 {
 
 SceneNode::SceneNode(const n0::SceneNodePtr node)
-	: m_node(node) 
+	: m_node(node)
 {
 }
 
@@ -48,7 +47,7 @@ const sm::rect& SceneNode::GetBounding() const
 
 const std::string& SceneNode::GetFilepath() const
 {
-	return m_node->GetUniqueComp<ee0::CompNodeEditor>().GetFilepath();
+	return m_node->GetUniqueComp<n0::CompIdentity>().GetFilepath();
 }
 
 }
