@@ -8,7 +8,7 @@ namespace moon
 ModuleMgr::~ModuleMgr()
 {
 	for (auto& module : m_modules) {
-		delete module;
+		module->Release();
 	}
 }
 
