@@ -2,7 +2,7 @@
 
 #include "moon/Module.h"
 
-#include <array>
+#include <vector>
 
 namespace moon
 {
@@ -16,12 +16,18 @@ public:
 	void UnregisterModule(Module* module);
 
 	template <typename T>
-	T* GetModule(Module::ModuleType type) {
-		return (T*)m_modules[type];
+	T* GetModule()
+	{
+		size_t type_id = moon::GetModuleTypeID<T>();
+		if (type_id >= 0 && type_id < m_modules.size()) {
+			return (T*)m_modules[type_id];
+		} else {
+			return nullptr;
+		}
 	}
 
 private:
-	std::array<Module*, Module::M_MAX_ENUM> m_modules = {};
+	std::vector<Module*> m_modules = {};
 
 }; // ModuleMgr
 

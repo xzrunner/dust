@@ -16,8 +16,12 @@ public:
 	using TRAVERSE_FUNC = std::function<bool(const n0::SceneNodePtr&)>;
 
 public:
-	virtual ModuleType GetModuleType() const { return M_SCENE_GRAPH; }
-	virtual const char* GetName() const { return "moon.scene"; }
+	virtual ModuleTypeID TypeID() const override { 
+		return GetModuleTypeID<SceneGraph>();
+	}
+	virtual const char* GetName() const override { 
+		return "moon.scene"; 
+	}
 
 	void SetTraverseAllNodesFunc(std::function<void(TRAVERSE_FUNC)> func) { m_trav_all_node = func; }
 	void SetTraverseSelectionFunc(std::function<void(TRAVERSE_FUNC)> func) { m_trav_selection = func; }

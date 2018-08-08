@@ -16,9 +16,14 @@ void ModuleMgr::RegisterModule(Module* module)
 {
 	GD_ASSERT(module, "null module");
 
-	auto type = module->GetModuleType();
-	GD_ASSERT(!m_modules[type], "module exists");
-	m_modules[type] = module;
+	ModuleTypeID id = module->TypeID();
+	if (m_modules.size() <= id) {
+		m_modules.resize(id + 1);
+	} else {
+		GD_ASSERT(!m_modules[id], "module exists");
+	}
+
+	m_modules[id] = module;
 }
 
 void ModuleMgr::UnregisterModule(Module* module)

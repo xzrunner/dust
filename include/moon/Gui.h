@@ -8,8 +8,12 @@ namespace moon
 class Gui : public Module
 {
 public:
-	virtual ModuleType GetModuleType() const { return M_GUI; }
-	virtual const char* GetName() const { return "moon.gui"; }
+	virtual ModuleTypeID TypeID() const override { 
+		return GetModuleTypeID<Gui>();
+	}
+	virtual const char* GetName() const override { 
+		return "moon.gui"; 
+	}
 
 }; // Gui
 

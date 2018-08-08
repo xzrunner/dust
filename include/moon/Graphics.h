@@ -24,8 +24,12 @@ public:
 public:
 	Graphics();
 
-	virtual ModuleType GetModuleType() const { return M_GRAPHICS; }
-	virtual const char* GetName() const { return "moon.graphics"; }
+	virtual ModuleTypeID TypeID() const override { 
+		return GetModuleTypeID<Graphics>();
+	}
+	virtual const char* GetName() const override {
+		return "moon.graphics"; 
+	}
 
 	void Polyline(const float* coords, size_t count);
 	void Rectangle(DrawMode mode, float x, float y, float w, float h);

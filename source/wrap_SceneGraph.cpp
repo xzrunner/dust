@@ -6,6 +6,7 @@
 #include "moon/Context.h"
 #include "moon/SceneNode.h"
 #include "moon/runtime.h"
+#include "moon/module_cfg.h"
 
 #ifdef EASYEDITOR
 #include <ee0/MsgHelper.h>
@@ -20,7 +21,7 @@
 namespace
 {
 
-#define INSTANCE() (moon::Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<moon::SceneGraph>(moon::Module::M_SCENE_GRAPH))
+#define INSTANCE() (moon::Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<moon::SceneGraph>())
 
 void return_node(lua_State* L, const n0::SceneNodePtr node)
 {

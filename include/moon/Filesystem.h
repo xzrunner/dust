@@ -10,8 +10,12 @@ namespace moon
 class Filesystem : public Module
 {
 public:
-	virtual ModuleType GetModuleType() const { return M_FILESYSTEM; }
-	virtual const char* GetName() const { return "moon.filesystem"; }
+	virtual ModuleTypeID TypeID() const override { 
+		return GetModuleTypeID<Filesystem>();
+	}
+	virtual const char* GetName() const override {
+		return "moon.filesystem"; 
+	}
 
 	void GetDirectoryItems(const char* dir, std::vector<std::string>& items) const;
 

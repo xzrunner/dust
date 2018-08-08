@@ -1,9 +1,9 @@
 #include "moon/Gui.h"
 #include "moon/runtime.h"
-#include "moon/Module.h"
 #include "moon/Blackboard.h"
 #include "moon/Context.h"
 #include "moon/Blackboard.h"
+#include "moon/module_cfg.h"
 
 #ifdef EASYEDITOR
 #include <wx/filedlg.h>
@@ -12,7 +12,7 @@
 namespace
 {
 
-#define INSTANCE() (moon::Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<moon::Gui>(moon::Module::M_GUI))
+#define INSTANCE() (moon::Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<moon::Gui>())
 
 int w_open_file_dlg(lua_State* L)
 {

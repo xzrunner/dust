@@ -83,8 +83,8 @@ void StagePageScript::OnDraw() const
 		return;
 	}
 
-	Blackboard::Instance()->GetContext()->GetModuleMgr().
-		GetModule<Graphics>(Module::M_GRAPHICS)->ClearColor();
+	auto graphics = Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<Graphics>();
+	graphics->ClearColor();
 
 	lua_getfield(L, LUA_REGISTRYINDEX, MOON_DRAW);
 	if (lua_isnil(L, -1)) {

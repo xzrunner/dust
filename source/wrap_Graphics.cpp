@@ -1,5 +1,4 @@
 #include "moon/Graphics.h"
-#include "moon/Module.h"
 #include "moon/runtime.h"
 #include "moon/Blackboard.h"
 #include "moon/Context.h"
@@ -15,7 +14,7 @@ struct lua_State;
 namespace
 {
 
-#define INSTANCE() (moon::Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<moon::Graphics>(moon::Module::M_GRAPHICS))
+#define INSTANCE() (moon::Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<moon::Graphics>())
 
 int w_line(lua_State* L)
 {

@@ -25,25 +25,35 @@
 namespace moon
 {
 
+using ModuleTypeID = size_t;
+
+namespace Internal
+{
+inline size_t GetUniqueModuleTypeID() noexcept
+{
+    static ModuleTypeID id{ 0u };
+    return id++;
+}
+}
+
+template <typename T>
+inline ModuleTypeID GetModuleTypeID() noexcept
+{
+    static_assert(std::is_base_of<Module, T>::value,
+        "T must inherit from Module");
+
+    static ModuleTypeID type_id{Internal::GetUniqueModuleTypeID()};
+    return type_id;
+}
+
 class Module : public Object
 {
-public:
-	enum ModuleType
-	{
-		M_GRAPHICS,
-		M_SCENE_GRAPH,
-		M_PHYSICS,
-		M_MOUSE,
-		M_FILESYSTEM,
-		M_GUI,
-		M_MAX_ENUM
-	};
-
 public:
 	// todo rm from mgr
 	virtual ~Module() {}
 
-	virtual ModuleType GetModuleType() const = 0;
+	virtual ModuleTypeID TypeID() const = 0;
+
 	virtual const char* GetName() const = 0;
 
 }; // Module

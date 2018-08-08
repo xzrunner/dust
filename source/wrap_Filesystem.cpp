@@ -1,6 +1,5 @@
 #include "moon/Filesystem.h"
 #include "moon/runtime.h"
-#include "moon/Module.h"
 #include "moon/Blackboard.h"
 #include "moon/Context.h"
 
@@ -9,7 +8,7 @@
 namespace
 {
 
-#define INSTANCE() (moon::Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<moon::Filesystem>(moon::Module::M_FILESYSTEM))
+#define INSTANCE() (moon::Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<moon::Filesystem>())
 
 int w_is_directory(lua_State* L)
 {

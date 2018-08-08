@@ -12,8 +12,12 @@ class Mouse : public Module
 public:
 //	Mouse();
 
-	virtual ModuleType GetModuleType() const { return M_MOUSE; }
-	virtual const char* GetName() const { return "moon.mouse"; }
+	virtual ModuleTypeID TypeID() const override { 
+		return GetModuleTypeID<Mouse>();
+	}
+	virtual const char* GetName() const override {
+		return "moon.mouse"; 
+	}
 
 	const sm::vec2& GetPosition() const;
 

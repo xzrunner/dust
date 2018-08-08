@@ -52,7 +52,7 @@ namespace physics
 namespace box2d
 {
 
-#define INSTANCE() (Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<Physics>(Module::M_PHYSICS))
+#define INSTANCE() (Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<Physics>())
 
 int w_newWorld(lua_State *L)
 {
