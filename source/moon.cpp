@@ -7,6 +7,8 @@ extern "C" {
 	#include <lauxlib.h>
 };
 
+#include <vector>
+
 extern "C" int luaopen_moon_graphics(lua_State* L);
 extern "C" int luaopen_moon_scene(lua_State* L);
 extern "C" int luaopen_moon_physics(lua_State* L);
@@ -14,24 +16,36 @@ extern "C" int luaopen_moon_mouse(lua_State* L);
 extern "C" int luaopen_moon_filesystem(lua_State* L);
 extern "C" int luaopen_moon_gui(lua_State* L);
 
-static const luaL_Reg modules[] = {
+namespace
+{
+
+std::vector<luaL_Reg> MODULES = {
 	{ "moon.graphics", luaopen_moon_graphics },
 	{ "moon.scene", luaopen_moon_scene },
 	{ "moon.physics", luaopen_moon_physics },
 	{ "moon.mouse", luaopen_moon_mouse },
 	{ "moon.filesystem", luaopen_moon_filesystem },
 	{ "moon.gui", luaopen_moon_gui },
-	{ 0, 0 }
 };
+
+}
 
 int luaopen_moon(lua_State* L)
 {
 	lua_newtable(L);
 
 	// Preload module loaders.
-	for (int i = 0; modules[i].name != 0; i++) {
-		moon::luax_preload(L, modules[i].func, modules[i].name);
+	for (auto& m : MODULES) {
+		moon::luax_preload(L, m.func, m.name);
 	}
 
 	return 1;
+}
+
+void moon_add_module(const char* name, lua_CFunction func)
+{
+	luaL_Reg reg;
+	reg.name = name;
+	reg.func = func;
+	MODULES.push_back(reg);
 }
