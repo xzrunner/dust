@@ -426,6 +426,9 @@
     <ClInclude Include="..\..\..\include\moon\Gui.h">
       <Filter>modules\gui</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\module_cfg.h">
+      <Filter>modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="modules">

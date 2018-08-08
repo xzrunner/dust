@@ -1,5 +1,7 @@
 #pragma once
 
+#include "moon/module_cfg.h"
+
 #ifdef EASYEDITOR
 #include <ee0/typedef.h>
 #endif // EASYEDITOR

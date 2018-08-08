@@ -1,5 +1,6 @@
 #include "moon/runtime.h"
 #include "moon/SceneNode.h"
+#include "moon/module_cfg.h"
 
 #ifdef EASYEDITOR
 #include <ee0/CompCustomProp.h>

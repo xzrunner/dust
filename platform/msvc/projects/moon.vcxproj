@@ -15,6 +15,7 @@
     <ClInclude Include="..\..\..\include\moon\Exception.h" />
     <ClInclude Include="..\..\..\include\moon\Gui.h" />
     <ClInclude Include="..\..\..\include\moon\Memoizer.h" />
+    <ClInclude Include="..\..\..\include\moon\module_cfg.h" />
     <ClInclude Include="..\..\..\include\moon\moon.h" />
     <ClInclude Include="..\..\..\include\moon\Graphics.h" />
     <ClInclude Include="..\..\..\include\moon\Context.h" />
@@ -221,7 +222,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\node0\include;..\..\..\..\node2\include;..\..\..\..\nserializer\include;..\..\..\..\unirender\include;..\..\..\..\external\lua\include;..\..\..\..\external\boost\include;..\..\..\..\external\rapidjson\include;..\..\..\..\external\box2d\include;..\..\..\..\external-editor\wx\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\guard\include;..\..\..\..\painting2\include;..\..\..\..\memmgr\include;..\..\..\..\node0\include;..\..\..\..\node2\include;..\..\..\..\nserializer\include;..\..\..\..\unirender\include;..\..\..\..\easyeditor0\include;..\..\..\..\external\lua\include;..\..\..\..\external\boost\include;..\..\..\..\external\rapidjson\include;..\..\..\..\external\box2d\include;..\..\..\..\external-editor\wx\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
