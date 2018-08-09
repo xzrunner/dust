@@ -9,6 +9,13 @@
 #include <painting2/Blackboard.h>
 #include <painting2/WindowContext.h>
 
+namespace
+{
+
+const pt2::Textbox DEFAULT_TB;
+
+}
+
 namespace moon
 {
 
@@ -100,9 +107,7 @@ void Graphics::SetLineWidth(float width)
 
 void Graphics::Print(const char* str, const sm::Matrix2D& mt, const pt2::RenderColorCommon& col) const
 {
-	pt2::Text text;
-	text.text = str;
-	pt2::RenderSystem::DrawText(text, mt, col);
+	pt2::RenderSystem::DrawText(str, DEFAULT_TB, mt, col.mul, col.add);
 }
 
 int Graphics::GetWidth() const
