@@ -45,6 +45,11 @@ const sm::rect& SceneNode::GetBounding() const
 	return m_node->GetUniqueComp<n2::CompBoundingBox>().GetSize();
 }
 
+void SceneNode::SetSize(float w, float h)
+{
+	m_node->GetUniqueComp<n2::CompBoundingBox>().SetSize(*m_node, sm::rect(w, h));
+}
+
 const std::string& SceneNode::GetFilepath() const
 {
 	return m_node->GetUniqueComp<n0::CompIdentity>().GetFilepath();

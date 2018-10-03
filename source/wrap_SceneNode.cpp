@@ -53,6 +53,15 @@ int w_get_height(lua_State* L)
 	return 1;
 }
 
+int w_set_size(lua_State* L)
+{
+	auto node = luax_checknode(L, 1);
+	float w = static_cast<float>(luaL_optnumber(L, 2, 0));
+	float h = static_cast<float>(luaL_optnumber(L, 3, 0));
+	node->SetSize(w, h);
+	return 0;
+}
+
 int w_get_filepath(lua_State* L)
 {
 	auto node = luax_checknode(L, 1);
@@ -181,6 +190,7 @@ int w_get_ud(lua_State* L)
 #endif // EASYEDITOR
 
 }
+
 namespace moon
 {
 
@@ -189,8 +199,9 @@ static const luaL_Reg w_functions[] =
 	{ "get_pos", w_get_pos },
 	{ "set_pos", w_set_pos },
 
-	{ "get_width", w_get_width },
+	{ "get_width",  w_get_width },
 	{ "get_height", w_get_height },
+	{ "set_size",   w_set_size },
 
 	{ "get_filepath", w_get_filepath },
 

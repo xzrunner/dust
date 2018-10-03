@@ -24,6 +24,7 @@ public:
 	void SetPosition(const sm::vec2& pos);
 
 	const sm::rect& GetBounding() const;
+	void SetSize(float w, float h);
 
 	const std::string& GetFilepath() const;
 
