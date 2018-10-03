@@ -2,6 +2,7 @@
 #include "moon/Blackboard.h"
 #include "moon/Graphics.h"
 #include "moon/Context.h"
+#include "moon/ScriptHelper.h"
 
 #include <guard/check.h>
 
@@ -180,7 +181,7 @@ void StagePageScript::OnKeyPressed(const char* key) const
 int StagePageScript::LoadScript()
 {
 	auto dir = boost::filesystem::path(m_filepath).parent_path().string();
-	SetLuaPath((dir + "\\?.lua" + ";" + dir + "\\?\\init.lua").c_str());
+	ScriptHelper::AddSearchPath(L, (dir + "\\?.lua" + ";" + dir + "\\?\\init.lua").c_str());
 
 	try {
 		if (luaL_loadfile(L, m_filepath.c_str()) || lua_pcall(L, 0, 0, 0)) {
@@ -204,19 +205,6 @@ int StagePageScript::LoadScript()
 	lua_pop(L, 1);	// moon
 
 	return 0;
-}
-
-void StagePageScript::SetLuaPath(const char* path)
-{
-	lua_getglobal(L, "package");
-	lua_getfield(L, -1, "path");
-	std::string cur_path = lua_tostring(L, -1);
-	cur_path.append(";");
-	cur_path.append(path);
-	lua_pop(L, 1);
-	lua_pushstring(L, cur_path.c_str());
-	lua_setfield(L, -2, "path");
-	lua_pop(L, 1);
 }
 
 void StagePageScript::RegistFunc(const char* name, const char* key)

@@ -8,8 +8,23 @@ extern "C" {
 	#include <lauxlib.h>
 };
 
+#include <string>
+
 namespace moon
 {
+
+void ScriptHelper::AddSearchPath(lua_State* L, const char* path)
+{
+	lua_getglobal(L, "package");
+	lua_getfield(L, -1, "path");
+	std::string cur_path = lua_tostring(L, -1);
+	cur_path.append(";");
+	cur_path.append(path);
+	lua_pop(L, 1);
+	lua_pushstring(L, cur_path.c_str());
+	lua_setfield(L, -2, "path");
+	lua_pop(L, 1);
+}
 
 const char* ScriptHelper::DoString(lua_State* L, const char* str)
 {

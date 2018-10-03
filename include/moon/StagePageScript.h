@@ -17,7 +17,7 @@ public:
 	void OnLoad() const;
 	void OnUpdate() const;
 	void OnDraw() const;
-	
+
 	void OnMousePressed(int x, int y, int button) const;
 	void OnMouseReleased(int x, int y, int button) const;
 
@@ -26,8 +26,6 @@ public:
 	int LoadScript();
 
 private:
-	void SetLuaPath(const char* path);
-
 	void RegistFunc(const char* name, const char* key);
 
 private:
