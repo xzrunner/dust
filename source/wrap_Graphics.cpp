@@ -74,9 +74,9 @@ int w_rectangle(lua_State* L)
 		return luaL_error(L, "Invalid draw mode: %s", str);
 
 	float x = (float)luaL_checknumber(L, 2);
-	float y = -(float)luaL_checknumber(L, 3);
+	float y = (float)luaL_checknumber(L, 3);
 	float w = (float)luaL_checknumber(L, 4);
-	float h = -(float)luaL_checknumber(L, 5);
+	float h = (float)luaL_checknumber(L, 5);
 
 	if (lua_isnoneornil(L, 6))
 	{
@@ -107,7 +107,7 @@ int w_circle(lua_State* L)
 	}
 
 	float x = (float)luaL_checknumber(L, 2);
-	float y = -(float)luaL_checknumber(L, 3);
+	float y = (float)luaL_checknumber(L, 3);
 	float radius = (float)luaL_checknumber(L, 4);
 	int points;
 	if (lua_isnoneornil(L, 5))
