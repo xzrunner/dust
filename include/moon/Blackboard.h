@@ -4,6 +4,7 @@
 
 #ifdef EASYEDITOR
 #include <ee0/typedef.h>
+namespace ee0 { class WxStagePage; }
 #endif // EASYEDITOR
 
 #include <cu/cu_macro.h>
@@ -25,8 +26,7 @@ public:
 	void SetContext(const std::shared_ptr<Context>& ctx) { m_ctx = ctx; }
 	const std::shared_ptr<Context>& GetContext() const { return m_ctx; }
 
-	void SetMousePos(const sm::vec2& mouse_pos) { m_mouse_pos = mouse_pos; }
-	const sm::vec2& GetMousePos() const { return m_mouse_pos; }
+	sm::vec2 GetMousePos() const;
 
 	void SetWorkDir(const std::string& work_dir) { m_work_dir = work_dir; }
 	const std::string& GetWorkDir() const { return m_work_dir; }
@@ -34,6 +34,10 @@ public:
 #ifdef EASYEDITOR
 	void SetWindow(wxWindow* wnd) { m_wnd = wnd; }
 	wxWindow* GetWindow() { return m_wnd; }
+
+	void SetStage(const ee0::WxStagePage* stage) {
+		m_stage = stage;
+	}
 
 	void SetSubMgr(const ee0::SubjectMgrPtr& sub_mgr) { m_sub_mgr = sub_mgr; }
 	const ee0::SubjectMgrPtr& GetSubMgr() { return m_sub_mgr; }
@@ -48,6 +52,7 @@ private:
 
 #ifdef EASYEDITOR
 	wxWindow* m_wnd = nullptr;
+	const ee0::WxStagePage* m_stage = nullptr;
 	ee0::SubjectMgrPtr m_sub_mgr = nullptr;
 #endif // EASYEDITOR
 
