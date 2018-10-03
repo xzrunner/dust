@@ -217,6 +217,12 @@
     <ClCompile Include="..\..\..\source\wrap_Gui.cpp">
       <Filter>modules\gui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\wrap_Image.cpp">
+      <Filter>modules\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Image.cpp">
+      <Filter>modules\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\moon\Graphics.h">
@@ -428,6 +434,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\moon\module_cfg.h">
       <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moon\Image.h">
+      <Filter>modules\graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

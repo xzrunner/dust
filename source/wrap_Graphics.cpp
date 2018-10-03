@@ -2,9 +2,12 @@
 #include "moon/runtime.h"
 #include "moon/Blackboard.h"
 #include "moon/Context.h"
+#include "moon/Image.h"
 #include "moon/SceneNode.h"
 
 #include <painting2/RenderColorCommon.h>
+
+#include <boost/filesystem.hpp>
 
 #include <vector>
 #include <algorithm>
@@ -254,7 +257,8 @@ int w_set_font(lua_State* L)
 
 int w_draw(lua_State* L)
 {
-	if (!moon::luax_istype(L, 1, moon::SCENE_NODE_ID)) {
+	if (!moon::luax_istype(L, 1, moon::SCENE_NODE_ID) &&
+		!moon::luax_istype(L, 1, moon::IMAGE_ID)) {
 		return 0;
 	}
 
@@ -269,12 +273,24 @@ int w_draw(lua_State* L)
 	float kx = (float)luaL_optnumber(L, startidx + 7, 0.0);
 	float ky = (float)luaL_optnumber(L, startidx + 8, 0.0);
 
-	auto node = moon::luax_checktype<moon::SceneNode>(L, 1, moon::SCENE_NODE_ID);
 	sm::Matrix2D mt;
-	mt.SetTransformation(x, -y, -a, sx, sy, ox, -oy, kx, ky);
-	moon::luax_catchexcept(L, [&]() {
-		node->Draw(mt);
-	});
+	mt.SetTransformation(x, y, a, sx, sy, ox, oy, kx, ky);
+
+	if (moon::luax_istype(L, 1, moon::SCENE_NODE_ID))
+	{
+		auto node = moon::luax_checktype<moon::SceneNode>(L, 1, moon::SCENE_NODE_ID);
+		moon::luax_catchexcept(L, [&]() {
+			node->Draw(mt);
+		});
+	}
+	else if (moon::luax_istype(L, 1, moon::IMAGE_ID))
+	{
+		auto img = moon::luax_checktype<moon::Image>(L, 1, moon::IMAGE_ID);
+		moon::luax_catchexcept(L, [&]() {
+			img->Draw(mt);
+		});
+	}
+
 	return 0;
 }
 
@@ -358,6 +374,21 @@ int w_get_height(lua_State* L)
 	return 1;
 }
 
+int w_new_image(lua_State* L)
+{
+	auto bb = moon::Blackboard::Instance();
+
+	const char* filepath = luaL_checkstring(L, 1);
+	auto real_path = boost::filesystem::absolute(filepath, bb->GetWorkDir());
+
+	moon::Image* img = nullptr;
+	moon::luax_catchexcept(L, [&]() { img = new moon::Image(real_path.string()); });
+	moon::luax_pushtype(L, moon::IMAGE_ID, img);
+	img->Release();
+
+	return 1;
+}
+
 }
 
 namespace moon
@@ -387,6 +418,8 @@ static const luaL_Reg functions[] =
 
 	{ "get_width", w_get_width },
 	{ "get_height", w_get_height },
+
+	{ "new_image", w_new_image },
 
 	{ 0, 0 }
 };

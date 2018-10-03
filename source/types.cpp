@@ -14,6 +14,7 @@ static const TypeBits* CreateTypeFlags()
 	b[OBJECT_ID] = one << OBJECT_ID;
 	b[MODULE_ID] = (one << MODULE_ID) | b[OBJECT_ID];
 
+	b[IMAGE_ID] = (one << IMAGE_ID) | b[OBJECT_ID];
 	b[SCENE_NODE_ID] = (one << SCENE_NODE_ID) | b[OBJECT_ID];
 
 	// Physics.

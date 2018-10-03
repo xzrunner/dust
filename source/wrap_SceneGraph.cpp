@@ -169,11 +169,13 @@ static const luaL_Reg functions[] =
 	{ 0, 0 }
 };
 
+extern "C" int luaopen_image(lua_State* L);
 extern "C" int luaopen_scene_node(lua_State* L);
 
 // Types for this module.
 static const lua_CFunction types[] =
 {
+	luaopen_image,
 	luaopen_scene_node,
 	0
 };

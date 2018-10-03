@@ -12,6 +12,7 @@ enum Type
 	OBJECT_ID,
 	MODULE_ID,
 
+	IMAGE_ID,
 	SCENE_NODE_ID,
 
 	// Physics
