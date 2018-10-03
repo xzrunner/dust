@@ -12,11 +12,11 @@ namespace moon
 class SceneNodeScript
 {
 public:
-	void OnLoad() const;
-	void OnUpdate() const;
-	void OnDraw() const;
+	void Init() const;
+	void Update() const;
+	void Draw() const;
 
-	int LoadScript(const std::string& filepath, const n0::SceneNodePtr& node);
+	int Reload(const std::string& filepath, const n0::SceneNodePtr& node);
 
 private:
 	void CallFunc(const char* func_name) const;

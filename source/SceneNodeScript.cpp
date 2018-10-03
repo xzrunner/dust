@@ -17,29 +17,30 @@ namespace moon
 
 #define MOON_SCENE_NODE "_moon_scene_nodes"
 
-#define LOAD_FUNC   "load"
+#define INIT_FUNC   "init"
 #define UPDATE_FUNC "update"
 #define DRAW_FUNC   "draw"
 
-void SceneNodeScript::OnLoad() const
+void SceneNodeScript::Init() const
 {
-	CallFunc(LOAD_FUNC);
+	CallFunc(INIT_FUNC);
 }
 
-void SceneNodeScript::OnUpdate() const
+void SceneNodeScript::Update() const
 {
 	CallFunc(UPDATE_FUNC);
 }
 
-void SceneNodeScript::OnDraw() const
+void SceneNodeScript::Draw() const
 {
 	CallFunc(DRAW_FUNC);
 }
 
-int SceneNodeScript::LoadScript(const std::string& filepath, const n0::SceneNodePtr& node)
+int SceneNodeScript::Reload(const std::string& filepath, const n0::SceneNodePtr& node)
 {
 	auto L = Blackboard::Instance()->GetContext()->GetState();
 	if (luaL_loadfile(L, filepath.c_str()) || lua_pcall(L, 0, 0, 0)) {
+//		printf("attempting to call function: '%s'\n", lua_tostring(L, -1));
 		return luaL_error(L, "Fail to load %s.", filepath.c_str());
 	}
 
@@ -73,8 +74,8 @@ int SceneNodeScript::LoadScript(const std::string& filepath, const n0::SceneNode
 	lua_newtable(L);
 
 	// mt.load = load()
-	lua_pushliteral(L, LOAD_FUNC);
-	lua_getglobal(L, LOAD_FUNC);
+	lua_pushliteral(L, INIT_FUNC);
+	lua_getglobal(L, INIT_FUNC);
 	lua_settable(L, -3);
 
 	// mt.update = update()
@@ -103,7 +104,7 @@ int SceneNodeScript::LoadScript(const std::string& filepath, const n0::SceneNode
 
 	// clear global
 	lua_pushnil(L);
-	lua_setglobal(L, LOAD_FUNC);
+	lua_setglobal(L, INIT_FUNC);
 	lua_pushnil(L);
 	lua_setglobal(L, UPDATE_FUNC);
 	lua_pushnil(L);
