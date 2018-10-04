@@ -19,6 +19,50 @@ namespace
 
 #define INSTANCE() (moon::Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<moon::Graphics>())
 
+void _trans_from_table(lua_State* L, int idx, sm::Matrix2D& mt)
+{
+	enum TransIDX
+	{
+		X = 0,
+		Y,
+		A,
+		SX,
+		SY,
+		OX,
+		OY,
+		KX,
+		KY,
+		TRANS_IDX_MAX,
+	};
+	float t[TRANS_IDX_MAX];
+	memset(t, 0, sizeof(t));
+	t[SX] = t[SY] = 1.0f;
+
+	int n = (int)moon::luax_objlen(L, idx);
+	for (int i = 0; i < n; ++i) {
+		lua_rawgeti(L, idx, i + 1);
+		t[i] = moon::luax_tofloat(L, -1);
+		lua_pop(L, 1);
+	}
+
+	//mt.SetTransformation(x, -y, -a, sx, sy, ox, -oy, kx, ky);
+	mt.SetTransformation(t[X], t[Y], t[A], t[SX], t[SY], t[OX], t[OY], t[KX], t[KY]);
+}
+
+void _color_from_table(lua_State* L, int idx, pt2::Color& col)
+{
+	for (int i = 1; i <= 4; i++) {
+		lua_rawgeti(L, idx, i);
+	}
+
+	col.r = (uint8_t)luaL_checknumber(L, -4);
+	col.g = (uint8_t)luaL_checknumber(L, -3);
+	col.b = (uint8_t)luaL_checknumber(L, -2);
+	col.a = (uint8_t)luaL_optnumber(L, -1, 255);
+
+	lua_pop(L, 4);
+}
+
 int w_line(lua_State* L)
 {
 	int args = lua_gettop(L);
@@ -181,15 +225,7 @@ int w_set_color(lua_State* L)
 	pt2::Color c;
 	if (lua_istable(L, 1))
 	{
-		for (int i = 1; i <= 4; i++)
-			lua_rawgeti(L, 1, i);
-
-		c.r = (uint8_t)luaL_checknumber(L, -4);
-		c.g = (uint8_t)luaL_checknumber(L, -3);
-		c.b = (uint8_t)luaL_checknumber(L, -2);
-		c.a = (uint8_t)luaL_optnumber(L, -1, 255);
-
-		lua_pop(L, 4);
+		_color_from_table(L, 1, c);
 	}
 	else
 	{
@@ -217,15 +253,7 @@ int w_set_background_color(lua_State* L)
 	pt2::Color c;
 	if (lua_istable(L, 1))
 	{
-		for (int i = 1; i <= 4; i++)
-			lua_rawgeti(L, 1, i);
-
-		c.r = (uint8_t)luaL_checknumber(L, -4);
-		c.g = (uint8_t)luaL_checknumber(L, -3);
-		c.b = (uint8_t)luaL_checknumber(L, -2);
-		c.a = (uint8_t)luaL_optnumber(L, -1, 255);
-
-		lua_pop(L, 4);
+		_color_from_table(L, 1, c);
 	}
 	else
 	{
@@ -262,19 +290,12 @@ int w_draw(lua_State* L)
 		return 0;
 	}
 
-	int startidx = 2;
-	float x  = (float)luaL_optnumber(L, startidx + 0, 0.0);
-	float y  = (float)luaL_optnumber(L, startidx + 1, 0.0);
-	float a  = (float)luaL_optnumber(L, startidx + 2, 0.0);
-	float sx = (float)luaL_optnumber(L, startidx + 3, 1.0);
-	float sy = (float)luaL_optnumber(L, startidx + 4, sx);
-	float ox = (float)luaL_optnumber(L, startidx + 5, 0.0);
-	float oy = (float)luaL_optnumber(L, startidx + 6, 0.0);
-	float kx = (float)luaL_optnumber(L, startidx + 7, 0.0);
-	float ky = (float)luaL_optnumber(L, startidx + 8, 0.0);
+	int args = lua_gettop(L);
 
 	sm::Matrix2D mt;
-	mt.SetTransformation(x, y, a, sx, sy, ox, oy, kx, ky);
+	if (args > 1) {
+		_trans_from_table(L, 2, mt);
+	}
 
 	if (moon::luax_istype(L, 1, moon::SCENE_NODE_ID))
 	{
@@ -297,60 +318,46 @@ int w_draw(lua_State* L)
 int w_print(lua_State* L)
 {
 	const char* str = luaL_checkstring(L, 1);
-	float x  = (float)luaL_optnumber(L, 2, 0.0);
-	float y  = (float)luaL_optnumber(L, 3, 0.0);
-	float a  = (float)luaL_optnumber(L, 4, 0.0f);
-	float sx = (float)luaL_optnumber(L, 5, 1.0f);
-	float sy = (float)luaL_optnumber(L, 6, sx);
-	float ox = (float)luaL_optnumber(L, 7, 0.0f);
-	float oy = (float)luaL_optnumber(L, 8, 0.0f);
-	float kx = (float)luaL_optnumber(L, 9, 0.0f);
-	float ky = (float)luaL_optnumber(L, 10, 0.0f);
+
+	int args = lua_gettop(L);
 
 	sm::Matrix2D mt;
-	mt.SetTransformation(x, -y, -a, sx, sy, ox, -oy, kx, ky);
+	if (args > 1) {
+		_trans_from_table(L, 2, mt);
+	}
+
+	pt2::RenderColorCommon col;
+	if (args > 2) {
+		_color_from_table(L, 3, col.mul);
+	}
+
 	moon::luax_catchexcept(L, [&]() {
-		INSTANCE()->Print(str, mt, pt2::RenderColorCommon());
+		INSTANCE()->Print(str, mt, col);
 	});
+
 	return 0;
 }
 
 int w_printf(lua_State* L)
 {
 	const char* str = luaL_checkstring(L, 1);
-	float x  = (float)luaL_optnumber(L, 2, 0.0);
-	float y  = (float)luaL_optnumber(L, 3, 0.0);
-	float wrap = (float)luaL_checknumber(L, 4);
 
-	float a = 0.0f;
-	float sx = 1.0f, sy = 1.0f;
-	float ox = 0.0f, oy = 0.0f;
-	float kx = 0.0f, ky = 0.0f;
-
-	//Font::AlignMode align = Font::ALIGN_LEFT;
-	if (lua_gettop(L) >= 5)
-	{
-		if (!lua_isnil(L, 5))
-		{
-			const char *str = luaL_checkstring(L, 5);
-			//if (!Font::getConstant(str, align))
-			//	return luaL_error(L, "Incorrect alignment: %s", str);
-		}
-
-		a  = (float) luaL_optnumber(L, 6, 0.0f);
-		sx = (float) luaL_optnumber(L, 7, 1.0f);
-		sy = (float) luaL_optnumber(L, 8, sx);
-		ox = (float) luaL_optnumber(L, 9, 0.0f);
-		oy = (float) luaL_optnumber(L, 10, 0.0f);
-		kx = (float) luaL_optnumber(L, 11, 0.0f);
-		ky = (float) luaL_optnumber(L, 12, 0.0f);
-	}
+	int args = lua_gettop(L);
 
 	sm::Matrix2D mt;
-	mt.SetTransformation(x, -y, -a, sx, sy, ox, -oy, kx, ky);
+	if (args > 1) {
+		_trans_from_table(L, 2, mt);
+	}
+
+	pt2::RenderColorCommon col;
+	if (args > 2) {
+		_color_from_table(L, 3, col.mul);
+	}
+
 	moon::luax_catchexcept(L, [&]() {
-		INSTANCE()->Print(str, mt, pt2::RenderColorCommon());
+		INSTANCE()->Print(str, mt, col);
 	});
+
 	return 0;
 }
 
