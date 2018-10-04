@@ -46,4 +46,9 @@ const char* ScriptHelper::DoFile(lua_State* L, const char* filename)
 	}
 }
 
+void ScriptHelper::GC(lua_State* L)
+{
+	lua_gc(L, LUA_GCCOLLECT, 0);
+}
+
 }

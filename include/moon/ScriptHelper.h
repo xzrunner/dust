@@ -13,6 +13,8 @@ public:
 	static const char* DoString(lua_State* L, const char* str);
 	static const char* DoFile(lua_State* L, const char* filename);
 
+	static void GC(lua_State* L);
+
 }; // ScriptHelper
 
 }
