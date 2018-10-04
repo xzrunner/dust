@@ -51,7 +51,7 @@ int SceneNodeScript::Reload(const std::string& filepath, const n0::SceneNodePtr&
 		lua_newtable(L);
 
 		lua_newtable(L);
-		lua_pushliteral(L, "v");
+		lua_pushliteral(L, "k");
 		lua_setfield(L, -2, "__mode");
 		lua_setmetatable(L, -2);
 
