@@ -102,20 +102,53 @@ int SceneNodeScript::Reload(const std::string& filepath, const n0::SceneNodePtr&
 
 	lua_pop(L, 2);
 
-	// clear global
+int SceneNodeScript::AddFunc(const std::string& name, const std::string& body) const
+{
+	auto L = Blackboard::Instance()->GetContext()->GetState();
+
+	lua_getfield(L, LUA_REGISTRYINDEX, MOON_SCENE_NODE);
+	if (!lua_istable(L, -1)) {
+		lua_pop(L, 1);
+		return 0;
+	}
+
+	lua_pushlightuserdata(L, const_cast<SceneNodeScript*>(this));
+	lua_gettable(L, -2);
+	if (lua_isnil(L, -1)) {
+		lua_pop(L, 2);
+		return 0;
+	}
+	assert(lua_istable(L, -1));
+
+	if (luaL_loadstring(L, body.c_str()) || lua_pcall(L, 0, 0, 0)) {
+		GD_REPORT_ASSERT(lua_tostring(L, -1));
+		return luaL_error(L, "Fail to load %s.", body.c_str());
+	}
+
+	lua_pushstring(L, name.c_str());
+	lua_getglobal(L, name.c_str());
+	lua_settable(L, -3);
+
 	lua_pushnil(L);
-	lua_setglobal(L, INIT_FUNC);
-	lua_pushnil(L);
-	lua_setglobal(L, UPDATE_FUNC);
-	lua_pushnil(L);
-	lua_setglobal(L, DRAW_FUNC);
+	lua_setglobal(L, name.c_str());
+
+	lua_pop(L, 2);
 
 	GD_ASSERT(lua_gettop(L) == 0, "not clean");
 
 	return 0;
 }
 
-void SceneNodeScript::CallFunc(const char* func_name) const
+void SceneNodeScript::CallMouseFunc(const char* func_name, float x, float y) const
+{
+	CallFunc(func_name, 2, [&](lua_State* L) {
+		lua_pushnumber(L, x);
+		lua_pushnumber(L, y);
+	});
+}
+
+void SceneNodeScript::CallFunc(const char* func_name, int n_params,
+	                           std::function<void(lua_State* L)> pass_params_func) const
 {
 	auto L = Blackboard::Instance()->GetContext()->GetState();
 
@@ -123,23 +156,36 @@ void SceneNodeScript::CallFunc(const char* func_name) const
 
 	lua_pushlightuserdata(L, const_cast<SceneNodeScript*>(this));
 	lua_gettable(L, -2);
+	// fixme
+	if (lua_type(L, -1) != LUA_TTABLE) {
+		lua_pop(L, 2);
+		return;
+	}
 	GD_ASSERT(lua_type(L, -1) == LUA_TTABLE, "err");
 
 	lua_pushstring(L, func_name);
 	lua_gettable(L, -2);
+	if (!lua_isfunction(L, -1)) {
+		lua_pop(L, 3);
+		GD_ASSERT(lua_gettop(L) == 0, "not clean");
+		return;
+	}
 	GD_ASSERT(lua_isfunction(L, -1), "err");
 
 	// push self
 	lua_pushvalue(L, -2);
 
-	int err = lua_pcall(L, 1, 0, 0);
+	if (pass_params_func) {
+		pass_params_func(L);
+	}
+
+	int err = lua_pcall(L, 1 + n_params, 0, 0);
 	if (err != LUA_OK) {
 		GD_REPORT_ASSERT(lua_tostring(L, -1));
 		lua_error(L);
 	}
 
 	lua_pop(L, 2);
-
 	GD_ASSERT(lua_gettop(L) == 0, "not clean");
 }
 
