@@ -60,47 +60,59 @@ int SceneNodeScript::Reload(const std::string& filepath, const n0::SceneNodePtr&
 		lua_getfield(L, LUA_REGISTRYINDEX, MOON_SCENE_NODE);
 	}
 
-	// obj
-	lua_newtable(L);
+	lua_pushlightuserdata(L, const_cast<SceneNodeScript*>(this));
+	lua_gettable(L, -2);
 
-	// v_node = scene_node
-	lua_pushliteral(L, "v_node");
-	auto sn = new SceneNode(node);
-	luax_pushtype(L, SCENE_NODE_ID, sn);
-	sn->Release();
-	lua_settable(L, -3);
+	// exist
+	if (!lua_isnil(L, -1))
+	{
+		// obj
+		assert(lua_istable(L, -1));
 
-	// local mt = {}
-	lua_newtable(L);
+		LoadFuncs(L);
 
-	// mt.load = load()
-	lua_pushliteral(L, INIT_FUNC);
-	lua_getglobal(L, INIT_FUNC);
-	lua_settable(L, -3);
+		lua_pop(L, 2);
+	}
+	else
+	{
+		// pop nil
+		lua_pop(L, 1);
 
-	// mt.update = update()
-	lua_pushliteral(L, UPDATE_FUNC);
-	lua_getglobal(L, UPDATE_FUNC);
-	lua_settable(L, -3);
+		// local obj = {}
+		lua_newtable(L);
 
-	// mt.draw = draw()
-	lua_pushliteral(L, DRAW_FUNC);
-	lua_getglobal(L, DRAW_FUNC);
-	lua_settable(L, -3);
+		// obj.v_node = scene_node
+		lua_pushliteral(L, "v_node");
+		auto sn = new SceneNode(node);
+		luax_pushtype(L, SCENE_NODE_ID, sn);
+		sn->Release();
+		lua_settable(L, -3);
 
-	// mt.__index = mt
-	lua_pushvalue(L, -1);
-	lua_setfield(L, -2, "__index");
+		// local mt = {}
+		lua_newtable(L);
 
-	// setmetatable({v_node}, mt)
-	lua_setmetatable(L, -2);
+		LoadFuncs(L);
 
-	// regist obj to MOON_SCENE_NODE
-	lua_pushlightuserdata(L, this);
-	lua_pushvalue(L, -2);
-	lua_settable(L, -4);
+		// mt.__index = mt
+		lua_pushvalue(L, -1);
+		lua_setfield(L, -2, "__index");
 
-	lua_pop(L, 2);
+		// setmetatable(obj, mt)
+		lua_setmetatable(L, -2);
+
+		// regist obj to MOON_SCENE_NODE
+		// LUA_REGISTRYINDEX[MOON_SCENE_NODE][this] = obj
+		lua_pushlightuserdata(L, this);
+		lua_pushvalue(L, -2);
+		lua_settable(L, -4);
+
+		lua_pop(L, 2);
+	}
+
+	GD_ASSERT(lua_gettop(L) == 0, "not clean");
+
+	return 0;
+}
 
 int SceneNodeScript::AddFunc(const std::string& name, const std::string& body) const
 {
@@ -187,6 +199,32 @@ void SceneNodeScript::CallFunc(const char* func_name, int n_params,
 
 	lua_pop(L, 2);
 	GD_ASSERT(lua_gettop(L) == 0, "not clean");
+}
+
+void SceneNodeScript::LoadFuncs(lua_State* L) const
+{
+	// obj.load = load()
+	lua_pushliteral(L, INIT_FUNC);
+	lua_getglobal(L, INIT_FUNC);
+	lua_settable(L, -3);
+
+	// obj.update = update()
+	lua_pushliteral(L, UPDATE_FUNC);
+	lua_getglobal(L, UPDATE_FUNC);
+	lua_settable(L, -3);
+
+	// obj.draw = draw()
+	lua_pushliteral(L, DRAW_FUNC);
+	lua_getglobal(L, DRAW_FUNC);
+	lua_settable(L, -3);
+
+	// clear global funcs
+	lua_pushnil(L);
+	lua_setglobal(L, INIT_FUNC);
+	lua_pushnil(L);
+	lua_setglobal(L, UPDATE_FUNC);
+	lua_pushnil(L);
+	lua_setglobal(L, DRAW_FUNC);
 }
 
 }

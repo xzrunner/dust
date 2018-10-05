@@ -3,6 +3,7 @@
 #include <node0/typedef.h>
 
 #include <string>
+#include <functional>
 
 struct lua_State;
 
@@ -25,6 +26,7 @@ private:
 	void CallFunc(const char* func_name, int n_params = 0,
 		std::function<void(lua_State* L)> pass_params_func = nullptr) const;
 
+	void LoadFuncs(lua_State* L) const;
 
 }; // SceneNodeScript
 
