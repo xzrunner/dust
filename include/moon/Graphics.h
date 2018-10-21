@@ -24,11 +24,11 @@ public:
 public:
 	Graphics();
 
-	virtual ModuleTypeID TypeID() const override { 
+	virtual ModuleTypeID TypeID() const override {
 		return GetModuleTypeID<Graphics>();
 	}
 	virtual const char* GetName() const override {
-		return "moon.graphics"; 
+		return "moon.graphics";
 	}
 
 	void Polyline(const float* coords, size_t count);

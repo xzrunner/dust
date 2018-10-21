@@ -8,7 +8,7 @@ namespace moon
 void Filesystem::GetDirectoryItems(const char* dir, std::vector<std::string>& items) const
 {
 	boost::filesystem::recursive_directory_iterator itr(dir), end;
-	while (itr != end) 
+	while (itr != end)
 	{
 		std::string relative = itr->path().string();
 		items.push_back(boost::filesystem::relative(relative, dir).string());

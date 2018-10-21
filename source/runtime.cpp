@@ -178,7 +178,7 @@ int luax_register_module(lua_State* L, const WrappedModule& m)
 	lua_remove(L, -2); // moon
 
 	// Register module instance
-	
+
 	Blackboard::Instance()->GetContext()->GetModuleMgr().RegisterModule(m.module);
 
 	return 1;

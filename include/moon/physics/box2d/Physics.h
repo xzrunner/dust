@@ -62,11 +62,11 @@ public:
 	static const int DEFAULT_METER = 30;
 
 	// Implements Module.
-	virtual ModuleTypeID TypeID() const override { 
+	virtual ModuleTypeID TypeID() const override {
 		return GetModuleTypeID<Physics>();
 	}
-	virtual const char* GetName() const override { 
-		return "moon.physics.box2d"; 
+	virtual const char* GetName() const override {
+		return "moon.physics.box2d";
 	}
 
 	/**
