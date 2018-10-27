@@ -2,12 +2,12 @@
 
 #include <unirender/Blackboard.h>
 #include <unirender/RenderContext.h>
-#include <painting2/PrimitiveDraw.h>
 #include <painting2/RenderSystem.h>
 #include <painting2/RenderColorCommon.h>
 #include <painting2/Text.h>
 #include <painting2/Blackboard.h>
 #include <painting2/WindowContext.h>
+#include <tessellation/Painter.h>
 
 namespace
 {
@@ -35,23 +35,42 @@ Graphics::Graphics()
 
 void Graphics::Polyline(const float* coords, size_t count)
 {
-	pt2::PrimitiveDraw::Polyline(nullptr, coords, count / 2, false);
+	tess::Painter pt;
+	pt.AddPolyline((sm::vec2*)coords, count / 2, m_shader_color.ToABGR(), m_line_width);
+	pt2::RenderSystem::DrawPainter(pt);
 }
 
 void Graphics::Rectangle(DrawMode mode, float x, float y, float w, float h)
 {
-	sm::rect rect;
-	rect.xmin = x;
-	rect.ymin = y;
-	rect.xmax = rect.xmin + w;
-	rect.ymax = rect.ymin + h;
+	sm::vec2 min(x, y);
+	sm::vec2 max(x + w, y + h);
 
-	pt2::PrimitiveDraw::Rect(nullptr, rect, mode == DRAW_FILL);
+	tess::Painter pt;
+	switch (mode)
+	{
+	case DRAW_LINE:
+		pt.AddRect(min, max, m_shader_color.ToABGR(), m_line_width);
+		break;
+	case DRAW_FILL:
+		pt.AddRectFilled(min, max, m_shader_color.ToABGR());
+		break;
+	}
+	pt2::RenderSystem::DrawPainter(pt);
 }
 
 void Graphics::Circle(DrawMode mode, float x, float y, float radius, int points)
 {
-	pt2::PrimitiveDraw::Circle(nullptr, sm::vec2(x, y), radius, mode == DRAW_FILL, points);
+	tess::Painter pt;
+	switch (mode)
+	{
+	case DRAW_LINE:
+		pt.AddCircle(sm::vec2(x, y), radius, m_shader_color.ToABGR(), m_line_width);
+		break;
+	case DRAW_FILL:
+		pt.AddCircleFilled(sm::vec2(x, y), radius, m_shader_color.ToABGR());
+		break;
+	}
+	pt2::RenderSystem::DrawPainter(pt);
 }
 
 void Graphics::Polygon(DrawMode mode, const float* coords, size_t count)
@@ -67,12 +86,6 @@ void Graphics::Polygon(DrawMode mode, const float* coords, size_t count)
 void Graphics::SetColor(const pt2::Color& color)
 {
 	m_shader_color = color;
-
-	pt2::RenderColorCommon rc;
-	rc.mul = color;
-	pt2::RenderSystem::SetColor(rc);
-
-	pt2::PrimitiveDraw::SetColor(color);
 }
 
 const pt2::Color& Graphics::GetColor() const
@@ -102,7 +115,7 @@ void Graphics::ClearColor()
 
 void Graphics::SetLineWidth(float width)
 {
-	pt2::PrimitiveDraw::LineWidth(width);
+	m_line_width = width;
 }
 
 void Graphics::Print(const char* str, const sm::Matrix2D& mt, const pt2::RenderColorCommon& col) const

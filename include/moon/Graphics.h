@@ -59,6 +59,8 @@ private:
 	pt2::Color m_shader_color;
 	pt2::Color m_background_color;
 
+	float m_line_width = 1.0f;
+
 }; // Graphics
 
 }
