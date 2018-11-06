@@ -105,12 +105,12 @@ bool Graphics::GetConstant(DrawMode in, const char *&out)
 
 void Graphics::ClearColor()
 {
-	ur::Blackboard::Instance()->GetRenderContext().Clear(
-		(m_background_color.a << 24) |
-		(m_background_color.r << 16) |
-		(m_background_color.g << 8)  |
-		(m_background_color.b)
-	);
+	auto& ur_rc = ur::Blackboard::Instance()->GetRenderContext();
+	ur_rc.SetClearColor((m_background_color.a << 24) |
+		                (m_background_color.r << 16) |
+		                (m_background_color.g << 8) |
+		                (m_background_color.b));
+	ur_rc.Clear();
 }
 
 void Graphics::SetLineWidth(float width)
