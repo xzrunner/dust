@@ -1,10 +1,10 @@
 #include "moon/Blackboard.h"
 
+#ifdef EASYEDITOR
 #include <ee0/CameraHelper.h>
 #include <ee0/WxStagePage.h>
 #include <ee0/WxStageCanvas.h>
 
-#ifdef EASYEDITOR
 #include <wx/window.h>
 #endif // EASYEDITOR
 
