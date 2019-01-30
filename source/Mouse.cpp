@@ -4,7 +4,7 @@
 namespace moon
 {
 
-const sm::vec2& Mouse::GetPosition() const
+sm::vec2 Mouse::GetPosition() const
 {
 	return Blackboard::Instance()->GetMousePos();
 }

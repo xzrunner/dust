@@ -19,7 +19,7 @@ public:
 		return "moon.mouse";
 	}
 
-	const sm::vec2& GetPosition() const;
+	sm::vec2 GetPosition() const;
 
 }; // Mouse
 
