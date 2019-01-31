@@ -9,7 +9,7 @@
 #include <guard/check.h>
 #include <SM_Vector.h>
 #include <node0/SceneNode.h>
-#include <painting2/Color.h>
+#include <painting0/Color.h>
 
 namespace
 {
@@ -117,7 +117,7 @@ int w_set_ud(lua_State* L)
 				break;
 			case ee0::CompCustomProp::PROP_COLOR:
 				{
-					auto col = static_cast<pt2::Color*>(prop.val.m_val.pv);
+					auto col = static_cast<pt0::Color*>(prop.val.m_val.pv);
 					col->FromRGBA(static_cast<uint32_t>(luaL_checkinteger(L, 3)));
 				}
 				break;
@@ -174,7 +174,7 @@ int w_get_ud(lua_State* L)
 				break;
 			case ee0::CompCustomProp::PROP_COLOR:
 				{
-					auto col = static_cast<pt2::Color*>(prop.val.m_val.pv);
+					auto col = static_cast<pt0::Color*>(prop.val.m_val.pv);
 					lua_pushinteger(L, col->ToRGBA());
 					ret = 1;
 				}

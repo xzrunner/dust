@@ -3,7 +3,7 @@
 #include "moon/Module.h"
 #include "moon/StringMap.h"
 
-#include <painting2/Color.h>
+#include <painting0/Color.h>
 #include <SM_Matrix2D.h>
 
 namespace pt2 { class RenderColorCommon; }
@@ -36,9 +36,9 @@ public:
 	void Circle(DrawMode mode, float x, float y, float radius, int points = 10);
 	void Polygon(DrawMode mode, const float* coords, size_t count);
 
-	void SetColor(const pt2::Color& color);
-	const pt2::Color& GetColor() const;
-	void SetBackgroundColor(const pt2::Color& color) { m_background_color = color; }
+	void SetColor(const pt0::Color& color);
+	const pt0::Color& GetColor() const;
+	void SetBackgroundColor(const pt0::Color& color) { m_background_color = color; }
 	void ClearColor();
 
 	void SetLineWidth(float width);
@@ -56,8 +56,8 @@ private:
 	static StringMap<DrawMode, DRAW_MAX_ENUM>::Entry m_draw_mode_entries[];
 	static StringMap<DrawMode, DRAW_MAX_ENUM> m_draw_modes;
 
-	pt2::Color m_shader_color;
-	pt2::Color m_background_color;
+	pt0::Color m_shader_color;
+	pt0::Color m_background_color;
 
 	float m_line_width = 1.0f;
 

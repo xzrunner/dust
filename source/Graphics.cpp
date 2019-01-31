@@ -83,12 +83,12 @@ void Graphics::Polygon(DrawMode mode, const float* coords, size_t count)
 	}
 }
 
-void Graphics::SetColor(const pt2::Color& color)
+void Graphics::SetColor(const pt0::Color& color)
 {
 	m_shader_color = color;
 }
 
-const pt2::Color& Graphics::GetColor() const
+const pt0::Color& Graphics::GetColor() const
 {
 	return m_shader_color;
 }

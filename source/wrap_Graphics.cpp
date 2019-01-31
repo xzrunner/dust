@@ -49,7 +49,7 @@ void _trans_from_table(lua_State* L, int idx, sm::Matrix2D& mt)
 	mt.SetTransformation(t[X], t[Y], t[A], t[SX], t[SY], t[OX], t[OY], t[KX], t[KY]);
 }
 
-void _color_from_table(lua_State* L, int idx, pt2::Color& col)
+void _color_from_table(lua_State* L, int idx, pt0::Color& col)
 {
 	for (int i = 1; i <= 4; i++) {
 		lua_rawgeti(L, idx, i);
@@ -222,7 +222,7 @@ int w_polygon(lua_State* L)
 
 int w_set_color(lua_State* L)
 {
-	pt2::Color c;
+	pt0::Color c;
 	if (lua_istable(L, 1))
 	{
 		_color_from_table(L, 1, c);
@@ -250,7 +250,7 @@ int w_get_color(lua_State* L)
 
 int w_set_background_color(lua_State* L)
 {
-	pt2::Color c;
+	pt0::Color c;
 	if (lua_istable(L, 1))
 	{
 		_color_from_table(L, 1, c);
