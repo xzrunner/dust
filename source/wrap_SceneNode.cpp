@@ -110,14 +110,14 @@ int w_set_ud(lua_State* L)
 				break;
 			case ee0::CompCustomProp::PROP_VEC2:
 				{
-					auto vec2 = static_cast<sm::vec2*>(prop.val.m_val.pv);
+					auto vec2 = const_cast<sm::vec2*>(static_cast<const sm::vec2*>(prop.val.m_val.pv));
 					vec2->x = static_cast<float>(luaL_checknumber(L, 3));
 					vec2->y = static_cast<float>(luaL_checknumber(L, 4));
 				}
 				break;
 			case ee0::CompCustomProp::PROP_COLOR:
 				{
-					auto col = static_cast<pt0::Color*>(prop.val.m_val.pv);
+					auto col = const_cast<pt0::Color*>(static_cast<const pt0::Color*>(prop.val.m_val.pv));
 					col->FromRGBA(static_cast<uint32_t>(luaL_checkinteger(L, 3)));
 				}
 				break;
@@ -166,7 +166,7 @@ int w_get_ud(lua_State* L)
 				break;
 			case ee0::CompCustomProp::PROP_VEC2:
 				{
-					auto vec2 = static_cast<sm::vec2*>(prop.val.m_val.pv);
+					auto vec2 = static_cast<const sm::vec2*>(prop.val.m_val.pv);
 					lua_pushnumber(L, vec2->x);
 					lua_pushnumber(L, vec2->y);
 					ret = 2;
@@ -174,7 +174,7 @@ int w_get_ud(lua_State* L)
 				break;
 			case ee0::CompCustomProp::PROP_COLOR:
 				{
-					auto col = static_cast<pt0::Color*>(prop.val.m_val.pv);
+					auto col = static_cast<const pt0::Color*>(prop.val.m_val.pv);
 					lua_pushinteger(L, col->ToRGBA());
 					ret = 1;
 				}
