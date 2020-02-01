@@ -1,6 +1,7 @@
 #include "moon/Image.h"
 
 #include <painting2/RenderSystem.h>
+#include <painting2/Texture.h>
 #include <facade/Image.h>
 #include <facade/ResPool.h>
 
