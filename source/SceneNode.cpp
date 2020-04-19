@@ -15,17 +15,18 @@ SceneNode::SceneNode(const n0::SceneNodePtr node)
 {
 }
 
-SceneNode::SceneNode(const std::string& filepath)
+SceneNode::SceneNode(const ur2::Device& dev, const std::string& filepath)
 {
-	m_node = ns::NodeFactory::Create(filepath);
+	m_node = ns::NodeFactory::Create(dev, filepath);
 }
 
-void SceneNode::Draw(const sm::Matrix2D& mt) const
+void SceneNode::Draw(const ur2::Device& dev, ur2::Context& ctx,
+                     ur2::RenderState& rs, const sm::Matrix2D& mt) const
 {
 	n2::RenderParams rp;
 	rp.SetMatrix(mt);
 	rp.QuadBaseLeftTop(true);
-	n2::RenderSystem::Instance()->Draw(m_node, rp);
+	n2::RenderSystem::Instance()->Draw(dev, ctx, rs, m_node, rp);
 }
 
 const sm::vec2& SceneNode::GetPosition() const

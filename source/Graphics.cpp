@@ -1,7 +1,5 @@
 #include "moon/Graphics.h"
 
-#include <unirender/Blackboard.h>
-#include <unirender/RenderContext.h>
 #include <painting2/RenderSystem.h>
 #include <painting2/RenderColorCommon.h>
 #include <painting2/Text.h>
@@ -35,42 +33,42 @@ Graphics::Graphics()
 
 void Graphics::Polyline(const float* coords, size_t count)
 {
-	tess::Painter pt;
-	pt.AddPolyline((sm::vec2*)coords, count / 2, m_shader_color.ToABGR(), m_line_width);
-	pt2::RenderSystem::DrawPainter(pt);
+	//tess::Painter pt;
+	//pt.AddPolyline((sm::vec2*)coords, count / 2, m_shader_color.ToABGR(), m_line_width);
+	//pt2::RenderSystem::DrawPainter(pt);
 }
 
 void Graphics::Rectangle(DrawMode mode, float x, float y, float w, float h)
 {
-	sm::vec2 min(x, y);
-	sm::vec2 max(x + w, y + h);
+	//sm::vec2 min(x, y);
+	//sm::vec2 max(x + w, y + h);
 
-	tess::Painter pt;
-	switch (mode)
-	{
-	case DRAW_LINE:
-		pt.AddRect(min, max, m_shader_color.ToABGR(), m_line_width);
-		break;
-	case DRAW_FILL:
-		pt.AddRectFilled(min, max, m_shader_color.ToABGR());
-		break;
-	}
-	pt2::RenderSystem::DrawPainter(pt);
+	//tess::Painter pt;
+	//switch (mode)
+	//{
+	//case DRAW_LINE:
+	//	pt.AddRect(min, max, m_shader_color.ToABGR(), m_line_width);
+	//	break;
+	//case DRAW_FILL:
+	//	pt.AddRectFilled(min, max, m_shader_color.ToABGR());
+	//	break;
+	//}
+	//pt2::RenderSystem::DrawPainter(pt);
 }
 
 void Graphics::Circle(DrawMode mode, float x, float y, float radius, int points)
 {
-	tess::Painter pt;
-	switch (mode)
-	{
-	case DRAW_LINE:
-		pt.AddCircle(sm::vec2(x, y), radius, m_shader_color.ToABGR(), m_line_width);
-		break;
-	case DRAW_FILL:
-		pt.AddCircleFilled(sm::vec2(x, y), radius, m_shader_color.ToABGR());
-		break;
-	}
-	pt2::RenderSystem::DrawPainter(pt);
+	//tess::Painter pt;
+	//switch (mode)
+	//{
+	//case DRAW_LINE:
+	//	pt.AddCircle(sm::vec2(x, y), radius, m_shader_color.ToABGR(), m_line_width);
+	//	break;
+	//case DRAW_FILL:
+	//	pt.AddCircleFilled(sm::vec2(x, y), radius, m_shader_color.ToABGR());
+	//	break;
+	//}
+	//pt2::RenderSystem::DrawPainter(pt);
 }
 
 void Graphics::Polygon(DrawMode mode, const float* coords, size_t count)
@@ -105,12 +103,12 @@ bool Graphics::GetConstant(DrawMode in, const char *&out)
 
 void Graphics::ClearColor()
 {
-	auto& ur_rc = ur::Blackboard::Instance()->GetRenderContext();
-	ur_rc.SetClearColor((m_background_color.a << 24) |
-		                (m_background_color.r << 16) |
-		                (m_background_color.g << 8) |
-		                (m_background_color.b));
-	ur_rc.Clear();
+	//auto& ur_rc = ur::Blackboard::Instance()->GetRenderContext();
+	//ur_rc.SetClearColor((m_background_color.a << 24) |
+	//	                (m_background_color.r << 16) |
+	//	                (m_background_color.g << 8) |
+	//	                (m_background_color.b));
+	//ur_rc.Clear();
 }
 
 void Graphics::SetLineWidth(float width)
@@ -125,14 +123,18 @@ void Graphics::Print(const char* str, const sm::Matrix2D& mt, const pt2::RenderC
 
 int Graphics::GetWidth() const
 {
-	auto& wnd_ctx = pt2::Blackboard::Instance()->GetWindowContext();
-	return wnd_ctx->GetScreenWidth();
+	//auto& wnd_ctx = pt2::Blackboard::Instance()->GetWindowContext();
+	//return wnd_ctx->GetScreenWidth();
+
+    return 0;
 }
 
 int Graphics::GetHeight() const
 {
-	auto& wnd_ctx = pt2::Blackboard::Instance()->GetWindowContext();
-	return wnd_ctx->GetScreenHeight();
+	//auto& wnd_ctx = pt2::Blackboard::Instance()->GetWindowContext();
+	//return wnd_ctx->GetScreenHeight();
+
+    return 0;
 }
 
 }

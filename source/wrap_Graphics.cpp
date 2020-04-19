@@ -301,14 +301,14 @@ int w_draw(lua_State* L)
 	{
 		auto node = moon::luax_checktype<moon::SceneNode>(L, 1, moon::SCENE_NODE_ID);
 		moon::luax_catchexcept(L, [&]() {
-			node->Draw(mt);
+//			node->Draw(mt);
 		});
 	}
 	else if (moon::luax_istype(L, 1, moon::IMAGE_ID))
 	{
 		auto img = moon::luax_checktype<moon::Image>(L, 1, moon::IMAGE_ID);
 		moon::luax_catchexcept(L, [&]() {
-			img->Draw(mt);
+//			img->Draw(mt);
 		});
 	}
 
@@ -383,17 +383,19 @@ int w_get_height(lua_State* L)
 
 int w_new_image(lua_State* L)
 {
-	auto bb = moon::Blackboard::Instance();
+	//auto bb = moon::Blackboard::Instance();
 
-	const char* filepath = luaL_checkstring(L, 1);
-	auto real_path = boost::filesystem::absolute(filepath, bb->GetWorkDir());
+	//const char* filepath = luaL_checkstring(L, 1);
+	//auto real_path = boost::filesystem::absolute(filepath, bb->GetWorkDir());
 
-	moon::Image* img = nullptr;
-	moon::luax_catchexcept(L, [&]() { img = new moon::Image(real_path.string()); });
-	moon::luax_pushtype(L, moon::IMAGE_ID, img);
-	img->Release();
+	//moon::Image* img = nullptr;
+	//moon::luax_catchexcept(L, [&]() { img = new moon::Image(real_path.string()); });
+	//moon::luax_pushtype(L, moon::IMAGE_ID, img);
+	//img->Release();
 
-	return 1;
+	//return 1;
+
+    return 0;
 }
 
 }

@@ -23,6 +23,8 @@ namespace
 
 #define INSTANCE() (moon::Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<moon::SceneGraph>())
 
+std::shared_ptr<ur2::Device> UR_DEV = nullptr;
+
 void return_node(lua_State* L, const n0::SceneNodePtr node)
 {
 	moon::SceneNode* w_node = nullptr;
@@ -139,7 +141,7 @@ int w_new_node(lua_State* L)
 	auto real_path = boost::filesystem::absolute(filepath, bb->GetWorkDir());
 
 	moon::SceneNode* node = nullptr;
-	moon::luax_catchexcept(L, [&]() { node = new moon::SceneNode(real_path.string()); });
+	moon::luax_catchexcept(L, [&]() { node = new moon::SceneNode(*UR_DEV, real_path.string()); });
 	moon::luax_pushtype(L, moon::SCENE_NODE_ID, node);
 	node->Release();
 
