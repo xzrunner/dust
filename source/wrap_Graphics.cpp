@@ -17,6 +17,8 @@ struct lua_State;
 namespace
 {
 
+ur2::Context* UR_CTX = nullptr;
+
 #define INSTANCE() (moon::Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<moon::Graphics>())
 
 void _trans_from_table(lua_State* L, int idx, sm::Matrix2D& mt)
@@ -332,7 +334,7 @@ int w_print(lua_State* L)
 	}
 
 	moon::luax_catchexcept(L, [&]() {
-		INSTANCE()->Print(str, mt, col);
+		INSTANCE()->Print(*UR_CTX, str, mt, col);
 	});
 
 	return 0;
@@ -355,7 +357,7 @@ int w_printf(lua_State* L)
 	}
 
 	moon::luax_catchexcept(L, [&]() {
-		INSTANCE()->Print(str, mt, col);
+		INSTANCE()->Print(*UR_CTX, str, mt, col);
 	});
 
 	return 0;

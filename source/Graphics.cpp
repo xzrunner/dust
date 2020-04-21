@@ -116,9 +116,9 @@ void Graphics::SetLineWidth(float width)
 	m_line_width = width;
 }
 
-void Graphics::Print(const char* str, const sm::Matrix2D& mt, const pt2::RenderColorCommon& col) const
+void Graphics::Print(ur2::Context& ctx, const char* str, const sm::Matrix2D& mt, const pt2::RenderColorCommon& col) const
 {
-	pt2::RenderSystem::DrawText(str, DEFAULT_TB, mt, col.mul, col.add);
+	pt2::RenderSystem::DrawText(ctx, str, DEFAULT_TB, mt, col.mul, col.add);
 }
 
 int Graphics::GetWidth() const
