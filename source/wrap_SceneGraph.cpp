@@ -23,7 +23,7 @@ namespace
 
 #define INSTANCE() (moon::Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<moon::SceneGraph>())
 
-std::shared_ptr<ur2::Device> UR_DEV = nullptr;
+std::shared_ptr<ur::Device> UR_DEV = nullptr;
 
 void return_node(lua_State* L, const n0::SceneNodePtr node)
 {

@@ -15,13 +15,13 @@ SceneNode::SceneNode(const n0::SceneNodePtr node)
 {
 }
 
-SceneNode::SceneNode(const ur2::Device& dev, const std::string& filepath)
+SceneNode::SceneNode(const ur::Device& dev, const std::string& filepath)
 {
 	m_node = ns::NodeFactory::Create(dev, filepath);
 }
 
-void SceneNode::Draw(const ur2::Device& dev, ur2::Context& ctx,
-                     ur2::RenderState& rs, const sm::Matrix2D& mt) const
+void SceneNode::Draw(const ur::Device& dev, ur::Context& ctx,
+                     ur::RenderState& rs, const sm::Matrix2D& mt) const
 {
 	n2::RenderParams rp;
 	rp.SetMatrix(mt);

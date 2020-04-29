@@ -17,7 +17,7 @@ struct lua_State;
 namespace
 {
 
-ur2::Context* UR_CTX = nullptr;
+ur::Context* UR_CTX = nullptr;
 
 #define INSTANCE() (moon::Blackboard::Instance()->GetContext()->GetModuleMgr().GetModule<moon::Graphics>())
 

@@ -6,7 +6,7 @@
 #include <painting0/Color.h>
 #include <SM_Matrix2D.h>
 
-namespace ur2 { class Context; }
+namespace ur { class Context; }
 namespace pt2 { class RenderColorCommon; }
 
 namespace moon
@@ -44,7 +44,7 @@ public:
 
 	void SetLineWidth(float width);
 
-	void Print(ur2::Context& ctx, const char* str, const sm::Matrix2D& mt,
+	void Print(ur::Context& ctx, const char* str, const sm::Matrix2D& mt,
 		const pt2::RenderColorCommon& col) const;
 
 	int GetWidth() const;

@@ -9,7 +9,7 @@
 
 #include <string>
 
-namespace ur2 {
+namespace ur {
     class Device;
     class Context;
     struct RenderState;
@@ -22,10 +22,10 @@ class SceneNode : public Object
 {
 public:
 	SceneNode(const n0::SceneNodePtr node);
-	SceneNode(const ur2::Device& dev, const std::string& filepath);
+	SceneNode(const ur::Device& dev, const std::string& filepath);
 
-	void Draw(const ur2::Device& dev, ur2::Context& ctx,
-        ur2::RenderState& rs, const sm::Matrix2D& mt) const;
+	void Draw(const ur::Device& dev, ur::Context& ctx,
+        ur::RenderState& rs, const sm::Matrix2D& mt) const;
 
 	const sm::vec2& GetPosition() const;
 	void SetPosition(const sm::vec2& pos);
